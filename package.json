@@ -1,0 +1,25 @@
+{
+  "name": "dir-index.sh",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/jefferyto/dir-index.sh#readme",
+  "bugs": {
+    "url": "https://github.com/jefferyto/dir-index.sh/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jefferyto/dir-index.sh.git"
+  },
+  "license": "GPL-2.0-or-later",
+  "author": "The dir-index.sh authors",
+  "type": "module",
+  "scripts": {
+    "build": "sass sass:src/usr/share/dir-index-sh/styles --style=compressed --no-source-map",
+    "debug": "sass sass:src/usr/share/dir-index-sh/styles --embed-sources --embed-source-map",
+    "watch": "npm run debug -- --watch --poll"
+  },
+  "devDependencies": {
+    "sass": "^1.104.1"
+  },
+  "private": true
+}

@@ -1,0 +1,1012 @@
+//
+// _icons.scss
+// This file is part of dir-index.sh.
+//
+// Copyright (C) 2026  The dir-index.sh authors
+// <https://github.com/jefferyto/dir-index.sh>
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, see <https://www.gnu.org/licenses/>.
+//
+
+// Icons are public domain and copied from the Apache HTTP Documentation Project
+// https://httpd.apache.org/docs-project/
+
+$icons: (
+	(
+		"name": "a",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//5mZmTMzMwAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADaTi6vPEwDECrnSO+aTvPEddVIriN1wWJKOEOBHyigODe7jzaruDbOouNV/MRgpQhwFUBSjo8wZLQPD6TvSwVO7tJa7fqjFjdgoPfCpN7HeHEbWiYzdqtnXXUF0/TWxU/gYI+MhA4h4hWCQA7",
+		),
+		"mime-types": (
+			"application/postscript",
+		),
+		"file-extensions": (
+			"ai",
+			"eps",
+			"eps2",
+			"eps3",
+			"epsf",
+			"epsi",
+			"ps",
+		),
+	),
+
+	(
+		"name": "back",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//5mZmWZmZjMzMwAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADSxi63P4jEPJqEDNTu6LO3PVpnDdOFnaCkHQGBTcqRRxuWG0v+5LrNUZQ8QPqeMakkaZsFihOpyDajMCoOoJAGNVWkt7QVfzokc+LBAA7",
+		),
+		"types": (
+			"back",
+		),
+	),
+
+	(
+		"name": "binary",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//8zMzJmZmTMzMwAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADaUi6vPEwEECrnSS+WQoQXSEAE6lxXgeopQmha+q1rhTfakHo/HaDnVFo6LMYKYPkoOADim4VJdOWkx2XvirUgqVaVcbuxCn0hKe04znrIV/ROOvaG3+z63OYO6/uiwlKgYJJOxFDh4hTCQA7",
+		),
+		"mime-types": (
+			"application/octet-stream",
+			"application/x-executable",
+		),
+		"file-extensions": (
+			"bin",
+			"exe",
+		),
+	),
+
+	(
+		"name": "binhex",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//5mZmWZmZjMzMwAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADaUi6vPEwEECrnSS+WbrvwBRq3OeFVQaJFJheK2CeBVHfmzwXuplbQIpgKCjkiiaBhWiU9EzBYo4HpC6bmF0Uqxt8lECpExwMczsim7UiLs22v9baPNXSnWiKGu4sl9sERIKDQzYRO4hNCQA7",
+		),
+		"mime-types": (
+			"application/mac-binhex40",
+		),
+		"file-extensions": (
+			"hqx",
+		),
+	),
+
+	(
+		"name": "bomb",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAOMAAP/////MM8z//8zMzLu7u5mZmYiIiGZmZlVVVTMzMwAAAAAAAAAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAACACwAAAAAFAAWAAAEjzDJSae4WCTAu99Jdm1eSYbZFgAKsHYkgI7d+33YpgRJ0HaKRHBI4wQKJYVyqaCtFAVbp0AtNDUf4W9KvcYACKhWMZh6PWIE9UDmWIscpRpgOITLbyy6QKDbhQB5XyxVf4CCSQeKCBJKgWdoi42OiB4DQY1CeJCWQ0plj3Cdn2aiJaeCCVWrrFRCGUyxslcRADs=",
+		),
+		"mime-types": (
+			"application/x-coredump",
+		),
+		"file-names": (
+			"core",
+		),
+	),
+
+	(
+		"name": "c",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//5mZmTMzMwAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADZTi6vPEwDECrnSO+aTvPEQcQ5FWBG0Wu5wVxZakOBE2nI5FXa4/LHYBgKCD8dMAK0ShRIXVBIRPWi0pxOWiVUsRaLd1mtsfiTr/BMJVcvorRyvOYHffC1XDwdEDs+4c3EGyDKw8JADs=",
+		),
+		"mime-types": (
+			"text/x-c",
+			"text/x-csrc",
+		),
+		"file-extensions": (
+			"c",
+		),
+	),
+
+	(
+		"name": "compressed",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAOcAAP//////zP//mf//Zv//M///AP/M///MzP/Mmf/MZv/MM//MAP+Z//+ZzP+Zmf+ZZv+ZM/+ZAP9m//9mzP9mmf9mZv9mM/9mAP8z//8zzP8zmf8zZv8zM/8zAP8A//8AzP8Amf8AZv8AM/8AAMz//8z/zMz/mcz/Zsz/M8z/AMzM/8zMzMzMmczMZszMM8zMAMyZ/8yZzMyZmcyZZsyZM8yZAMxm/8xmzMxmmcxmZsxmM8xmAMwz/8wzzMwzmcwzZswzM8wzAMwA/8wAzMwAmcwAZswAM8wAAJn//5n/zJn/mZn/Zpn/M5n/AJnM/5nMzJnMmZnMZpnMM5nMAJmZ/5mZzJmZmZmZZpmZM5mZAJlm/5lmzJlmmZlmZplmM5lmAJkz/5kzzJkzmZkzZpkzM5kzAJkA/5kAzJkAmZkAZpkAM5kAAGb//2b/zGb/mWb/Zmb/M2b/AGbM/2bMzGbMmWbMZmbMM2bMAGaZ/2aZzGaZmWaZZmaZM2aZAGZm/2ZmzGZmmWZmZmZmM2ZmAGYz/2YzzGYzmWYzZmYzM2YzAGYA/2YAzGYAmWYAZmYAM2YAADP//zP/zDP/mTP/ZjP/MzP/ADPM/zPMzDPMmTPMZjPMMzPMADOZ/zOZzDOZmTOZZjOZMzOZADNm/zNmzDNmmTNmZjNmMzNmADMz/zMzzDMzmTMzZjMzMzMzADMA/zMAzDMAmTMAZjMAMzMAAAD//wD/zAD/mQD/ZgD/MwD/AADM/wDMzADMmQDMZgDMMwDMAACZ/wCZzACZmQCZZgCZMwCZAABm/wBmzABmmQBmZgBmMwBmAAAz/wAzzAAzmQAzZgAzMwAzAAAA/wAAzAAAmQAAZgAAM+4AAN0AALsAAKoAAIgAAHcAAFUAAEQAACIAABEAAADuAADdAAC7AACqAACIAAB3AABVAABEAAAiAAARAAAA7gAA3QAAuwAAqgAAiAAAdwAAVQAARAAAIgAAEe7u7t3d3bu7u6qqqoiIiHd3d1VVVURERCIiIhEREQAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAAkACwAAAAAFAAWAAAImQBJCCTBqmDBgQgTDmQFAABDVgojEmzI0KHEhBUrWrwoMGNDihwnAvjHiqRJjhX/qVz5D+VHAFZiWmmZ8BGHji9hxqTJ4ZFAmzc1vpxJgkPPn0Y5CP04M6lPEkCN5mxoJelRqFY5TM36NGrPqV67Op0KM6rYnkup/gMq1mdamC1tdn36lijUpwjr0pSoFyUrmTJLhiTBkqXCgAA7",
+		),
+		"mime-types": (
+			"application/gzip",
+			"application/x-7z-compressed",
+			"application/x-bzip2",
+			"application/x-compress",
+			"application/x-xz",
+			"application/zip",
+			"application/zstd",
+		),
+		"file-extensions": (
+			"7z",
+			"bz2",
+			"gz",
+			"gzip",
+			"tgz",
+			"xz",
+			"z",
+			"z01",
+			"zip",
+			"zipx",
+			"zst",
+		),
+	),
+
+	(
+		"name": "dvi",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//5mZmTMzMwAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADYTi6vPEwDECrnSO+SbrvwBRq3OeFVQaVFihSqgSYJzHY+AYItDDTOouQIijygjuTxUjQ8WjDo+w0XDZlT6VQ+sqCttdXFayjfa1lczQ8rnLbayScyJ5XuAOjfl+8RcyAVwkAOw==",
+		),
+		"mime-types": (
+			"application/x-dvi",
+		),
+		"file-extensions": (
+			"dvi",
+		),
+	),
+
+	(
+		"name": "f",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//5mZmTMzMwAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADXzi6vPEwDECrnSO+aTvPEddVIrhRRJqSF8SpKzoQ83wCsQWrNzwKQAGhpxoBgkMJimC0CInNylOJY1Z8lKkoKk2+dtijl9vRLsE5M7lLRFvFtzWcKtcOgvg80AZxux8JADs=",
+		),
+		"mime-types": (
+			"text/x-fortran",
+		),
+		"file-extensions": (
+			"f",
+			"f90",
+			"for",
+		),
+	),
+
+	(
+		"name": "folder",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP/////Mmcz//5lmMzMzMwAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAACACwAAAAAFAAWAAADVCi63P4wyklZufjOErrvRcR9ZKYpxUB6aokGQyzHKxyO9RoTV54PPJyPBewNSUXhcWc8soJOIjTaSVJhVphWxd3CeILUbDwmgMPmtHrNIyxM8Iw7AQA7",
+		),
+		"types": (
+			"folder",
+		),
+	),
+
+	(
+		"name": "hand-right",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP/////Mmcz//5lmMwAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAACACwAAAAAFAAWAAADTCi63P4wykkdubiSwDuRVydi5CWEYjBsKbe2rDjMdMwRw1iaaZx7jcDm8nOpVsFjsSh0CFuq46fxko0eKOtsiu0UuRHfVlOqmM9oSgIAOw==",
+		),
+		"file-names": (
+			"README",
+		),
+	),
+
+	(
+		"name": "image2",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAOMAAP////8zM8z//8zMzJmZmWZmZmYAADMzMwCZzACZMwAzZgAAAAAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAACACwAAAAAFAAWAAAEkPDISae4WBzAu99Hdm1eSYYZWXYqOgJBLAcDoNrYNssGsBy/4GsX6y2OyMWQ2OMQngSlBjZLWBM1AFSqkyU4A2tWywUMYt/wlTSIvgYGA/Zq3QwU7mmHvh4g8GUsfAUHCH95NwMHV4SGh4EdihOOjy8rZpSVeiV+mYCWHncKo6Sfm5cliAdQrK1PQBlJsrNSEQA7",
+		),
+		"mime-types": (
+			"image/*",
+		),
+		"file-extensions": (
+			"apng",
+			"avci",
+			"avcs",
+			"avif",
+			"azv",
+			"b16",
+			"bmp",
+			"btf",
+			"btif",
+			"cdr",
+			"cdt",
+			"cgm",
+			"clip",
+			"cpt",
+			"cr2",
+			"crw",
+			"djv",
+			"djvu",
+			"dpx",
+			"drle",
+			"dwg",
+			"dxf",
+			"emf",
+			"erf",
+			"exr",
+			"fact",
+			"fbs",
+			"fit",
+			"fits",
+			"fpx",
+			"fst",
+			"fts",
+			"gif",
+			"hdr",
+			"heic",
+			"heics",
+			"heif",
+			"heifs",
+			"hej2",
+			"hif",
+			"hsj2",
+			"ico",
+			"ief",
+			"j2c",
+			"j2k",
+			"jaii",
+			"jais",
+			"jfif",
+			"jhc",
+			"jls",
+			"jng",
+			"jp2",
+			"jpe",
+			"jpeg",
+			"jpf",
+			"jpg",
+			"jpg2",
+			"jpgm",
+			"jph",
+			"jphc",
+			"jpm",
+			"jpx",
+			"jxl",
+			"jxr",
+			"jxra",
+			"jxrs",
+			"jxs",
+			"jxsc",
+			"jxsi",
+			"jxss",
+			"ktx",
+			"ktx2",
+			"mdi",
+			"mmr",
+			"nef",
+			"orf",
+			"pat",
+			"pbm",
+			"pcx",
+			"pgb",
+			"pgm",
+			"png",
+			"pnm",
+			"ppm",
+			"psd",
+			"pti",
+			"ras",
+			"rgb",
+			"rgbe",
+			"rlc",
+			"s1g",
+			"s1j",
+			"s1n",
+			"sgi",
+			"sgif",
+			"sjp",
+			"sjpg",
+			"spn",
+			"spng",
+			"svg",
+			"svgz",
+			"tap",
+			"tfx",
+			"tif",
+			"tiff",
+			"uvg",
+			"uvi",
+			"uvvg",
+			"uvvi",
+			"vtf",
+			"wbmp",
+			"webp",
+			"wmf",
+			"xbm",
+			"xcf",
+			"xif",
+			"xpm",
+			"xwd",
+			"xyze",
+		),
+	),
+
+	(
+		"name": "layout",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAOMAAP/////MM/8zM8z//5mZmZlmM2bM/zMzMwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAADACwAAAAAFAAWAAAEb/DISee4eBzAu99Hdm1eSYbZWXEkgI5sEBg0+2HnTBsccvhAmGtXAyCOSITwUGg2PYQoQalhOZ/QKLVV6gKmQm8XXDUmzx0yV5ze9s7JdpgtL3ME5jhHTS/xO3hwdWt0f317WwdSi4xRPxlwkUgXEQA7",
+		),
+		"mime-types": (
+			"text/html",
+		),
+		"file-extensions": (
+			"htm",
+			"html",
+			"shtml",
+		),
+	),
+
+	(
+		"name": "movie",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//8zMzJmZmWZmZjMzMwAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADZmi63BrQCOHaNCVewjsHEpUFDDGc6AAuY2iY6Qle7RbLbrvA8arUFF5qJtIEb6pcZAFoOp0MYIVBM748HSJmqRCifFuS7aaVenFV0g4JNrOV4iMZznjao9apIu3SwwMFgYKDhIEQCQA7",
+		),
+		"mime-types": (
+			"video/*",
+		),
+		"file-extensions": (
+			"avi",
+			"bik",
+			"bk2",
+			"dif",
+			"dv",
+			"dvb",
+			"factv",
+			"fli",
+			"flv",
+			"fvt",
+			"gl",
+			"lot",
+			"lsf",
+			"lsx",
+			"m1v",
+			"m2v",
+			"m4s",
+			"m4u",
+			"m4v",
+			"mj2",
+			"mjp2",
+			"mk3d",
+			"mkv",
+			"mng",
+			"mov",
+			"movie",
+			"mp4",
+			"mpe",
+			"mpeg",
+			"mpg",
+			"mpg4",
+			"mxu",
+			"nim",
+			"ogm",
+			"ogv",
+			"pyv",
+			"qt",
+			"s11",
+			"s14",
+			"s1q",
+			"smk",
+			"smo",
+			"smov",
+			"smpg",
+			"ssw",
+			"sswf",
+			"uvh",
+			"uvm",
+			"uvp",
+			"uvs",
+			"uvu",
+			"uvv",
+			"uvvh",
+			"uvvm",
+			"uvvp",
+			"uvvs",
+			"uvvu",
+			"uvvv",
+			"viv",
+			"webm",
+			"wm",
+			"wmv",
+			"wmx",
+			"wvx",
+			"yt",
+			"yuv",
+		),
+	),
+
+	(
+		"name": "odf6odb",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACVVBMVEXZ2dkmJiYnJycoJycnKCgoKCgpKSkzMzMzM5lcXKxdXK1dXa1eXq6ZmZmampqcm5ufn5+ioaKhoqKmpqWnp6fOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozt7O3s7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDx8PHw8fDw8fHx8fDx8fHx8fLx8vHy8vHy8vLy8vPz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb19vb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v/////2MLzaAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAFOSURBVBjTY2BHBgxQwH7s2OEDibu2bd6whn0ZTJT96GFFHg5uuQ1rlrPPnwUVZT+kwAECMksWsM+Y1AMRZd/DwyG3cY0014LZ7BO7OhrBouzRIHUrl3CYTZZnB0OQ4BZujtXLF0tw9vfJQwBIcIMsh9QCcQ7R/pbmal4gAAuuWSnJycEp1tnaWF1eABNcsnj2LKN+ETaQTlahBIjgwnlTJ/e1swlXFeamCbJEQgRnTe7vbGuQZwWpZJb3gwhO7O1saaiWL8hOjYsMkfeECPa3N9VVFcqnJ8RG+vvJu0AEW5prygpy5VNiQgK83ORtIIIN1cUFOanykSF+nm4O8hYQwarSgvTkOPlAH3cXe2t5Q4hgUU5qQlQok4CHg50VP6MuRBAoFhkSJMAEchIjnyZEMCU2ItDP1cXB2tRQT1tdBSLIzosCwEHHwCCPBhgYAAu7YJl7iNbrAAAAAElFTkSuQmCC",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.base",
+		),
+		"file-extensions": (
+			"odb",
+		),
+	),
+
+	(
+		"name": "odf6odc",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACLlBMVEXZ2dkzMzMzM5lcXKxdXK1dXa1eXq6ZmZnOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozt7O3s7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDx8PHw8fDw8fHx8fDx8fHx8fLx8vHy8vHy8vLy8vPz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb19vb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v////9yFadVAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAFGSURBVBjTY2BEBgxQwLhz57bNIWtXLls8n3EmTJRxxzYRNiZWwcXzZzFO6oWKMm4VZgIB/umTGbtb6yGijOvZmASXzOdjmdzH2FJbXQIWZfQDqZsznUmzTYgRDEGCy1mZ5s2axs3c1CgEASDBxQJMvJO5mDiaysvy2IEALDh/Dg8zEzNnTUVJXlYyTHD6tL5e1aaa8qK8zKTosGCI4JSJHW2NVSVFuSkJkaGBPhDBXqGmmsrivMxkodhgf3dHiGCLUE05SCxOKNDHXcgGItgkVFqYmxIfFSzk4+QoZA4RLBfKz0xOiBHyF3IWshTShwgWC6UlxwsFCwG1ChkLaUMEc4WShcKEPIXshcyF9IRUIIKpQhHBvh4uttbGhrpqSgoQwXghZCADEQwP8HZxtDA31tNQUZSTEocIMrKjAHDQMTAIoQEGBgAAx1K+64izZQAAAABJRU5ErkJggg==",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.chart",
+		),
+		"file-extensions": (
+			"odc",
+		),
+	),
+
+	(
+		"name": "odf6odf",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACWFBMVEXZ2dkmJiYnJycoKCgzMzMzM5lcXKxdXK1dXa1eXq6ZmZmen5+goKGgoaChoaGioaGjoqOjo6OlpKSkpaWlpaSmpqbOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozt7O3s7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDx8PHw8fDw8fHx8fDx8fHx8fLx8vHy8vHy8vLy8vPz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb19vb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v/////zGJjLAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAFLSURBVBjTY2BBBgxQwHL8+JGDSbu3b9m4lmU5TJTl2BElTlYO+Y1rV7AsmA0VZTmsyAoCsksXssyc3AsRZdnLySq/aa0M+8I5LJO6O5vAoiwxIHWrlrKaT1FgAUOQ4FYO1jUrlkiyTehXgACQ4EY5VumFEqxiE1pbariAACy4dpUUGyubeFdbU01FIUxw6ZI5s40ndLU21JQXZKYkQgQXzZ82pb8DYlxyfBREcPaUCV3tjcyihbnCzLGh/hDBSX1drY01oswiafFRof5eEMEJHc311UW5QsyCUQH+Hq4QwdaW2vLCvKxUQSZ+b3dnW4hgY01JYW5aoiATn5e7o50lRLC6rDAjJV6AidfD1cHGzAgiWAxUFh3GxOPpyM1oYqAHEQSKRYUGQ9ypr6MFEUyNiwzyd3N1BGrV19FQhQiycKEAcNAxMCigAQYGAJCUYbIIDCaeAAAAAElFTkSuQmCC",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.formula",
+		),
+		"file-extensions": (
+			"odf",
+		),
+	),
+
+	(
+		"name": "odf6odg",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACbVBMVEXZ2dkqKiorKiorKysrKywsLCwsLC0tLS0zMzMzM5lcXKxdXK1dXa1eXq6ZmZmam5qdnZ2fn6Cgn5+hoaGioqKio6Kio6Ojo6OkpKSkpaWlpaWmpqampqfOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozt7O3s7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDx8PHw8fDw8fHx8fDx8fHx8fLx8vHy8vHy8vLy8vPz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb19vb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v////9hYXL5AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAFPSURBVBjTY+BABgxQwHHu3OkTmYf27d6xhWMdTJTj7GlNXk4etR1b1nMsXwQV5TilwQkCKmtWcCyYNQUiynGEl1Nt5xZl7hWLOWZOmtAJFuVIBqnbuIbTbrY6BxiCBPfwcG5ev1qBa/o0dQgACe5Q5VRaIc8pO72nu5kPCMCCWzYqcnFyyU2U6Wyur4AJrlm9eJHV9InS7FJ15QXZGRDBlcvmzp7W38kuyV6al5WWCBFcNHv6xL4OKfYKVrGMlJgwiODMqRN7OprZJYpFWBNjwgIhgtP7u9qaJFjzM1JZBcP8fSCCPd0tdRVsojkpMUIsfl4uEMGO5uoKcdYMkFZmAVcHiGBTbUU+q3BcZIi/jwCzrSVEsKokV5g1NjIowMPNiYnfFCJYkpvBqg4DjIYQwZzUhMgwXx8PZ1tLM2N9HYggBx8KAAcdA4M6GmBgAABuC2ZqLPWjjgAAAABJRU5ErkJggg==",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.graphics",
+		),
+		"file-extensions": (
+			"odg",
+		),
+	),
+
+	(
+		"name": "odf6odi",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACbVBMVEXZ2dkrKyssLCwsLC0tLS0zMzMzM5lcXKxdXK1dXa1eXq6ZmZm4uLi5uLi7u7u7u7y8u7u8vLy9vb2+vb2+vb69vr6+vr6/vr6+v77AwMDAwMHBwMHAwcHOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozt7O3s7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDx8PHw8fDw8fHx8fDx8fHx8fLx8vHy8vHy8vLy8vPz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb19vb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v////8eeoEKAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAFKSURBVBjTY2BFBgxQwHru3OkTmYf27d6xhXUdTJT17GlNLjZOtR1b1rMuXwQVZT2lwQYCKmtWsC6YNQUiynqEi01t5xZljhWLWWdOmtAJFmVNBqnbuIbNbrY6KxiCBPdwsm1ev1qBffo0dQgACe5QZVNaIc8mO72nu5kbCMCCWzYqsrOxy03s7Wyur4AJrlm9eJHV9Ik97c115QXZGRDBlcvmzp7W39neVFmal5WWCBFcNHv6xL6O5rqKkqKMlJgwiODMqRN7QGLFuaJMgmGBEMHp/V1tTVJM4hkiTPxM/j4QwZ7uljpJZgkmYSaBIHUvF4hgR7M0C5NYhhATX6AfI68DRLBJhkU8Oy0uMsTfx52H0RIiWAVUlhQbGRTg4eZkrW4KESxRRwaGEMGc1ITIMF8fD2dbSzNjfR2IICs3CgAHHQODOhpgYAAAhh9mExNPmYgAAAAASUVORK5CYII=",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.image",
+		),
+		"file-extensions": (
+			"odi",
+		),
+	),
+
+	(
+		"name": "odf6odm",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACW1BMVEXZ2dktLS0uLi4uLy8vLy8zMzMzM5lcXKxdXK1dXa1eXq6ZmZmdnZ2fnp6gn6CgoKChoaGioqGioqOjoqOkpKSkpaWmpqbOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozt7O3s7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDx8PHw8fDw8fHx8fDx8fHx8fLx8vHy8vHy8vLy8vPz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb19vb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v/////7IDMLAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAFVSURBVBjTY2BFBgxQwHrixNFDyXt2bN20jnUFTJT1+FFlLjZOhU3rVrIunAMVZT2ixAYCcssWsc6a0gcRZd3HxaaweZ0sx6K5rJN7uprBoqyxIHWrl7FZTFVkBUOQ4DZOtrUrl0qxT5ygCAEgwU3ybDKLJNnEJ7a11nIDAVhw3WppdjZ2ie725trKIpjgsqVz55hM7BZjqa1gFk5NggguXjB96oROMRbR4nwhJoFoiOCcqRO7O5pYRIrycpIEmAIggpP7u9uaahWLctMTosMUvSGCEztbGmqKFTOT4qMDAxTdIIJtrXUVRflMgnFhQT68jHYQwaba0qK8dAEm/gBvXkYeK4hgTXlRZmpCBB+jpxsjj7kxRLAkLz0pJjzYR9HJQdHUUB8iCBSLDgvxd1O0tVI00NWGCKbFRwUHuLs52ZobG+hqqkEEWblRADjoGBgU0QADAwCDDmJcDd4k9QAAAABJRU5ErkJggg==",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.text-master",
+		),
+		"file-extensions": (
+			"odm",
+		),
+	),
+
+	(
+		"name": "odf6odp",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACLlBMVEXZ2dkzMzMzM5lcXKxdXK1dXa1eXq6ZmZnOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozt7O3s7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDx8PHw8fDw8fHx8fDx8fHx8fLx8vHy8vHy8vLy8vPz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb19vb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v////9yFadVAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAEwSURBVBjTY2BEBgxQwLhz57bNIWtXLls8n3EmTJRxxzYRNiZWwcXzZzFO6oWKMm4VZgIB/umTGbtb6yGijOvZmASXzOdjmdzH2FJbXQIWZfQDqZsznUmzTYgRDEGCy1mZ5s2axs3c1CgEASDBxQJMvJO5mDiaysvy2IEALDh/Dg8zEzNnTUVJXlYyTHD6tL5e1aaa8qK8zKTosGCI4JSJHW2NVSVFuSkJkaGBPhDB3rammsrivMzk+Nhgf3dHiGCLUI0QAthABJuqSgtzU+KjggN8nBytzCGC5UL5SCr1IYLFeWnJ8RHBPu6ONpbGBtoQwVyhZCSVKhDBVKAyXw8XW2tjQ101JQWIYLxQMJJKGYhgeIC3i6OFubGehoqinJQ4RJCRHQWAg46BQQgNMDAAAGkwUKkiN6jBAAAAAElFTkSuQmCC",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.presentation",
+		),
+		"file-extensions": (
+			"odp",
+		),
+	),
+
+	(
+		"name": "odf6ods",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACLlBMVEXZ2dkzMzMzM5lcXKxdXK1dXa1eXq6ZmZnOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozt7O3s7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDx8PHw8fDw8fHx8fDx8fHx8fLx8vHy8vHy8vLy8vPz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb19vb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v////9yFadVAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAEpSURBVBjTY2BEBgxQwLhz57bNIWtXLls8n3EmTJRxxzYRNiZWwcXzZzFO6oWKMm4VZgIB/umTGbtb6yGijOvZmASXzOdjmdzH2FJbXQIWZfQDqZsznUmzTYgRDEGCy1mZ5s2axs3c1CgEASDBxQJMvJO5mDiaysvy2IEALDh/Dg8zEzNnTUVJXlYyTHD6tL5e1aaa8qK8zKTosGCI4JSJHW2NVSVFuSkJkaGBPhDB3rammsrivMzk+Nhgf3dHiGCLEDKwgQg2CZUW5qbECwUH+Dg5CplDBMtRVOpDBIuF0pLjI4KF3B1tLI2FtCGCuSgqVSCCqUIRwb4eLkLWxoa6akIKEMF4FJUyEMHwAG8XRwtzYz0NFUU5KXGIICM7CgAHHQODEBpgYAAAbP5NPEH1cBAAAAAASUVORK5CYII=",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.spreadsheet",
+		),
+		"file-extensions": (
+			"ods",
+		),
+	),
+
+	(
+		"name": "odf6odt",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACLlBMVEXZ2dkzMzMzM5lcXKxdXK1dXa1eXq6ZmZnOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozt7O3s7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDx8PHw8fDw8fHx8fDx8fHx8fLx8vHy8vHy8vLy8vPz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb19vb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v////9yFadVAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAE1SURBVBjTY2BEBgxQwLhz57bNIWtXLls8n3EmTJRxxzYRNiZWwcXzZzFO6oWKMm4VZgIB/umTGbtb6yGijOvZmASXzOdjmdzH2FJbXQIWZfQDqZsznUmzTYgRDEGCy1mZ5s2axs3c1CgEASDBxQJMvJO5mDiaysvy2IEALDh/Dg8zEzNnTUVJXlYyTHD6tL5e1aaa8qK8zKTosGCI4JSJHW2NVSVFuSkJkaGBPhDB3rammsrivMzk+Nhgf3dHiGCLEDKwgQg2oQiaQwTLy/IzkxNiwv3dnW0tTfUhgsVA+XihYJAySyEhbYhgbkZyVFigp4u9lbmRnoYKRDBVKELIF2yeIRArQATjI4J93F0dzI31tFUU5WQgguEB3i6OFkAxDaCYlDhEkJEdBYCDjoFBCA0wMAAAEE1PsJ/Jn2YAAAAASUVORK5CYII=",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.text",
+		),
+		"file-extensions": (
+			"odt",
+		),
+	),
+
+	(
+		"name": "odf6otc",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACRlBMVEXZ2dkhISEzMzM0NDQ1NTUzM5lcXKxdXK1dXa1eXq6ZmZmlpKSlpaWmpqamp6amp6enp6eoqKioqKmpqaqqqarOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozs7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDw8fDw8fHx8fDx8fHx8vHy8vHy8vLz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v/////O2tP2AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAFWSURBVBjTY2BCBvIgwMDAwHTw4L7diVs3rlu9fOmieTOFGMGCB/YpcrJyyK1evnjB7GmCzFxgwb0KrCAgs4BFZIogswBEcDsnq9ya5dLsc4RZBJn5GyCC0SB1Sxawmk0QZOarr4EIrudgXbZ4vgRbb087LzNPMURwtSyr1BxxVtHe5qYqbqY8iODyJZJsrGxiHS0NVeUFudkQwQXzp08z6u1orqsqy89IToAIzp01cUJPW0NdZWFuWlJcJERwmnxvR2t9VVmBfFZCTIgfRLBPvqMZJJYtHxcZIu8JEeyVb6ytLMxJT5CP9PeTd4EINstXlxXkZsrHyAfIu8nbQATr5YsLcuQT5IFa5R3kLSCClfIF8snyYfI+8i7y1vKGEMEi+dSEqNBALw8HOytjfV2IYI48MtCECKbERgT6ubo4WJsa6mmrq0AEmbhQABNIkIFBHg0wMAAA4ypjPVdnlsEAAAAASUVORK5CYII=",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.chart-template",
+		),
+		"file-extensions": (
+			"otc",
+		),
+	),
+
+	(
+		"name": "odf6otf",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACalBMVEXZ2dkhISEmJiYnJycoKCgzMzM0NDQ1NTUzM5lcXKxdXK1dXa1eXq6ZmZmen5+goKGgoaChoaGioaGjoqOjo6OlpKSkpaWlpaSlpaWmpqamp6amp6enp6eoqKioqKmpqaqqqarOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozs7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDw8fDw8fHx8fDx8fHx8vHy8vHy8vLz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v////9bQbSjAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAFcSURBVBjTY2BFBtogwMDAwHr27KnjuQf37tq+eeO6VUvlGMGCZ07p8nBwa23fvH7N8kWybLxgwZM6HCCgsYZdYYEsmwxE8DAPh9aOzepcK+TZZdmkeyCC6SB1G9ZwOM2RZZPq7oAI7ubm2LR+tQrnzBmTJdkk6iGC2zU51FYocyjO7O9rE2Wtgghu3qDKycGpNGVCT1tzTWU5RHDN6sWL7GZO6e9qa6ouyc+BCK5cNnfOjElgv2jnZaVCBBfNmTllYjeLZE2FGEtGQhREcNb0Kf3dbZIs4oVZqQlRoRDBmZN6O1trK0RZRFKjo4IDIIL9fe1NNZWlBSLMQmFBfh4Qwe62+pqKwhwRZsHQIB9PF4hga2NNcX6WMLNAcIC3u6MtRLAOqCwtkZk/xIePyd7aEiIIFEtNiIO408rcFCJYkJkSGxUY4APUamVubAARZOVFAawgQQYGbTTAwAAAYqJv/HjEEzcAAAAASUVORK5CYII=",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.formula-template",
+		),
+		// .otf can also be OpenType font file
+	),
+
+	(
+		"name": "odf6otg",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACf1BMVEXZ2dkhISEqKiorKiorKysrKywsLCwsLC0tLS0zMzM0NDQ1NTUzM5lcXKxdXK1dXa1eXq6ZmZmam5qdnZ2fn6Cgn5+hoaGioqKio6Kio6Ojo6OkpKSlpKSkpaWlpaWmpqampqemp6amp6enp6eoqKioqKmpqaqqqarOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozs7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDw8fDw8fHx8fDx8fHx8vHy8vHy8vLz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v/////QWXrUAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAFfSURBVBjTY+BEBkYgwMDAwHnlysVzJSeOHNy3a8fWjWtUGcGCly+aCPDwG+7btW3zupUqXIJgwQvGPCCgv5lbfbkKlzJE8JQAj+H+XXp869W4VbiUJkME80Dqtm/m8VyswqU4qR8ieIifZ+e2Tdq8C+bPkueSa4MI7jPg0V2vxaOxYNrUXhnORojgru06vDy8mrMVJvd2NTfUQQQ3b1q10nXBbHkOuc6m6rJiiOCGtUsWz585mUOWo6GytDAHIrhy8YLZMybJcTSzSRbnpydCBBfOmz1tUi+HdJ04W056YgxEcMHMKRN6pNmqigvYRBKjwiGC06b2dTazS5Tnp4uyRob6QwQn9bY1S7EVg7SyCAd4QwR7Opqr2MQyU+KjwoVZPFwggq31FWJsGSmx0cGBvsxCDhDB+opiNiMYYLKBCJYXZKckRoQH+3m4ONpZmUMEOQVRACdIkIHBCA0wMAAAjGF0n7ZMFJ4AAAAASUVORK5CYII=",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.graphics-template",
+		),
+		"file-extensions": (
+			"otg",
+		),
+	),
+
+	(
+		"name": "odf6oth",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACWFBMVEXZ2dkhISEzMzM0NDQ1NTUzM5lcXKxdXK1dXa1eXq53d7V4eLZ5eLd5ebd6erh7e7mZmZmlpKSlpaWmpqamp6amp6enp6eoqKioqKmpqaqqqarOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozs7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDw8fDw8fHx8fDx8fHx8vHy8vHy8vLz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v////9sLkI5AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAFaSURBVBjTY2BCBqogwMDAwHT8+JGD6bu3b9m4dvWKJfMlGMGCx46oc7JyqGxcu3LZwjnizAJgwcNqrCCgtIxFapY4sxhEcC8nq8qmtYrsiyRZxJlF2yCCiSB1q5ax2kwTZxZpbYIIbuVgXbNyqRzb5Em9wsxClRDBjcqsCotkWaUnd3Y0CDKVQATXrpJnY2WT6etqa6gtKy6ECC5bOneOxeS+zpaGmtK8zDSI4OIF06dN6mlrqS8vzslIiYcIzpk2ua+7taGGn48vLSkqBCI4ZWJfJ0gM6DDeqBB/iODknvbm+nI+VtbkeFZuXy+IYGdHY01ZMVAwKoyV28MJItjaUFlWlM3LGgXUz+VsBxGsry7LzUyJ4QH51tHaHCJYUZSdlhAdHsDNxeVgaWoMEQSKxUdFBHu5OdqZmxjqQwSzkuPCQ7yBYtZAMV0tiCCTAApgAgkyMKiiAQYGAFMTaQfquhWYAAAAAElFTkSuQmCC",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.text-web",
+		),
+		"file-extensions": (
+			"oth",
+		),
+	),
+
+	(
+		"name": "odf6oti",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAAChVBMVEXZ2dkhISErKyssLCwsLC0tLS0zMzM0NDQ1NTUzM5lcXKxdXK1dXa1eXq6ZmZmlpKSlpaWmpqamp6amp6enp6eoqKioqKmpqaqqqaq4uLi5uLi7u7u7u7y8u7u8vLy9vb2+vb2+vb69vr6+vr6/vr6+v77AwMDAwMHBwMHAwcHOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozs7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDw8fDw8fHx8fDx8fHx8vHy8vHy8vLz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v////9GKjb7AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAFaSURBVBjTY2BDBiYgwMDAwHbt2uULZaeOHT6wZ9f2zevEGMGCVy+b8XLyGB/Ys2PrhtWi7HxgwUumnCBguJVDYqUouwhE8Awvp/HBPQbcG8U5RNmFp0IEC0Dqdm7l9F4qyi40ZSJE8AgP5+4dW3S5Fi2cI8gu0AERPGDEqb9Rh1Nr0Yzp/fxszRDBPTv1uDi5tOfOnNrf09rUABHcumXNavdFc2dM7u9uqa0ohQhuWr9s6cLZUyf3tTVVlxfnQQRXL100d9aU/u7WxvrSwsxkiODiBXNngMQaqpSY5ZLjIIKLZk+b1KfOrFKqyCzDHBMJEZwxfUK3GosqswKzbLxJeCBEcEq/Biuzcqk8s3RcNJOUL0SwT5NVpaI4Oy0xJjJEkskNItgOVJaflRYfGxrs72HiBBFsNEEGdhDByqLctOSoyNAALzdnBxtLiCAbHwpgAwkyMJigAQYGAOZzdl7FtGVFAAAAAElFTkSuQmCC",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.image-template",
+		),
+		"file-extensions": (
+			"oti",
+		),
+	),
+
+	(
+		"name": "odf6otp",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACRlBMVEXZ2dkhISEzMzM0NDQ1NTUzM5lcXKxdXK1dXa1eXq6ZmZmlpKSlpaWmpqamp6amp6enp6eoqKioqKmpqaqqqarOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozs7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDw8fDw8fHx8fDx8fHx8vHy8vHy8vLz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v/////O2tP2AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAE/SURBVBjTY2BCBvIgwMDAwHTw4L7diVs3rlu9fOmieTOFGMGCB/YpcrJyyK1evnjB7GmCzFxgwb0KrCAgs4BFZIogswBEcDsnq9ya5dLsc4RZBJn5GyCC0SB1Sxawmk0QZOarr4EIrudgXbZ4vgRbb087LzNPMURwtSyr1BxxVtHe5qYqbqY8iODyJZJsrGxiHS0NVeUFudkQwQXzp08z6u1orqsqy89IToAIzp01cUJPW0NdZWFuWlJcJERw2oTejtb6qrKCnKyEmBA/iGCffIc8AnhCBHvbGmsrC3PSE2Ij/f3cXSCCzfLVSCptIIL1VcUFOakJkSF+nm4OthYQwUr5AiSVhhDBIqCyqNBALw8HOytjfV2IYI58ApJKTYhgSmxEoJ+ri4O1qaGetroKRJCJCwUwgQQZGOTRAAMDAEoQYSbvnJwhAAAAAElFTkSuQmCC",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.presentation-template",
+		),
+		"file-extensions": (
+			"otp",
+		),
+	),
+
+	(
+		"name": "odf6ots",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACRlBMVEXZ2dkhISEzMzM0NDQ1NTUzM5lcXKxdXK1dXa1eXq6ZmZmlpKSlpaWmpqamp6amp6enp6eoqKioqKmpqaqqqarOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozs7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDw8fDw8fHx8fDx8fHx8vHy8vHy8vLz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v/////O2tP2AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAE4SURBVBjTY2BCBvIgwMDAwHTw4L7diVs3rlu9fOmieTOFGMGCB/YpcrJyyK1evnjB7GmCzFxgwb0KrCAgs4BFZIogswBEcDsnq9ya5dLsc4RZBJn5GyCC0SB1Sxawmk0QZOarr4EIrudgXbZ4vgRbb087LzNPMURwtSyr1BxxVtHe5qYqbqY8iODyJZJsrGxiHS0NVeUFudkQwQXzp08z6u1orqsqy89IToAIzp01cUJPW0NdZWFuWlJcJERw2oTejtb6qrKCnKyEmBA/iGCfPDLwhAj2yjfWVhbmyCfERvr7ybtABJtRVNpABOvliwtyUhPkQ/w83RzkLSCClSgqDSGCRfKpCVGhgfIeDnZWxvK6EMEcFJWaEMGU2IhAP1cXB2tTQz1tdRWIIBMXCmACCTIwyKMBBgYAUJpdvW69xycAAAAASUVORK5CYII=",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.spreadsheet-template",
+		),
+		"file-extensions": (
+			"ots",
+		),
+	),
+
+	(
+		"name": "odf6ott",
+		"icon": (
+			"type": "png",
+			"data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAACRlBMVEXZ2dkhISEzMzM0NDQ1NTUzM5lcXKxdXK1dXa1eXq6ZmZmlpKSlpaWmpqamp6amp6enp6eoqKioqKmpqaqqqarOztzOz9zR0N7R0d3R0d/S0eDS0uDT0+DT1ODV1eIAAADX2OTY2OTa2trb2tvb29vc29zb3Nvc3Nvc3Nzc3dzd3dzd3d3d3t7e3t3e3t7e397e39/f39/e3ujg39/f4N/g4ODf3+ng4OHh4ODh4OHh4eDh4eHh4eLi4eHh4uLi4uHi4uLj4uLj4uPi4+Lj4+Pj4+Tk4+Pk4+Tj5OTk5OTk5OXl5OTk5eTk5eXl5eXl5ebm5eXm5ebl5uXl5ubm5ubm5ufn5ufm5+bm5+fn5+fn5+jm5vHo5+fo5+jn6Ojo6Ofo6Ojo5/Hp6Ono6enp6ejp6enp6erq6enq6erp6unp6urq6unq6urq6uvr6uvq6+vr6+vr6+zs6+vs6+zr7Ovr7Ozs7Ozs7O3t7Ozs7e3t7e3u7e3t7u3t7u7u7u3u7u7u7u/v7u/v7+7v7+/v7/Dw7/Dv8O/v8PDw8PDx8PDw8fDw8fHx8fDx8fHx8vHy8vHy8vLz8vLz8vPy8/Ly8/Pz8/Lz8/Pz8/T08/Tz9PP09PP09PT19PT19PX09fT09fX19fX19fb29fX29fb29vb29vf39vf39/f49/j3+Pf3+Pj4+Pj4+Pn5+fn5+fr6+fn6+fr6+vr7+vr7+vv6+/v7+/v8+/v8/Pz9/Pz8/fz9/fz9/f3+/f3+/f7+/v7+/v///v/////O2tP2AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAFESURBVBjTY2BCBvIgwMDAwHTw4L7diVs3rlu9fOmieTOFGMGCB/YpcrJyyK1evnjB7GmCzFxgwb0KrCAgs4BFZIogswBEcDsnq9ya5dLsc4RZBJn5GyCC0SB1Sxawmk0QZOarr4EIrudgXbZ4vgRbb087LzNPMURwtSyr1BxxVtHe5qYqbqY8iODyJZJsrGxiHS0NVeUFudkQwQXzp08z6u1orqsqy89IToAIzp01cUJPW0NdZWFuWlJcJERw2oTejtb6qrKCnKyEmBA/iGCfPDLwhAj2ogi6QASbm6rLCnIzU2JCArzcnGwggvVA+Rz5BJAyN3l5C4hgZWlBenJcWKCPu4u9takhRLBIPlU+CmyeHRDrQgRzUhMiQ4J8XRysLQz1tDUhgimxEYF+rkAxU6CYugpEkIkLBTCBBBkY5NEAAwMA9LlgMjOLUzMAAAAASUVORK5CYII=",
+		),
+		"mime-types": (
+			"application/vnd.oasis.opendocument.text-template",
+		),
+		"file-extensions": (
+			"ott",
+		),
+	),
+
+	(
+		"name": "p",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//5mZmTMzMwAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADYDi6vPEwDECrnSO+aTvPEUeMxFWBG0WO5wWJJasOBE2nACvn64j3HYFQQPiROpRhUaIqIS1E4xO6hFlWlShzitTCesdkldsd88A7LzloRocB6nXWLIdXB8O8XniDuN0PCQA7",
+		),
+		"mime-types": (
+			"text/x-perl",
+			"text/x-python",
+			"text/x-script.python",
+		),
+		"file-extensions": (
+			"pl",
+			"pm",
+			"py",
+		),
+	),
+
+	(
+		"name": "pdf",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//5mZmTMzMwAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADbDi6vPEwDECrnSO+SbrvwBRq3OeFVQaJANgSaLpWJkwMd75Vwie8pp1lSBEYe7uaq2gkJJVEpORlWfKcUyVsKJ30TD8ulkWMjoEmgHrdRX/W7PMaZFW357Yt/A7v7+V+gV0DR4WGRjgRWloPCQA7",
+		),
+		"mime-types": (
+			"application/pdf",
+		),
+		"file-extensions": (
+			"pdf",
+		),
+	),
+
+	(
+		"name": "script",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//5mZmTMzMwAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADZTi6vPEwDECrnSO+aTvPEddVIrhVBJCSF8QRMIwOBE2fVLrmcYz3O4pgKCDgVMgR0SgZOYVM0dNS/AF7gGy1me16v9vXNdYNf89es2os00bRcDW7DVDDwe87fjMg+v9DNxBzYw8JADs=",
+		),
+		"mime-types": (
+			"application/x-csh",
+			"application/x-sh",
+			"application/x-shar",
+			"application/x-shellscript",
+			"application/x-tcl",
+			"text/x-sh",
+			"text/x-shellscript",
+		),
+		"file-extensions": (
+			"bash",
+			"conf",
+			"csh",
+			"fish",
+			"ksh",
+			"sh",
+			"shar",
+			"zsh",
+		),
+	),
+
+	(
+		"name": "sound2",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//8zMzJmZmWZmZjMzMwAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADUBi63P7OSPikLXRZQySmGyF6UCgKV8mdm/FFHHqRVVvcNOzdSt7sr4CPMRS6VC8bsmcADIrMT/M5VBo3QYkzh81ufTce0Zph7sqMcBDNXiQAADs=",
+		),
+		"mime-types": (
+			"audio/*",
+		),
+		"file-extensions": (
+			"726",
+			"aa3",
+			"aac",
+			"aal",
+			"ac3",
+			"acn",
+			"adts",
+			"aif",
+			"aifc",
+			"aiff",
+			"amr",
+			"ass",
+			"at3",
+			"atx",
+			"au",
+			"awb",
+			"csd",
+			"dls",
+			"dts",
+			"dtshd",
+			"ecelp4800",
+			"ecelp7470",
+			"ecelp9600",
+			"enw",
+			"eol",
+			"evb",
+			"evc",
+			"evw",
+			"facta",
+			"flac",
+			"koz",
+			"l16",
+			"lbc",
+			"loas",
+			"lvp",
+			"m3u",
+			"m4a",
+			"mhas",
+			"mid",
+			"midi2",
+			"mka",
+			"mlp",
+			"mp1",
+			"mp2",
+			"mp3",
+			"mpega",
+			"mpga",
+			"multitrack",
+			"mxmf",
+			"oga",
+			"ogg",
+			"omg",
+			"opus",
+			"orc",
+			"plj",
+			"pls",
+			"psid",
+			"pya",
+			"qcp",
+			"ra",
+			"ram",
+			"rip",
+			"rm",
+			"s1m",
+			"sco",
+			"sd2",
+			"smp",
+			"smp3",
+			"smv",
+			"snd",
+			"sofa",
+			"spx",
+			"uva",
+			"uvva",
+			"vbk",
+			"wav",
+			"wax",
+			"wma",
+			"xhe",
+		),
+	),
+
+	(
+		"name": "tar",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//5mZmTMzMwAAAP///////////yH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBCgAHACwAAAAAFAAWAAADZji6vPfwDECrnSO+aSkhAJdF02eaYTVuwHmmKsR1XzsQ9826hODxOx6IIigKCKyfsmJESlrCDuAYPPmk1Kd0O3WWop3sl4f1VmrQctWlfpqOn6tFzN3S62Ezfu4dGP+ARToQQoVOCQA7",
+		),
+		"mime-types": (
+			"application/x-tar",
+		),
+		"file-extensions": (
+			"tar",
+		),
+	),
+
+	(
+		"name": "tex",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//5mZmTMzMwAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADbji6vPEwDECrnSO+aSkhAJdF02eaYTVuwHmmKsR1XzsQ980KpmC5H5arAxAYecKWkngkJFFEClJS+fiiRScVy9SWcJQbqDP9Arus6jhabgHXgHj7I6rF7+27fi/38v99aYB7ZQNHh4hGOhBvjVoJADs=",
+		),
+		"mime-types": (
+			"application/x-latex",
+			"application/x-tex",
+			"text/x-tex",
+		),
+		"file-extensions": (
+			"latex",
+			"tex",
+		),
+	),
+
+	(
+		"name": "text",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//5mZmTMzMwAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADWDi6vPEwDECrnSO+aTvPEddVIriN1wVxROtSxBDPJwq7bo23luALhJqt8gtKbrsXBSgcEo2spBLAPDp7UKT02bxWRdrp94rtbpdZMrrr/A5+8LhPFpHajQkAOw==",
+		),
+		"mime-types": (
+			"text/*",
+		),
+		"file-extensions": (
+			"3dm",
+			"3dml",
+			"a",
+			"abc",
+			"appcache",
+			"ascii",
+			"bib",
+			"boo",
+			"brf",
+			"c",
+			"c++",
+			"cc",
+			"ccc",
+			"cls",
+			"cnd",
+			"copyright",
+			"cpp",
+			"cql",
+			"css",
+			"csv",
+			"csvs",
+			"curl",
+			"cxx",
+			"d",
+			"diff",
+			"dms",
+			"dot",
+			"dsc",
+			"es",
+			"etx",
+			"flt",
+			"flx",
+			"fly",
+			"gcd",
+			"ged",
+			"gff3",
+			"gv",
+			"h",
+			"h++",
+			"hans",
+			"hgl",
+			"hh",
+			"hpp",
+			"hs",
+			"htc",
+			"htm",
+			"html",
+			"hxx",
+			"ics",
+			"ifb",
+			"jad",
+			"java",
+			"js",
+			"jtd",
+			"kcl",
+			"lhs",
+			"ltx",
+			"ly",
+			"manifest",
+			"markdown",
+			"mc2",
+			"md",
+			"miz",
+			"mjs",
+			"moc",
+			"mpf",
+			"n3",
+			"org",
+			"p",
+			"pas",
+			"patch",
+			"pl",
+			"pm",
+			"pot",
+			"provn",
+			"py",
+			"roff",
+			"rst",
+			"scala",
+			"sfv",
+			"sgm",
+			"sgml",
+			"shaclc",
+			"shc",
+			"shex",
+			"shtml",
+			"si",
+			"sl",
+			"soa",
+			"sos",
+			"spdx",
+			"spo",
+			"spot",
+			"srt",
+			"sty",
+			"t",
+			"tag",
+			"tex",
+			"text",
+			"tm",
+			"tr",
+			"ts",
+			"tsv",
+			"ttl",
+			"txt",
+			"typ",
+			"uri",
+			"uris",
+			"vcard",
+			"vcf",
+			"vcs",
+			"vfk",
+			"vtt",
+			"wgsl",
+			"wml",
+			"wmls",
+			"zone",
+		),
+	),
+
+	(
+		"name": "unknown",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//5mZmTMzMwAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADaDi6vPEwDECrnSO+aTvPEQcIAmGaIrhR5XmKgMq1LkoMN7ECrjDWp52r0iPpJJ0KjUAq7SxLE+sI+9V8vycFiM0iLb2O80s8JcfVJJTaGYrZYPNby5Ov6WolPD+XDJqAgSQ4EUCGQQEJADs=",
+		),
+		"types": (
+			"file",
+		),
+	),
+
+	(
+		"name": "uuencoded",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//5mZmTMzMwAAAAAAAAAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADXzi6vPEwDECrnSO+KYj/BDCJ2gSCYpVBZmhRI8wC50cPBI5vQFfTNd5rKCh2eL6TxUjg1TzEpgQ4jDqf1mkS9TpOq1VvDLyUjskUMbprXpeF7l47Lt8MjPh8cQd5+qUJADs=",
+		),
+		"file-extensions": (
+			"uu",
+		),
+	),
+
+	(
+		"name": "world2",
+		"icon": (
+			"type": "gif",
+			"data": "R0lGODlhFAAWAMIAAP///8z//8zMzJmZmQCZMwBmMwAAAAAAACH+TlRoaXMgYXJ0IGlzIGluIHRoZSBwdWJsaWMgZG9tYWluLiBLZXZpbiBIdWdoZXMsIGtldmluaEBlaXQuY29tLCBTZXB0ZW1iZXIgMTk5NQAh+QQBAAABACwAAAAAFAAWAAADeBi63O4mytciuTjSKIj4HqgxxgViWFcYZNeFqLcu5et6eDfMQWnasE9hwKrdTiDBrrAy/oA6JtEZfF2GQwsw5BIMd9NUcvzN+j6nFHhZ/HGvzDirl0YTBvjynG7L49d7PX5xX0s8NAaFhEwjEAZ+eI0UPRKSk5cMCQA7",
+		),
+		"mime-types": (
+			"model/vrml",
+		),
+		"file-extensions": (
+			"iv",
+			"vrm",
+			"vrml",
+			"wrl",
+			"wrz",
+		),
+	),
+);

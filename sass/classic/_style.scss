@@ -1,0 +1,156 @@
+//
+// _style.scss
+// This file is part of dir-index.sh.
+//
+// Copyright (C) 2026  The dir-index.sh authors
+// <https://github.com/jefferyto/dir-index.sh>
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, see <https://www.gnu.org/licenses/>.
+//
+
+@use "sass:list";
+@use "sass:map";
+@use "sass:string";
+
+// includes the trailing slash
+@function -get-general-mime-types($icon) {
+	$result: ();
+	@each $mime-type in map.get($icon, "mime-types") or () {
+		@if string.length($mime-type) > 2 and
+				string.slice($mime-type, -2, -1) == "/*" {
+			$result: list.append($result, string.slice($mime-type, 1, -2));
+		}
+	}
+	@return $result;
+}
+
+@function -get-specific-mime-types($icon) {
+	$result: ();
+	@each $mime-type in map.get($icon, "mime-types") or () {
+		@if string.length($mime-type) <= 2 or
+				string.slice($mime-type, -2, -1) != "/*" {
+			$result: list.append($result, $mime-type);
+		}
+	}
+	@return $result;
+}
+
+@mixin -use-icon($icon) {
+	$name: map.get($icon, "name");
+	$icon-type: map.get($icon, "icon", "type");
+	--icon: var(--#{$name}-#{$icon-type});
+}
+
+@mixin classic($icons) {
+	:root {
+		@each $icon in $icons {
+			$name: map.get($icon, "name");
+			$icon-type: map.get($icon, "icon", "type");
+			$icon-data: map.get($icon, "icon", "data");
+			--#{$name}-#{$icon-type}: url(data:image/#{$icon-type};base64,#{$icon-data});
+		}
+	}
+
+	.breadcrumbs {
+		display: none;
+	}
+
+	.index__col--name {
+		height: 22px;
+		padding-left: 25px;
+
+		&::after {
+			content: "";
+			display: inline-block;
+			height: 22px;
+			width: 0;
+		}
+	}
+
+	td.index__col--name {
+		position: relative;
+
+		&::before {
+			background-image: var(--icon);
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
+			content: "";
+			height: 22px;
+			left: 1px;
+			position: absolute;
+			top: 1px;
+			width: 20px;
+		}
+	}
+
+	@each $icon in $icons {
+		@each $type in map.get($icon, "types") or () {
+			[data-type="#{$type}"] {
+				@include -use-icon($icon);
+			}
+		}
+	}
+
+	@each $icon in $icons {
+		@each $general-mime-type in -get-general-mime-types($icon) {
+			[data-mime-type^="#{$general-mime-type}"] {
+				@include -use-icon($icon);
+			}
+		}
+	}
+
+	@each $icon in $icons {
+		@each $specific-mime-type in -get-specific-mime-types($icon) {
+			[data-mime-type="#{$specific-mime-type}"] {
+				@include -use-icon($icon);
+			}
+		}
+	}
+
+	@each $icon in $icons {
+		$file-extensions: map.get($icon, "file-extensions");
+		@if $file-extensions and list.length(-get-general-mime-types($icon)) > 0 {
+			@each $file-extension in $file-extensions {
+				[data-file-name$=".#{$file-extension}" i] {
+					@include -use-icon($icon);
+				}
+			}
+		}
+	}
+
+	@each $icon in $icons {
+		$file-extensions: map.get($icon, "file-extensions");
+		@if $file-extensions and list.length(-get-general-mime-types($icon)) == 0 {
+			@each $file-extension in $file-extensions {
+				[data-file-name$=".#{$file-extension}" i] {
+					@include -use-icon($icon);
+				}
+			}
+		}
+	}
+
+	@each $icon in $icons {
+		@each $file-name in map.get($icon, "file-names") or () {
+			[data-file-name="#{$file-name}"] {
+				@include -use-icon($icon);
+			}
+		}
+	}
+
+	td.index__col--last-modified,
+	td.index__col--size {
+		text-align: right;
+	}
+}

@@ -1,0 +1,52 @@
+//
+// classic.scss
+// This file is part of dir-index.sh.
+//
+// Copyright (C) 2026  The dir-index.sh authors
+// <https://github.com/jefferyto/dir-index.sh>
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, see <https://www.gnu.org/licenses/>.
+//
+
+@use "sass:list";
+@use "sass:map";
+
+@use "header";
+@use "classic/icons";
+@use "classic/style";
+
+$icon-list: (
+	"back",
+	"binary",
+	"compressed",
+	"folder",
+	"hand-right",
+	"image2",
+	"movie",
+	"pdf",
+	"sound2",
+	"text",
+	"unknown",
+);
+
+$icons: ();
+
+@each $icon in icons.$icons {
+	@if list.index($icon-list, map.get($icon, "name")) {
+		$icons: list.append($icons, $icon);
+	}
+}
+
+@include header.header("classic");
+@include style.classic($icons);
