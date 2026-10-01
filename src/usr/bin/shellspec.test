@@ -1,5 +1,6 @@
+#!/bin/sh
 #
-# Makefile.am
+# shellspec.test
 # This file is part of dir-index.sh.
 #
 # Copyright (C) 2026  The dir-index.sh authors
@@ -19,14 +20,37 @@
 # with this program; if not, see <https://www.gnu.org/licenses/>.
 #
 
-EXTRA_DIST = \
-	.shellcheckrc \
-	.shellspec \
-	package.json \
-	package-lock.json \
-	sass \
-	spec
+skip() {
+	printf '1..1\n'
+	printf 'ok 1 # SKIP %s\n' "$1"
+	exit 0
+}
 
-SUBDIRS = \
-	src/usr/bin \
-	src/usr/share/dir-index-sh/styles
+if ! shellspec --version >/dev/null 2>&1; then
+	skip "ShellSpec not available"
+fi
+
+if greadlink --version 2>&1 | grep -q coreutils; then
+	readlink="greadlink"
+elif readlink --version 2>&1 | grep -q coreutils; then
+	readlink="readlink"
+else
+	skip "coreutils readlink not found"
+fi
+
+cwd="$PWD"
+project_dir="/.$("$readlink" -f "$srcdir")"
+while [ -n "$project_dir" ]; do
+	if [ -f "$project_dir/.shellspec" ]; then
+		break
+	fi
+	project_dir="${project_dir%/*}"
+done
+
+if [ -z "$project_dir" ]; then
+	skip "ShellSpec project directory root not found"
+fi
+
+cd "$project_dir"
+
+shellspec --env SCRIPT="$cwd/dir-index.sh" --format tap

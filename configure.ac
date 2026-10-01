@@ -50,4 +50,6 @@ AC_CONFIG_FILES([
 	src/usr/share/dir-index-sh/styles/Makefile
 ])
 
+AC_REQUIRE_AUX_FILE([tap-driver.sh])
+
 AC_OUTPUT

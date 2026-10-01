@@ -16,3 +16,8 @@ Makefile
 
 /build/*
 !/build/.gitkeep
+
+/.shellspec-local
+/.shellspec-quick.log
+/report/
+/coverage/

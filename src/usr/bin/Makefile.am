@@ -21,7 +21,13 @@
 
 bin_SCRIPTS = dir-index.sh
 
+TEST_LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) \
+                  $(top_srcdir)/build-aux/tap-driver.sh
+TEST_LOG_DRIVER_FLAGS = --merge --stderr-prefix "@%:@[stderr] "
+
+TESTS = shellspec.test
+
 CLEANFILES = $(bin_SCRIPTS)
-EXTRA_DIST = $(bin_SCRIPTS:=-in)
+EXTRA_DIST = $(bin_SCRIPTS:=-in) $(TESTS)
 
 include $(top_srcdir)/rules.mk
