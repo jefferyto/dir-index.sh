@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "[0-9]*"
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    name: Prepare release
+    permissions:
+      contents: write
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v7
+      - name: Make dist archive
+        run: |
+          ./bootstrap
+          cd build
+          ../configure
+          make dist
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dist-archive
+          path: build/dir-index-sh-*.tar.gz
+          if-no-files-found: error
+      - uses: softprops/action-gh-release@v3
+        with:
+          draft: true
+          working_directory: build
+          files: dir-index-sh-*.tar.gz
+          fail_on_unmatched_files: true

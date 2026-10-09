@@ -147,6 +147,19 @@ XML-specific output options:
                 (<?xml encoding="..."?>)
 ```
 
+## Built-in styles
+
+* [classic][] - Apache style with most common icons
+
+  <a href="https://jefferyto.github.io/dir-index.sh/sample/classic/"><img alt="classic style screenshot" src="screenshots/classic.png" width="320"></a>
+
+* [classic-full][] - Apache style with all default icons
+
+  <a href="https://jefferyto.github.io/dir-index.sh/sample/classic-full/"><img alt="classic-full style screenshot" src="screenshots/classic-full.png" width="320"></a>
+
+[classic]: https://jefferyto.github.io/dir-index.sh/sample/classic/
+[classic-full]: https://jefferyto.github.io/dir-index.sh/sample/classic-full/
+
 ## Dependencies
 
 * [bash][] or [dash][], possibly other Bourne-like shells

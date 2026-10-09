@@ -1,0 +1,49 @@
+name: Sample Pages
+
+on:
+  push:
+    tags:
+      - "[0-9]*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sample-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v7
+      - name: Generate pages
+        run: |
+          mkdir -p pages/sample
+          for css in src/usr/share/dir-index-sh/styles/*.css; do
+            style="${css##*/}"
+            style="${style%.css}"
+            cp -rp sample "pages/sample/$style"
+            src/usr/bin/dir-index.sh-in -y "$style" -X "/dir-index.sh/sample/$style" "pages/sample/$style"
+          done
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          name: github-pages-run-${{ github.run_attempt }}
+          path: pages
+
+  deploy:
+    name: Deploy
+    permissions:
+      id-token: write
+      pages: write
+    needs: build
+    runs-on: ubuntu-slim
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
+        with:
+          artifact_name: github-pages-run-${{ github.run_attempt }}
