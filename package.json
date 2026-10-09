@@ -14,8 +14,8 @@
   "author": "The dir-index.sh authors",
   "type": "module",
   "scripts": {
-    "build": "sass sass:src/usr/share/dir-index-sh/styles --style=compressed --no-source-map",
-    "debug": "sass sass:src/usr/share/dir-index-sh/styles --embed-sources --embed-source-map",
+    "build": "sass sass:src/usr/share/dir-index-sh/styles --style=compressed --no-charset --no-source-map",
+    "debug": "sass sass:src/usr/share/dir-index-sh/styles --no-charset --embed-sources --embed-source-map",
     "watch": "npm run debug -- --watch --poll"
   },
   "devDependencies": {
