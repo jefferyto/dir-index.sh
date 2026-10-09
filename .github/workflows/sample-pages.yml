@@ -20,17 +20,21 @@ jobs:
       - uses: actions/checkout@v7
       - name: Generate pages
         run: |
+          ./bootstrap
+          cd build
+          ../configure --prefix="$(pwd)"
+          make install
           mkdir -p pages/sample
-          for css in src/usr/share/dir-index-sh/styles/*.css; do
+          for css in share/dir-index-sh/styles/*.css; do
             style="${css##*/}"
             style="${style%.css}"
-            cp -rp sample "pages/sample/$style"
-            src/usr/bin/dir-index.sh-in -y "$style" -X "/dir-index.sh/sample/$style" "pages/sample/$style"
+            cp -rp ../sample "pages/sample/$style"
+            bin/dir-index.sh -y "$style" -X "/dir-index.sh/sample/$style" "pages/sample/$style"
           done
       - uses: actions/upload-pages-artifact@v5
         with:
           name: github-pages-run-${{ github.run_attempt }}
-          path: pages
+          path: build/pages
 
   deploy:
     name: Deploy
