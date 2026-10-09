@@ -149,11 +149,11 @@ XML-specific output options:
 
 ## Built-in styles
 
-* [classic][] - Apache style with most common icons
+* [classic] - Apache style with most common icons
 
   <a href="https://jefferyto.github.io/dir-index.sh/sample/classic/"><img alt="classic style screenshot" src="screenshots/classic.png" width="320"></a>
 
-* [classic-full][] - Apache style with all default icons
+* [classic-full] - Apache style with all default icons
 
   <a href="https://jefferyto.github.io/dir-index.sh/sample/classic-full/"><img alt="classic-full style screenshot" src="screenshots/classic-full.png" width="320"></a>
 
@@ -162,11 +162,11 @@ XML-specific output options:
 
 ## Dependencies
 
-* [bash][] or [dash][], possibly other Bourne-like shells
-* GNU [coreutils][], [findutils][] and [sed][]
+* [bash] or [dash], possibly other Bourne-like shells
+* GNU [coreutils], [findutils] and [sed]
 * file, either [Ian Darwin][Ian Darwin file], [OpenBSD][OpenBSD file] or
   [macOS][macOS file] implementation
-* [jq][]
+* [jq]
 
 [bash]: https://www.gnu.org/software/bash/
 [dash]: http://gondor.apana.org.au/~herbert/dash/
@@ -180,7 +180,7 @@ XML-specific output options:
 
 ## Changelog
 
-See [NEWS][].
+See [NEWS].
 
 [NEWS]: NEWS.md
 
