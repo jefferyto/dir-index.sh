@@ -29,8 +29,9 @@ Indexing options:
   -T OPTIONS    comma-separated list of option keywords:
                   * ignore-dot: ignore dot files (.*) (default)
                   * no-ignore-dot: do not ignore dot files
-                  * ignore-includes: ignore files included with -E, -D
-                    or -R (see HTML-specific output options) (default)
+                  * ignore-includes: ignore base name files included
+                    with -E, -D or -R (see HTML-specific output
+                    options) (default)
                   * no-ignore-includes: do not ignore files included
                     with -E, -D or -R
 
