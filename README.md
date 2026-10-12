@@ -166,6 +166,14 @@ XML-specific output options:
                   * default: "UTF-8"
 ```
 
+### See also
+
+* [Version sort overview]
+* [Date format specifiers]
+
+[Version sort overview]: https://www.gnu.org/software/coreutils/manual/html_node/Version-sort-overview.html
+[Date format specifiers]: https://www.gnu.org/software/coreutils/manual/html_node/Date-format-specifiers.html
+
 ## Built-in styles
 
 * [classic] - Apache style with most common icons
