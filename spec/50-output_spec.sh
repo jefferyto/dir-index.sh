@@ -170,7 +170,7 @@ Describe "Output"
 	Describe "sort"
 		Path testdir-index-common="$TESTDIR/index"
 
-		Describe "primary by column"
+		Describe "primary by property"
 			setup_testdir() {
 				%printf '#' > "$TESTDIR/b"
 				%sleep 1
@@ -574,11 +574,11 @@ Describe "Output"
 		Describe "errors"
 			Parameters:value html xml json
 
-			It "should show an error for an invalid sort column ($1)"
+			It "should show an error for an invalid sort property ($1)"
 				When run source "$SCRIPT" -o index -O "$1" -s invalid "$TESTDIR"
 
 				The status should be failure
-				The error should equal "$SCRIPT_NAME: error: \"invalid\" is not a valid sort column"
+				The error should equal "$SCRIPT_NAME: error: \"invalid\" is not a valid sort property"
 				The path testdir-index-common should not exist
 			End
 

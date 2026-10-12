@@ -70,7 +70,7 @@ skip_args=
 skip_dot_dirs=1
 skip_ignore_patterns=
 
-sort_column="name"
+sort_property="name"
 sort_desc=
 name_version_sort=1
 name_case_insensitive=
@@ -200,7 +200,7 @@ usage() {
 	  -O FORMAT     use FORMAT for directory index files:
 	                  * valid values: html (default), xml, json
 
-	  -s COLUMN     sort directory index by COLUMN:
+	  -s PROPERTY   sort directory index by PROPERTY:
 	                  * valid values: name (default), modified, size
 	  -S OPTIONS    comma-separated list of option keywords:
 	                  * asc: sort ascending (default)
@@ -1060,7 +1060,7 @@ generate_index() {
 		name_sort_options="${name_sort_options}f"
 	fi
 
-	case "$sort_column" in
+	case "$sort_property" in
 		modified)
 			sort_col=7
 			sort_options="n"
@@ -1433,10 +1433,10 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 		s)
 			case "$OPTARG" in
 				name|modified|size)
-					sort_column="$OPTARG"
+					sort_property="$OPTARG"
 					;;
 				*)
-					print_stderr "error: \"$OPTARG\" is not a valid sort column"
+					print_stderr "error: \"$OPTARG\" is not a valid sort property"
 					exit "$ex_usage"
 					;;
 			esac

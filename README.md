@@ -60,7 +60,7 @@ Output options:
   -O FORMAT     use FORMAT for directory index files:
                   * valid values: html (default), xml, json
 
-  -s COLUMN     sort directory index by COLUMN:
+  -s PROPERTY   sort directory index by PROPERTY:
                   * valid values: name (default), modified, size
   -S OPTIONS    comma-separated list of option keywords:
                   * asc: sort ascending (default)
