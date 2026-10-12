@@ -200,21 +200,22 @@ usage() {
 	  -O FORMAT     use FORMAT for directory index files:
 	                  * valid values: html (default), xml, json
 
-	  -s COLUMN     sort by COLUMN:
+	  -s COLUMN     sort directory index by COLUMN:
 	                  * valid values: name (default), modified, size
 	  -S OPTIONS    comma-separated list of option keywords:
 	                  * asc: sort ascending (default)
 	                  * desc: sort descending
-	                  * version: enable version sort (default)
-	                  * no-version: disable version sort
+	                  * version: sort by version name and number (default)
+	                  * no-version: sort by lexicographical order
 	                  * case: case-sensitive sort (default)
 	                  * no-case: case-insensitive sort (requires
 	                    no-version)
-	                  * folders-first: list directories first
+	                  * folders-first: list directories before files
 	                  * no-folders-first: list files and directories
 	                    together (default)
 
-	  -F            update directory mtimes when creating index files
+	  -F            update last modified dates of directories when creating
+	                directory index files
 
 	HTML-specific output options:
 	  -y STYLE      use built-in STYLE:
@@ -230,7 +231,7 @@ usage() {
 	                  * default: none
 	  -l LANG       use LANG for page language (<html lang="...">)
 	                  * default: "en"
-	  -A CHARSET    specify CHARSET for <meta charset="...">
+	  -A CHARSET    use CHARSET for page charset (<meta charset="...">)
 	                  * default: "utf-8"
 	  -e HTML       include HTML in <head> (can be used multiple times)
 
@@ -266,8 +267,8 @@ usage() {
 	  -m FORMAT     use FORMAT for file last modified dates:
 	                  * same syntax as 'date' command output format string
 	                  * default: "%Y-%m-%d %H:%M"
-	  -u            output last modified dates in UTC
-	  -M TEXT       use TEXT for last modified column heading
+	  -u            output file last modified dates in UTC
+	  -M TEXT       use TEXT for file last modified column heading
 	                  * default: "Last modified"
 
 	  -z UNIT       use UNIT for file sizes:
@@ -275,7 +276,7 @@ usage() {
 	                  * si (1k = 1000, 1M = 1000000, ...)
 	                  * iec (1K = 1024, 1M = 1048576, ...) (default)
 	                  * iec-i (1Ki = 1024, 1Mi = 1048576, ...)
-	  -Z TEXT       use TEXT for size column heading
+	  -Z TEXT       use TEXT for file size column heading
 	                  * default: "Size"
 
 	  -P TEXT       use TEXT for parent directory link
@@ -285,14 +286,13 @@ usage() {
 	                web server root:
 	                  * should be an absolute path
 	  -H OPTIONS    comma-separated list of option keywords:
-	                  * table: output directory listing as a table
-	                    (default)
-	                  * list: output directory listing as a list of names
+	                  * table: output directory index as a table (default)
+	                  * list: output directory index as a list of file names
 	                    only
 	                  * rules: output horizontal rule lines (<hr>) in
-	                    index table (default)
+	                    directory index table (default)
 	                  * no-rules: omit horizontal rule lines (<hr>) in
-	                    index table
+	                    directory index table
 	                  * preamble: include opening and closing HTML
 	                    (default)
 	                  * no-preamble: omit opening HTML (<html>, <head>,
