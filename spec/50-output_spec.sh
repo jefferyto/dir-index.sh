@@ -158,6 +158,36 @@ Describe "Output"
 			The contents of path json-dir-index should equal "[]"
 		End
 
+		It "should strip leading whitespace for the format keyword"
+			ht="$SHELLSPEC_HT"
+			lf="$SHELLSPEC_LF"
+			vt="$SHELLSPEC_VT"
+			ff="$SHELLSPEC_FF"
+			cr="$SHELLSPEC_CR"
+			sp=" "
+
+			When run source "$SCRIPT" -O "${ff}${cr}${vt}xml" "$TESTDIR"
+
+			The status should be success
+			The path xml-index should be a file
+			The path xml-index should not be an empty file
+		End
+
+		It "should strip trailing whitespace for the format keyword"
+			ht="$SHELLSPEC_HT"
+			lf="$SHELLSPEC_LF"
+			vt="$SHELLSPEC_VT"
+			ff="$SHELLSPEC_FF"
+			cr="$SHELLSPEC_CR"
+			sp=" "
+
+			When run source "$SCRIPT" -O "json${sp}${lf}${ht}" "$TESTDIR"
+
+			The status should be success
+			The path json-index should be a file
+			The path json-index should not be an empty file
+		End
+
 		It "should show an error for an invalid output format"
 			When run source "$SCRIPT" -O invalid "$TESTDIR"
 
@@ -301,6 +331,40 @@ Describe "Output"
 
 				The contents of path testdir-index-common should satisfy has_order "$1" a c b
 			End
+
+			It "should strip leading whitespace for the sort property keyword ($1)"
+				ht="$SHELLSPEC_HT"
+				lf="$SHELLSPEC_LF"
+				vt="$SHELLSPEC_VT"
+				ff="$SHELLSPEC_FF"
+				cr="$SHELLSPEC_CR"
+				sp=" "
+
+				When run source "$SCRIPT" -o index -O "$1" -s "${cr}${lf}modified" -S desc "$TESTDIR"
+
+				The status should be success
+				The path testdir-index-common should be a file
+				The path testdir-index-common should not be an empty file
+
+				The contents of path testdir-index-common should satisfy has_order "$1" c a b
+			End
+
+			It "should strip trailing whitespace for the sort property keyword ($1)"
+				ht="$SHELLSPEC_HT"
+				lf="$SHELLSPEC_LF"
+				vt="$SHELLSPEC_VT"
+				ff="$SHELLSPEC_FF"
+				cr="$SHELLSPEC_CR"
+				sp=" "
+
+				When run source "$SCRIPT" -o index -O "$1" -s "size${vt}${ht}" -S desc "$TESTDIR"
+
+				The status should be success
+				The path testdir-index-common should be a file
+				The path testdir-index-common should not be an empty file
+
+				The contents of path testdir-index-common should satisfy has_order "$1" a c b
+			End
 		End
 
 		Describe "secondary by name"
@@ -377,7 +441,14 @@ Describe "Output"
 			End
 
 			It "should sort entries with version sort enabled descending by name with -S desc,version ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -S desc,version "$TESTDIR"
+				ht="$SHELLSPEC_HT"
+				lf="$SHELLSPEC_LF"
+				vt="$SHELLSPEC_VT"
+				ff="$SHELLSPEC_FF"
+				cr="$SHELLSPEC_CR"
+				sp=" "
+
+				When run source "$SCRIPT" -o index -O "$1" -S "desc${sp},${ff}version" "$TESTDIR"
 
 				The status should be success
 				The path testdir-index-common should be a file
@@ -387,7 +458,14 @@ Describe "Output"
 			End
 
 			It "should sort entries with version sort disabled ascending by name with -S no-version ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -S no-version "$TESTDIR"
+				ht="$SHELLSPEC_HT"
+				lf="$SHELLSPEC_LF"
+				vt="$SHELLSPEC_VT"
+				ff="$SHELLSPEC_FF"
+				cr="$SHELLSPEC_CR"
+				sp=" "
+
+				When run source "$SCRIPT" -o index -O "$1" -S "${vt}no-version${ht}" "$TESTDIR"
 
 				The status should be success
 				The path testdir-index-common should be a file
@@ -407,7 +485,14 @@ Describe "Output"
 			End
 
 			It "should sort entries with version sort disabled descending by name with -S desc,no-version ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -S desc,no-version "$TESTDIR"
+				ht="$SHELLSPEC_HT"
+				lf="$SHELLSPEC_LF"
+				vt="$SHELLSPEC_VT"
+				ff="$SHELLSPEC_FF"
+				cr="$SHELLSPEC_CR"
+				sp=" "
+
+				When run source "$SCRIPT" -o index -O "$1" -S "${cr}desc,no-version${lf}" "$TESTDIR"
 
 				The status should be success
 				The path testdir-index-common should be a file

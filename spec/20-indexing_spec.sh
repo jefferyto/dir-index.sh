@@ -434,6 +434,27 @@ Describe "Indexing"
 					The contents of path testdir-index should include ">HEADER</a>"
 					The contents of path testdir-index should include ">README</a>"
 				End
+
+				It "should strip leading and trailing whitespace for each option keyword"
+					ht="$SHELLSPEC_HT"
+					lf="$SHELLSPEC_LF"
+					vt="$SHELLSPEC_VT"
+					ff="$SHELLSPEC_FF"
+					cr="$SHELLSPEC_CR"
+					sp=" "
+
+					When run source "$SCRIPT" -T "${ff}${vt}no-ignore-dot${ht},${cr}no-ignore-includes${lf}${sp}" -E HEAD -D HEADER -R README "$TESTDIR"
+
+					The status should be success
+					The path testdir-index should be a file
+					The path testdir-index should not be an empty file
+
+					The contents of path testdir-index should include ">.file</a>"
+					The contents of path testdir-index should include ">.dir/</a>"
+					The contents of path testdir-index should include ">HEAD</a>"
+					The contents of path testdir-index should include ">HEADER</a>"
+					The contents of path testdir-index should include ">README</a>"
+				End
 			End
 		End
 
@@ -628,6 +649,26 @@ Describe "Indexing"
 
 				It "should not skip dot directories and apply ignore patterns to skip directories with -W no-skip-dot,skip-ignores"
 					When run source "$SCRIPT" -i "dir" -T no-ignore-dot -W no-skip-dot,skip-ignores "$TESTDIR"
+
+					The status should be success
+					The path testdir-index should be a file
+					The path testdir-index should not be an empty file
+
+					The path dot-dir-index should be a file
+					The path dot-dir-index should not be an empty file
+
+					The path dir-index should not exist
+				End
+
+				It "should strip leading and trailing whitespace for each option keyword"
+					ht="$SHELLSPEC_HT"
+					lf="$SHELLSPEC_LF"
+					vt="$SHELLSPEC_VT"
+					ff="$SHELLSPEC_FF"
+					cr="$SHELLSPEC_CR"
+					sp=" "
+
+					When run source "$SCRIPT" -i "dir" -T no-ignore-dot -W "${lf}no-skip-dot${cr}${vt},${ht}${ff}skip-ignores${sp}" "$TESTDIR"
 
 					The status should be success
 					The path testdir-index should be a file
