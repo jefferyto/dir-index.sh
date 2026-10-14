@@ -1699,7 +1699,7 @@ for signal in "EXIT" "HUP" "INT" "QUIT" "TERM"; do
 	trap "clean_up $signal" "$signal"
 done
 
-temp_dir="$("$mktemp" -d --tmpdir "$me-XXXXXXXXXX")" || {
+temp_dir="$("$mktemp" -d --tmpdir "$me.XXXXXXXXXX")" || {
 	print_stderr "error: cannot create temporary directory"
 	exit "$ex_unavailable"
 }
