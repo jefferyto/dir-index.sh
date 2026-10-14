@@ -680,9 +680,11 @@ Describe "Output"
 	Describe "directory mtimes"
 		is_unmodified() {
 			dir="${is_unmodified:?}"
-			dir_mtime="$(date -r "$dir" +%s)"
-			ref_mtime="$(date -r "$dir/ref" +%s)"
-			[ "$dir_mtime" -eq "$ref_mtime" ]
+			! [ "$dir" -nt "$dir/ref" ] && ! [ "$dir" -ot "$dir/ref" ]
+		}
+		is_newer() {
+			dir="${is_newer:?}"
+			[ "$dir" -nt "$dir/ref" ]
 		}
 		setup_testdir() {
 			touch "$TESTDIR/ref"
@@ -708,8 +710,8 @@ Describe "Output"
 
 			The status should be success
 
-			The path "$TESTDIR" should not satisfy is_unmodified
-			The path "$TESTDIR/dir" should not satisfy is_unmodified
+			The path "$TESTDIR" should satisfy is_newer
+			The path "$TESTDIR/dir" should satisfy is_newer
 		End
 	End
 End
