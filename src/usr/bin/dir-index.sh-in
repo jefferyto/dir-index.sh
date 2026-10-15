@@ -121,7 +121,6 @@ now_text=
 result=0
 
 keyword=
-space=
 file_data=
 path=
 search_paths=
@@ -1297,10 +1296,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			OPTARG="$OPTARG,"
 			while [ -n "$OPTARG" ]; do
 				keyword="${OPTARG%%,*}"
-				space="${keyword%%[![:space:]]*}"
-				keyword="${keyword#"$space"}"
-				space="${keyword##*[![:space:]]}"
-				keyword="${keyword%"$space"}"
+				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
+				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
 					name|modified|size)
 						if [ -n "$columns" ]; then
@@ -1353,10 +1350,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			OPTARG="$OPTARG,"
 			while [ -n "$OPTARG" ]; do
 				keyword="${OPTARG%%,*}"
-				space="${keyword%%[![:space:]]*}"
-				keyword="${keyword#"$space"}"
-				space="${keyword##*[![:space:]]}"
-				keyword="${keyword%"$space"}"
+				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
+				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
 					table)
 						plain_list=
@@ -1421,10 +1416,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			;;
 		O)
 			keyword="$OPTARG"
-			space="${keyword%%[![:space:]]*}"
-			keyword="${keyword#"$space"}"
-			space="${keyword##*[![:space:]]}"
-			keyword="${keyword%"$space"}"
+			keyword="${keyword#"${keyword%%[![:space:]]*}"}"
+			keyword="${keyword%"${keyword##*[![:space:]]}"}"
 			case "$keyword" in
 				html|xml|json)
 					index_format="$keyword"
@@ -1446,10 +1439,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			;;
 		s)
 			keyword="$OPTARG"
-			space="${keyword%%[![:space:]]*}"
-			keyword="${keyword#"$space"}"
-			space="${keyword##*[![:space:]]}"
-			keyword="${keyword%"$space"}"
+			keyword="${keyword#"${keyword%%[![:space:]]*}"}"
+			keyword="${keyword%"${keyword##*[![:space:]]}"}"
 			case "$keyword" in
 				name|modified|size)
 					sort_property="$keyword"
@@ -1464,10 +1455,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			OPTARG="$OPTARG,"
 			while [ -n "$OPTARG" ]; do
 				keyword="${OPTARG%%,*}"
-				space="${keyword%%[![:space:]]*}"
-				keyword="${keyword#"$space"}"
-				space="${keyword##*[![:space:]]}"
-				keyword="${keyword%"$space"}"
+				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
+				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
 					asc|ascending)
 						sort_desc=
@@ -1508,10 +1497,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			OPTARG="$OPTARG,"
 			while [ -n "$OPTARG" ]; do
 				keyword="${OPTARG%%,*}"
-				space="${keyword%%[![:space:]]*}"
-				keyword="${keyword#"$space"}"
-				space="${keyword##*[![:space:]]}"
-				keyword="${keyword%"$space"}"
+				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
+				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
 					ignore-dot)
 						ignore_dot_files=1
@@ -1547,10 +1534,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			OPTARG="$OPTARG,"
 			while [ -n "$OPTARG" ]; do
 				keyword="${OPTARG%%,*}"
-				space="${keyword%%[![:space:]]*}"
-				keyword="${keyword#"$space"}"
-				space="${keyword##*[![:space:]]}"
-				keyword="${keyword%"$space"}"
+				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
+				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
 					skip-dot)
 						skip_dot_dirs=1
@@ -1583,10 +1568,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			;;
 		z)
 			keyword="$OPTARG"
-			space="${keyword%%[![:space:]]*}"
-			keyword="${keyword#"$space"}"
-			space="${keyword##*[![:space:]]}"
-			keyword="${keyword%"$space"}"
+			keyword="${keyword#"${keyword%%[![:space:]]*}"}"
+			keyword="${keyword%"${keyword##*[![:space:]]}"}"
 			case "$keyword" in
 				none|si|iec|iec-i)
 					size_unit="$keyword"
