@@ -218,7 +218,7 @@ Describe "General"
 		Skip if "ShellCheck not available" not_exists_shellcheck
 
 		It "should pass ShellCheck"
-			When run command shellcheck --rcfile="$SHELLSPEC_PROJECT_ROOT/.shellcheckrc" "$SCRIPT"
+			When run command shellcheck "$SCRIPT"
 
 			The status should be success
 		End
