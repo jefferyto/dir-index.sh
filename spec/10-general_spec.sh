@@ -34,6 +34,9 @@ Describe "General"
 			gdate() { :; }
 			date() { :; }
 
+			Mock uu-date
+			End
+
 			When run source "$SCRIPT" "$TESTDIR"
 
 			The status should be failure
@@ -66,6 +69,9 @@ Describe "General"
 			gmktemp() { :; }
 			mktemp() { :; }
 
+			Mock uu-mktemp
+			End
+
 			When run source "$SCRIPT" "$TESTDIR"
 
 			The status should be failure
@@ -76,6 +82,9 @@ Describe "General"
 		It "should show an error if 'numfmt' is missing"
 			gnumfmt() { :; }
 			numfmt() { :; }
+
+			Mock uu-numfmt
+			End
 
 			When run source "$SCRIPT" "$TESTDIR"
 
@@ -88,6 +97,9 @@ Describe "General"
 			greadlink() { :; }
 			readlink() { :; }
 
+			Mock uu-readlink
+			End
+
 			When run source "$SCRIPT" "$TESTDIR"
 
 			The status should be failure
@@ -98,6 +110,9 @@ Describe "General"
 		It "should show an error if 'realpath' is missing"
 			grealpath() { :; }
 			realpath() { :; }
+
+			Mock uu-realpath
+			End
 
 			When run source "$SCRIPT" "$TESTDIR"
 
@@ -121,6 +136,9 @@ Describe "General"
 			gsort() { :; }
 			sort() { :; }
 
+			Mock uu-sort
+			End
+
 			When run source "$SCRIPT" "$TESTDIR"
 
 			The status should be failure
@@ -137,6 +155,9 @@ Describe "General"
 				fi
 				exit 1
 			}
+
+			Mock uu-mktemp
+			End
 
 			When run source "$SCRIPT" "$TESTDIR"
 

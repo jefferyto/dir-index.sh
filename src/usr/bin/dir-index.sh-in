@@ -120,6 +120,8 @@ temp_dir=
 now_text=
 result=0
 
+cmd=
+prefix=
 keyword=
 file_data=
 path=
@@ -1205,14 +1207,18 @@ process_dir() {
 	return "$result"
 }
 
-if gdate --version 2>&1 | grep -q coreutils; then
-	date="gdate"
-elif date --version 2>&1 | grep -q coreutils; then
-	date="date"
-else
-	print_stderr "error: cannot find coreutils date"
-	exit "$ex_unavailable"
-fi
+for cmd in date mktemp numfmt readlink realpath sort; do
+	for prefix in uu- g ""; do
+		if "$prefix$cmd" --version 2>&1 | grep -q coreutils; then
+			eval "$cmd=$prefix$cmd"
+			break
+		fi
+	done
+	if eval "test -z \"\$$cmd\""; then
+		print_stderr "error: cannot find coreutils $cmd"
+		exit "$ex_unavailable"
+	fi
+done
 
 # shellcheck disable=SC2185 # not really finding
 if gfind --version 2>&1 | grep -q findutils; then
@@ -1231,57 +1237,12 @@ else
 	exit "$ex_unavailable"
 fi
 
-if gmktemp --version 2>&1 | grep -q coreutils; then
-	mktemp="gmktemp"
-elif mktemp --version 2>&1 | grep -q coreutils; then
-	mktemp="mktemp"
-else
-	print_stderr "error: cannot find coreutils mktemp"
-	exit "$ex_unavailable"
-fi
-
-if gnumfmt --version 2>&1 | grep -q coreutils; then
-	numfmt="gnumfmt"
-elif numfmt --version 2>&1 | grep -q coreutils; then
-	numfmt="numfmt"
-else
-	print_stderr "error: cannot find coreutils numfmt"
-	exit "$ex_unavailable"
-fi
-
-if greadlink --version 2>&1 | grep -q coreutils; then
-	readlink="greadlink"
-elif readlink --version 2>&1 | grep -q coreutils; then
-	readlink="readlink"
-else
-	print_stderr "error: cannot find coreutils readlink"
-	exit "$ex_unavailable"
-fi
-
-if grealpath --version 2>&1 | grep -q coreutils; then
-	realpath="grealpath"
-elif realpath --version 2>&1 | grep -q coreutils; then
-	realpath="realpath"
-else
-	print_stderr "error: cannot find coreutils realpath"
-	exit "$ex_unavailable"
-fi
-
 if gsed --version 2>&1 | grep -q GNU; then
 	sed="gsed"
 elif sed --version 2>&1 | grep -q GNU; then
 	sed="sed"
 else
 	print_stderr "error: cannot find GNU sed"
-	exit "$ex_unavailable"
-fi
-
-if gsort --version 2>&1 | grep -q coreutils; then
-	sort="gsort"
-elif sort --version 2>&1 | grep -q coreutils; then
-	sort="sort"
-else
-	print_stderr "error: cannot find coreutils sort"
 	exit "$ex_unavailable"
 fi
 
