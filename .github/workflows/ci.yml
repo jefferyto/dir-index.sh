@@ -30,6 +30,11 @@ jobs:
           - dash
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Install dependencies on macOS
+        if: ${{ runner.os == 'macos' }}
+        run: |
+          brew update-if-needed
+          brew install findutils gnu-sed uutils-coreutils
       - uses: actions/checkout@v7
       - uses: jefferyto/shellspec-action@v1
         with:
