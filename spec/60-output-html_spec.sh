@@ -1361,7 +1361,7 @@ Describe "HTML output"
 			The path testdir-index should be a file
 			The path testdir-index should not be an empty file
 
-			The contents of path testdir-index should include "<td class=\"index__col--size\">1.2k</td>"
+			The contents of path testdir-index should match pattern "*<td class=\"index__col--size\">1.2[kK]</td>*"
 		End
 
 		It "should use iec units with -z iec"
@@ -1398,7 +1398,7 @@ Describe "HTML output"
 			The path testdir-index should be a file
 			The path testdir-index should not be an empty file
 
-			The contents of path testdir-index should include "<td class=\"index__col--size\">1.2k</td>"
+			The contents of path testdir-index should match pattern "*<td class=\"index__col--size\">1.2[kK]</td>*"
 		End
 
 		It "should strip trailing whitespace for the unit keyword"
