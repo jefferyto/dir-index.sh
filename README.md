@@ -68,8 +68,7 @@ Output options:
                   * version: sort by version name and number (default)
                   * no-version: sort by lexicographical order
                   * case: case-sensitive sort (default)
-                  * no-case: case-insensitive sort (requires
-                    no-version)
+                  * no-case: case-insensitive sort
                   * folders-first: list directories before files
                   * no-folders-first: list files and directories
                     together (default)
