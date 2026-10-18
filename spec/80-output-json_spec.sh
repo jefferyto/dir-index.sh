@@ -163,13 +163,13 @@ Describe "JSON output"
 		cr="$SHELLSPEC_CR"
 
 		Parameters
-			"backspace"       "$bs" '\b'
-			"horizontal tab"  "$ht" '\t'
-			"line feed"       "$lf" '\n'
-			"form feed"       "$ff" '\f'
-			"carriage return" "$cr" '\r'
-			"double quotes"   '"'   '\"'
-			"back slash"      '\'   '\\'
+			backspace          "$bs"  '\b'
+			"horizontal tab"   "$ht"  '\t'
+			"line feed"        "$lf"  '\n'
+			"form feed"        "$ff"  '\f'
+			"carriage return"  "$cr"  '\r'
+			"double quotes"    '"'    '\"'
+			"back slash"       '\'    '\\'
 		End
 
 		It "should escape $1"

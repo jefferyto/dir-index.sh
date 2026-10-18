@@ -179,11 +179,11 @@ Describe "XML output"
 
 	Describe "XML escaping"
 		Parameters
-			"double quotes" '"' "&quot;"
-			"ampersand"     "&" "&amp;"
-			"single quote"  "'" "&apos;"
-			"less than"     "<" "&lt;"
-			"greater than"  ">" "&gt;"
+			"double quotes"  '"'  "&quot;"
+			ampersand        "&"  "&amp;"
+			"single quote"   "'"  "&apos;"
+			"less than"      "<"  "&lt;"
+			"greater than"   ">"  "&gt;"
 		End
 
 		It "should escape $1"

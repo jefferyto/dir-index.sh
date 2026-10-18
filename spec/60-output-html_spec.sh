@@ -264,9 +264,9 @@ Describe "HTML output"
 	Describe "head/header/readme content"
 		Describe "from command line"
 			Parameters
-				"head"   "-e" "</head>"
-				"header" "-d" "</h1>"
-				"readme" "-r" "</address>"
+				head    -e  "</head>"
+				header  -d  "</h1>"
+				readme  -r  "</address>"
 			End
 
 			It "should use an unescaped custom $1 with $2"
@@ -293,9 +293,9 @@ Describe "HTML output"
 			Path dir2-dir-index="$TESTDIR/dir2/dir/index.html"
 
 			Parameters
-				"head"   "-E" "</head>"
-				"header" "-D" "<ul class=\"breadcrumbs\">"
-				"readme" "-R" "</body>"
+				head    -E  "</head>"
+				header  -D  "<ul class=\"breadcrumbs\">"
+				readme  -R  "</body>"
 			End
 
 			It "should use unescaped $1 content from a file (base name) with $2"
@@ -964,9 +964,9 @@ Describe "HTML output"
 
 	Describe "index column headings"
 		Parameters
-			"Name"          "-N"
-			"Last modified" "-M"
-			"Size"          "-Z"
+			Name             -N
+			"Last modified"  -M
+			Size             -Z
 		End
 
 		It "should use \"$1\" as column heading by default"
@@ -1434,15 +1434,15 @@ Describe "HTML output"
 		lf="$SHELLSPEC_LF"
 
 		Parameters
-			"horizontal tab"  "$ht" "%09"
-			"line feed"       "$lf" "%0A"
-			"carriage return" "$cr" "%0D"
-			"space"           "$sp" "%20"
-			"double quotes"   '"'   "%22"
-			"ampersand"       "&"   "%26"
-			"single quote"    "'"   "%27"
-			"less than"       "<"   "%3C"
-			"greater than"    ">"   "%3E"
+			"horizontal tab"   "$ht"  %09
+			"line feed"        "$lf"  %0A
+			"carriage return"  "$cr"  %0D
+			space              "$sp"  %20
+			"double quotes"    '"'    %22
+			ampersand          "&"    %26
+			"single quote"     "'"    %27
+			"less than"        "<"    %3C
+			"greater than"     ">"    %3E
 		End
 
 		It "should encode $1 in breadcrumbs"
@@ -1488,11 +1488,11 @@ Describe "HTML output"
 
 	Describe "HTML escaping"
 		Parameters
-			"double quotes" '"' "&quot;"
-			"ampersand"     "&" "&amp;"
-			"single quote"  "'" "&apos;"
-			"less than"     "<" "&lt;"
-			"greater than"  ">" "&gt;"
+			"double quotes"  '"'  "&quot;"
+			ampersand        "&"  "&amp;"
+			"single quote"   "'"  "&apos;"
+			"less than"      "<"  "&lt;"
+			"greater than"   ">"  "&gt;"
 		End
 
 		It "should escape $1 in breadcrumbs"
