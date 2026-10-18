@@ -1,0 +1,9 @@
+#!/bin/sh -e
+. "$SHELLSPEC_SUPPORT_BIN"
+if invoke sort --version 2>&1 | invoke grep -q "uutils coreutils"; then
+	if invoke gnusort --version 2>&1 | invoke grep -q "coreutils"; then
+		invoke gnusort "$@"
+		exit "$?"
+	fi
+fi
+invoke sort "$@"

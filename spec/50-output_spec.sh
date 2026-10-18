@@ -56,623 +56,452 @@ Describe "Output"
 	BeforeEach "setup"
 	AfterEach "teardown"
 	Path testdir-index="$TESTDIR/index.html"
+	Path xml-index="$TESTDIR/index.xml"
+	Path json-index="$TESTDIR/index.json"
 
 	Describe "name"
-		It "should generate index.html by default"
-			When run source "$SCRIPT" "$TESTDIR"
+		Describe "default by format"
+			Parameters:value "" html xml json
 
-			The status should be success
-			The path testdir-index should be a file
-			The path testdir-index should not be an empty file
+			It "should generate index.${1:-html}${1:+ with -O $1}"
+				When run source "$SCRIPT" ${1:+-O "$1"} "$TESTDIR"
+
+				The status should be success
+				The path "$TESTDIR/index.${1:-html}" should be a file
+				The path "$TESTDIR/index.${1:-html}" should not be an empty file
+			End
 		End
 
-		It "should use the given file name with -o"
-			When run source "$SCRIPT" -o foobar "$TESTDIR"
+		Describe "custom name"
+			It "should use the specified file name with -o"
+				When run source "$SCRIPT" -o foobar "$TESTDIR"
 
-			The status should be success
-			The path "$TESTDIR/foobar" should be a file
-			The path "$TESTDIR/foobar" should not be an empty file
+				The status should be success
+				The path "$TESTDIR/foobar" should be a file
+				The path "$TESTDIR/foobar" should not be an empty file
+			End
 		End
 	End
 
 	Describe "format"
-		setup_testdir() { touch "$TESTDIR/file"; mkdir "$TESTDIR/dir"; }
-		BeforeEach "setup_testdir"
-		Path xml-index="$TESTDIR/index.xml"
-		Path json-index="$TESTDIR/index.json"
-		Path dir-index="$TESTDIR/dir/index.html"
-		Path xml-dir-index="$TESTDIR/dir/index.xml"
-		Path json-dir-index="$TESTDIR/dir/index.json"
+		Describe "valid formats"
+			Parameters
+				""    "<!DOCTYPE html>"  "</html>"
+				html  "<!DOCTYPE html>"  "</html>"
+				xml   "<?xml"            "</list>"
+				json  "[]"               "[]"
+			End
 
-		It "should generate an HTML index file by default"
-			When run source "$SCRIPT" "$TESTDIR"
+			It "should generate a ${1:-html} index file${1:+ with -O $1}"
+				When run source "$SCRIPT" ${1:+-O "$1"} "$TESTDIR"
 
-			The status should be success
-			The path testdir-index should be a file
-			The path testdir-index should not be an empty file
+				The status should be success
+				The path "$TESTDIR/index.${1:-html}" should be a file
+				The path "$TESTDIR/index.${1:-html}" should not be an empty file
 
-			The contents of path testdir-index should start with "<!DOCTYPE html>"
-			The contents of path testdir-index should include ">file</a>"
-			The contents of path testdir-index should include ">dir/</a>"
-			The contents of path testdir-index should include "</html>"
-
-			The path dir-index should be a file
-			The path dir-index should not be an empty file
-
-			The contents of path dir-index should start with "<!DOCTYPE html>"
-			The contents of path dir-index should include "</html>"
+				The contents of path "$TESTDIR/index.${1:-html}" should start with "$2"
+				The contents of path "$TESTDIR/index.${1:-html}" should include "$3"
+			End
 		End
 
-		It "should generate an HTML index file with -O html"
-			When run source "$SCRIPT" -O html "$TESTDIR"
+		Describe "whitespace around keyword"
+			It "should strip leading whitespace"
+				ht="$SHELLSPEC_HT"
+				lf="$SHELLSPEC_LF"
+				vt="$SHELLSPEC_VT"
+				ff="$SHELLSPEC_FF"
+				cr="$SHELLSPEC_CR"
+				sp=" "
 
-			The status should be success
-			The path testdir-index should be a file
-			The path testdir-index should not be an empty file
+				When run source "$SCRIPT" -O "${ff}${cr}${vt}xml" "$TESTDIR"
 
-			The contents of path testdir-index should start with "<!DOCTYPE html>"
-			The contents of path testdir-index should include ">file</a>"
-			The contents of path testdir-index should include ">dir/</a>"
-			The contents of path testdir-index should include "</html>"
+				The status should be success
+				The path xml-index should be a file
+				The path xml-index should not be an empty file
+			End
 
-			The path dir-index should be a file
-			The path dir-index should not be an empty file
+			It "should strip trailing whitespace"
+				ht="$SHELLSPEC_HT"
+				lf="$SHELLSPEC_LF"
+				vt="$SHELLSPEC_VT"
+				ff="$SHELLSPEC_FF"
+				cr="$SHELLSPEC_CR"
+				sp=" "
 
-			The contents of path dir-index should start with "<!DOCTYPE html>"
-			The contents of path dir-index should include "</html>"
+				When run source "$SCRIPT" -O "json${sp}${lf}${ht}" "$TESTDIR"
+
+				The status should be success
+				The path json-index should be a file
+				The path json-index should not be an empty file
+			End
 		End
 
-		It "should generate an XML index file with -O xml"
-			When run source "$SCRIPT" -O xml "$TESTDIR"
+		Describe "invalid format"
+			It "should show an error"
+				When run source "$SCRIPT" -O invalid "$TESTDIR"
 
-			The status should be success
-			The path xml-index should be a file
-			The path xml-index should not be an empty file
-
-			The contents of path xml-index should start with "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list>"
-			The contents of path xml-index should include ">file</file>"
-			The contents of path xml-index should include ">dir</directory>"
-			The contents of path xml-index should include "</list>"
-
-			The path xml-dir-index should be a file
-			The path xml-dir-index should not be an empty file
-
-			The contents of path xml-dir-index should start with "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list></list>"
-		End
-
-		It "should generate a JSON index file with -O json"
-			When run source "$SCRIPT" -O json "$TESTDIR"
-
-			The status should be success
-			The path json-index should be a file
-			The path json-index should not be an empty file
-
-			The contents of path json-index should start with "[{"
-			The contents of path json-index should end with "}]"
-			The contents of path json-index should include "\"name\":\"file\",\"type\":\"file\""
-			The contents of path json-index should include "\"name\":\"dir\",\"type\":\"directory\""
-
-			The path json-dir-index should be a file
-			The path json-dir-index should not be an empty file
-
-			The contents of path json-dir-index should equal "[]"
-		End
-
-		It "should strip leading whitespace for the format keyword"
-			ht="$SHELLSPEC_HT"
-			lf="$SHELLSPEC_LF"
-			vt="$SHELLSPEC_VT"
-			ff="$SHELLSPEC_FF"
-			cr="$SHELLSPEC_CR"
-			sp=" "
-
-			When run source "$SCRIPT" -O "${ff}${cr}${vt}xml" "$TESTDIR"
-
-			The status should be success
-			The path xml-index should be a file
-			The path xml-index should not be an empty file
-		End
-
-		It "should strip trailing whitespace for the format keyword"
-			ht="$SHELLSPEC_HT"
-			lf="$SHELLSPEC_LF"
-			vt="$SHELLSPEC_VT"
-			ff="$SHELLSPEC_FF"
-			cr="$SHELLSPEC_CR"
-			sp=" "
-
-			When run source "$SCRIPT" -O "json${sp}${lf}${ht}" "$TESTDIR"
-
-			The status should be success
-			The path json-index should be a file
-			The path json-index should not be an empty file
-		End
-
-		It "should show an error for an invalid output format"
-			When run source "$SCRIPT" -O invalid "$TESTDIR"
-
-			The status should be failure
-			The error should equal "$SCRIPT_NAME: error: \"invalid\" is not a valid output format"
-			The path testdir-index should not exist
+				The status should be failure
+				The error should equal "$SCRIPT_NAME: error: \"invalid\" is not a valid output format"
+				The path testdir-index should not exist
+			End
 		End
 	End
 
 	Describe "sort"
-		Path testdir-index-common="$TESTDIR/index"
-
 		Describe "primary by property"
 			setup_testdir() {
-				%printf '#' > "$TESTDIR/b"
+				%printf '' > "$TESTDIR/c"
 				%sleep 1
-				%printf '###' > "$TESTDIR/a"
+				mkdir "$TESTDIR/d"
 				%sleep 1
-				%printf '##' > "$TESTDIR/c"
+				%printf '##' > "$TESTDIR/a"
+				%sleep 1
+				mkdir "$TESTDIR/b"
+				%sleep 1
+				%printf '#' > "$TESTDIR/e"
+				%sleep 1
+				mkdir "$TESTDIR/f"
 			}
 			BeforeEach "setup_testdir"
 
-			Parameters:value html xml json
-
-			It "should sort entries ascending by name by default ($1)"
-				When run source "$SCRIPT" -o index -O "$1" "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" a b c
+			Parameters
+				"name, ascending, folders mixed"            ""        ""                     a   b/  c   d/  e   f/
+				"name, ascending, folders mixed"            ""        asc                    a   b/  c   d/  e   f/
+				"name, descending, folders mixed"           ""        desc                   f/  e   d/  c   b/  a
+				"name, ascending, folders mixed"            ""        no-folders-first       a   b/  c   d/  e   f/
+				"name, ascending, folders first"            ""        folders-first          b/  d/  f/  a   c   e
+				"name, ascending, folders mixed"            ""        asc,no-folders-first   a   b/  c   d/  e   f/
+				"name, descending, folders mixed"           ""        desc,no-folders-first  f/  e   d/  c   b/  a
+				"name, ascending, folders first"            ""        asc,folders-first      b/  d/  f/  a   c   e
+				"name, descending, folders first"           ""        desc,folders-first     f/  d/  b/  e   c   a
+				"name, ascending, folders mixed"            name      ""                     a   b/  c   d/  e   f/
+				"name, ascending, folders mixed"            name      asc                    a   b/  c   d/  e   f/
+				"name, descending, folders mixed"           name      desc                   f/  e   d/  c   b/  a
+				"name, ascending, folders mixed"            name      no-folders-first       a   b/  c   d/  e   f/
+				"name, ascending, folders first"            name      folders-first          b/  d/  f/  a   c   e
+				"name, ascending, folders mixed"            name      asc,no-folders-first   a   b/  c   d/  e   f/
+				"name, descending, folders mixed"           name      desc,no-folders-first  f/  e   d/  c   b/  a
+				"name, ascending, folders first"            name      asc,folders-first      b/  d/  f/  a   c   e
+				"name, descending, folders first"           name      desc,folders-first     f/  d/  b/  e   c   a
+				"last modified, ascending, folders mixed"   modified  ""                     c   d/  a   b/  e   f/
+				"last modified, ascending, folders mixed"   modified  asc                    c   d/  a   b/  e   f/
+				"last modified, descending, folders mixed"  modified  desc                   f/  e   b/  a   d/  c
+				"last modified, ascending, folders mixed"   modified  no-folders-first       c   d/  a   b/  e   f/
+				"last modified, ascending, folders first"   modified  folders-first          d/  b/  f/  c   a   e
+				"last modified, ascending, folders mixed"   modified  asc,no-folders-first   c   d/  a   b/  e   f/
+				"last modified, descending, folders mixed"  modified  desc,no-folders-first  f/  e   b/  a   d/  c
+				"last modified, ascending, folders first"   modified  asc,folders-first      d/  b/  f/  c   a   e
+				"last modified, descending, folders first"  modified  desc,folders-first     f/  b/  d/  e   a   c
+				"size, ascending, folders mixed"            size      ""                     b/  d/  f/  c   e   a
+				"size, ascending, folders mixed"            size      asc                    b/  d/  f/  c   e   a
+				"size, descending, folders mixed"           size      desc                   a   e   c   f/  d/  b/
+				"size, ascending, folders mixed"            size      no-folders-first       b/  d/  f/  c   e   a
+				"size, ascending, folders first"            size      folders-first          b/  d/  f/  c   e   a
+				"size, ascending, folders mixed"            size      asc,no-folders-first   b/  d/  f/  c   e   a
+				"size, descending, folders mixed"           size      desc,no-folders-first  a   e   c   f/  d/  b/
+				"size, ascending, folders first"            size      asc,folders-first      b/  d/  f/  c   e   a
+				"size, descending, folders first"           size      desc,folders-first     f/  d/  b/  a   e   c
 			End
 
-			It "should sort entries ascending by name with -S asc ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -S asc "$TESTDIR"
+			It "should sort entries by $1${2:+ with -s $2}${3:+ -S $3} (html)"
+				When run source "$SCRIPT" -O html ${2:+-s "$2"} ${3:+-S "$3"} "$TESTDIR"
 
 				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
+				The path testdir-index should be a file
+				The path testdir-index should not be an empty file
 
-				The contents of path testdir-index-common should satisfy has_order "$1" a b c
+				The contents of path testdir-index should satisfy has_order html "$4" "$5" "$6" "$7" "$8" "$9"
 			End
 
-			It "should sort entries descending by name with -S desc ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -S desc "$TESTDIR"
+			It "should sort entries by $1${2:+ with -s $2}${3:+ -S $3} (xml)"
+				When run source "$SCRIPT" -O xml ${2:+-s "$2"} ${3:+-S "$3"} "$TESTDIR"
 
 				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
+				The path xml-index should be a file
+				The path xml-index should not be an empty file
 
-				The contents of path testdir-index-common should satisfy has_order "$1" c b a
+				The contents of path xml-index should satisfy has_order xml "$4" "$5" "$6" "$7" "$8" "$9"
 			End
 
-			It "should sort entries ascending by name with -s name ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -s name "$TESTDIR"
+			It "should sort entries by $1${2:+ with -s $2}${3:+ -S $3} (json)"
+				When run source "$SCRIPT" -O json ${2:+-s "$2"} ${3:+-S "$3"} "$TESTDIR"
 
 				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
+				The path json-index should be a file
+				The path json-index should not be an empty file
 
-				The contents of path testdir-index-common should satisfy has_order "$1" a b c
-			End
-
-			It "should sort entries ascending by name with -s name -S asc ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -s name -S asc "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" a b c
-			End
-
-			It "should sort entries descending by name with -s name -S desc ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -s name -S desc "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" c b a
-			End
-
-			It "should sort entries ascending by last modified with -s modified ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -s modified "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" b a c
-			End
-
-			It "should sort entries ascending by last modified with -s modified -S asc ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -s modified -S asc "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" b a c
-			End
-
-			It "should sort entries descending by last modified with -s modified -S desc ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -s modified -S desc "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" c a b
-			End
-
-			It "should sort entries ascending by size with -s size ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -s size "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" b c a
-			End
-
-			It "should sort entries ascending by size with -s size -S asc ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -s size -S asc "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" b c a
-			End
-
-			It "should sort entries descending by size with -s size -S desc ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -s size -S desc "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" a c b
-			End
-
-			It "should strip leading whitespace for the sort property keyword ($1)"
-				ht="$SHELLSPEC_HT"
-				lf="$SHELLSPEC_LF"
-				vt="$SHELLSPEC_VT"
-				ff="$SHELLSPEC_FF"
-				cr="$SHELLSPEC_CR"
-				sp=" "
-
-				When run source "$SCRIPT" -o index -O "$1" -s "${cr}${lf}modified" -S desc "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" c a b
-			End
-
-			It "should strip trailing whitespace for the sort property keyword ($1)"
-				ht="$SHELLSPEC_HT"
-				lf="$SHELLSPEC_LF"
-				vt="$SHELLSPEC_VT"
-				ff="$SHELLSPEC_FF"
-				cr="$SHELLSPEC_CR"
-				sp=" "
-
-				When run source "$SCRIPT" -o index -O "$1" -s "size${vt}${ht}" -S desc "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" a c b
+				The contents of path json-index should satisfy has_order json "$4" "$5" "$6" "$7" "$8" "$9"
 			End
 		End
 
 		Describe "secondary by name"
-			setup_testdir() { touch "$TESTDIR/b"; touch "$TESTDIR/a"; }
-			BeforeEach "setup_testdir"
-
-			Parameters:value html xml json
-
-			It "should sort entries ascending by name after primary sort ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -s size "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" a b
-			End
-
-			It "should sort entries ascending by name after primary sort with -S asc ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -s size -S asc "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" a b
-			End
-
-			It "should sort entries descending by name after primary sort with -S desc ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -s size -S desc "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" b a
-			End
-		End
-
-		Describe "version sort"
-			setup_testdir() { for i in 2.10 2.2 10 1; do touch "$TESTDIR/$i"; done; }
-			BeforeEach "setup_testdir"
-
-			Parameters:value html xml json
-
-			It "should sort entries with version sort enabled ascending by name by default ($1)"
-				When run source "$SCRIPT" -o index -O "$1" "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" 1 2.2 2.10 10
-			End
-
-			It "should sort entries with version sort enabled ascending by name with -S version ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -S version "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" 1 2.2 2.10 10
-			End
-
-			It "should sort entries with version sort enabled ascending by name with -S asc,version ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -S asc,version "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" 1 2.2 2.10 10
-			End
-
-			It "should sort entries with version sort enabled descending by name with -S desc,version ($1)"
-				ht="$SHELLSPEC_HT"
-				lf="$SHELLSPEC_LF"
-				vt="$SHELLSPEC_VT"
-				ff="$SHELLSPEC_FF"
-				cr="$SHELLSPEC_CR"
-				sp=" "
-
-				When run source "$SCRIPT" -o index -O "$1" -S "desc${sp},${ff}version" "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" 10 2.10 2.2 1
-			End
-
-			It "should sort entries with version sort disabled ascending by name with -S no-version ($1)"
-				ht="$SHELLSPEC_HT"
-				lf="$SHELLSPEC_LF"
-				vt="$SHELLSPEC_VT"
-				ff="$SHELLSPEC_FF"
-				cr="$SHELLSPEC_CR"
-				sp=" "
-
-				When run source "$SCRIPT" -o index -O "$1" -S "${vt}no-version${ht}" "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" 1 10 2.10 2.2
-			End
-
-			It "should sort entries with version sort disabled ascending by name with -S asc,no-version ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -S asc,no-version "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" 1 10 2.10 2.2
-			End
-
-			It "should sort entries with version sort disabled descending by name with -S desc,no-version ($1)"
-				ht="$SHELLSPEC_HT"
-				lf="$SHELLSPEC_LF"
-				vt="$SHELLSPEC_VT"
-				ff="$SHELLSPEC_FF"
-				cr="$SHELLSPEC_CR"
-				sp=" "
-
-				When run source "$SCRIPT" -o index -O "$1" -S "${cr}desc,no-version${lf}" "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" 2.2 2.10 10 1
-			End
-		End
-
-		Describe "case sensitivity"
-			setup_testdir() { for i in aa Ab ba Bb; do touch "$TESTDIR/$i"; done; }
-			BeforeEach "setup_testdir"
-			BeforeEach "export LC_ALL=C"
-
-			Describe "version sort enabled"
-				Parameters:value html xml json
-
-				It "should sort entries lexically (-S no-case has no effect) ($1)"
-					When run source "$SCRIPT" -o index -O "$1" -S no-case "$TESTDIR"
-
-					The status should be success
-					The path testdir-index-common should be a file
-					The path testdir-index-common should not be an empty file
-
-					The contents of path testdir-index-common should satisfy has_order "$1" Ab Bb aa ba
-				End
-			End
-
-			Describe "version sort disabled (-S no-version)"
-				Parameters:value html xml json
-
-				It "should sort entries ascending in case-sensitive manner by default ($1)"
-					When run source "$SCRIPT" -o index -O "$1" -S no-version "$TESTDIR"
-
-					The status should be success
-					The path testdir-index-common should be a file
-					The path testdir-index-common should not be an empty file
-
-					The contents of path testdir-index-common should satisfy has_order "$1" Ab Bb aa ba
-				End
-
-				It "should sort entries ascending in case-sensitive manner with -S case ($1)"
-					When run source "$SCRIPT" -o index -O "$1" -S no-version,case "$TESTDIR"
-
-					The status should be success
-					The path testdir-index-common should be a file
-					The path testdir-index-common should not be an empty file
-
-					The contents of path testdir-index-common should satisfy has_order "$1" Ab Bb aa ba
-				End
-
-				It "should sort entries ascending in case-sensitive manner with -S asc,case ($1)"
-					When run source "$SCRIPT" -o index -O "$1" -S asc,no-version,case "$TESTDIR"
-
-					The status should be success
-					The path testdir-index-common should be a file
-					The path testdir-index-common should not be an empty file
-
-					The contents of path testdir-index-common should satisfy has_order "$1" Ab Bb aa ba
-				End
-
-				It "should sort entries descending in case-sensitive manner with -S desc,case ($1)"
-					When run source "$SCRIPT" -o index -O "$1" -S desc,no-version,case "$TESTDIR"
-
-					The status should be success
-					The path testdir-index-common should be a file
-					The path testdir-index-common should not be an empty file
-
-					The contents of path testdir-index-common should satisfy has_order "$1" ba aa Bb Ab
-				End
-
-				It "should sort entries ascending in case-insensitive manner with -S no-case ($1)"
-					When run source "$SCRIPT" -o index -O "$1" -S no-version,no-case "$TESTDIR"
-
-					The status should be success
-					The path testdir-index-common should be a file
-					The path testdir-index-common should not be an empty file
-
-					The contents of path testdir-index-common should satisfy has_order "$1" aa Ab ba Bb
-				End
-
-				It "should sort entries ascending in case-insensitive manner with -S asc,no-case ($1)"
-					When run source "$SCRIPT" -o index -O "$1" -S asc,no-version,no-case "$TESTDIR"
-
-					The status should be success
-					The path testdir-index-common should be a file
-					The path testdir-index-common should not be an empty file
-
-					The contents of path testdir-index-common should satisfy has_order "$1" aa Ab ba Bb
-				End
-
-				It "should sort entries descending in case-insensitive manner with -S desc,no-case ($1)"
-					When run source "$SCRIPT" -o index -O "$1" -S desc,no-version,no-case "$TESTDIR"
-
-					The status should be success
-					The path testdir-index-common should be a file
-					The path testdir-index-common should not be an empty file
-
-					The contents of path testdir-index-common should satisfy has_order "$1" Bb ba Ab aa
-				End
-			End
-		End
-
-		Describe "folders first"
 			setup_testdir() {
 				touch "$TESTDIR/a"; touch "$TESTDIR/c"
 				mkdir "$TESTDIR/b"; mkdir "$TESTDIR/d"
+				for i in b c d; do touch -m -r "$TESTDIR/a" "$TESTDIR/$i"; done
 			}
 			BeforeEach "setup_testdir"
 
-			Parameters:value html xml json
-
-			It "should sort files and directories together by default ($1)"
-				When run source "$SCRIPT" -o index -O "$1" "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" a b/
+			Parameters
+				"ascending, folders mixed"   ""                     a   b/  c   d/
+				"ascending, folders mixed"   asc                    a   b/  c   d/
+				"descending, folders mixed"  desc                   d/  c   b/  a
+				"ascending, folders mixed"   no-folders-first       a   b/  c   d/
+				"ascending, folders first"   folders-first          b/  d/  a   c
+				"ascending, folders mixed"   asc,no-folders-first   a   b/  c   d/
+				"descending, folders mixed"  desc,no-folders-first  d/  c   b/  a
+				"ascending, folders first"   asc,folders-first      b/  d/  a   c
+				"descending, folders first"  desc,folders-first     d/  b/  c   a
 			End
 
-			It "should sort files and directories together with -S no-folders-first ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -S no-folders-first "$TESTDIR"
+			It "should sort entries $1${2:+ with -S $2} (html)"
+				When run source "$SCRIPT" -O html -s modified ${2:+-S "$2"} "$TESTDIR"
 
 				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
+				The path testdir-index should be a file
+				The path testdir-index should not be an empty file
 
-				The contents of path testdir-index-common should satisfy has_order "$1" a b/ c d/
+				The contents of path testdir-index should satisfy has_order html "$3" "$4" "$5" "$6"
 			End
 
-			It "should sort ascending directories before files with -S folders-first ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -S folders-first "$TESTDIR"
+			It "should sort entries $1${2:+ with -S $2} (xml)"
+				When run source "$SCRIPT" -O xml -s modified ${2:+-S "$2"} "$TESTDIR"
 
 				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
+				The path xml-index should be a file
+				The path xml-index should not be an empty file
 
-				The contents of path testdir-index-common should satisfy has_order "$1" b/ d/ a c
+				The contents of path xml-index should satisfy has_order xml "$3" "$4" "$5" "$6"
 			End
 
-			It "should sort ascending directories before files with -S asc,folders-first ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -S asc,folders-first "$TESTDIR"
+			It "should sort entries $1${2:+ with -S $2} (json)"
+				When run source "$SCRIPT" -O json -s modified ${2:+-S "$2"} "$TESTDIR"
 
 				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
+				The path json-index should be a file
+				The path json-index should not be an empty file
 
-				The contents of path testdir-index-common should satisfy has_order "$1" b/ d/ a c
-			End
-
-			It "should sort descending directories before files with -S desc,folders-first ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -S desc,folders-first "$TESTDIR"
-
-				The status should be success
-				The path testdir-index-common should be a file
-				The path testdir-index-common should not be an empty file
-
-				The contents of path testdir-index-common should satisfy has_order "$1" d/ b/ c a
+				The contents of path json-index should satisfy has_order json "$3" "$4" "$5" "$6"
 			End
 		End
 
-		Describe "errors"
-			Parameters:value html xml json
+		Describe "name sort options"
+			setup_testdir() {
+				touch "$TESTDIR/aa"
+				for i in Ab2.10 Ab2.2 Ab10 Ab1; do touch -r "$TESTDIR/aa" "$TESTDIR/$i"; done;
+			}
+			BeforeEach "setup_testdir"
+			BeforeEach "export LC_ALL=C"
 
-			It "should show an error for an invalid sort property ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -s invalid "$TESTDIR"
-
-				The status should be failure
-				The error should equal "$SCRIPT_NAME: error: \"invalid\" is not a valid sort property"
-				The path testdir-index-common should not exist
+			# workaround for https://github.com/uutils/coreutils/issues/15463
+			sort() {
+				@sort "$@"
+			}
+			Mock uu-sort
 			End
 
-			It "should show an error for an invalid sort option ($1)"
-				When run source "$SCRIPT" -o index -O "$1" -S invalid "$TESTDIR"
+			Parameters
+				"ascending, version sort, case sensitive"              ""                       Ab1    Ab2.2   Ab2.10  Ab10    aa
+				"ascending, version sort, case sensitive"              asc                      Ab1    Ab2.2   Ab2.10  Ab10    aa
+				"descending, version sort, case sensitive"             desc                     aa     Ab10    Ab2.10  Ab2.2   Ab1
+				"ascending, version sort, case sensitive"              version                  Ab1    Ab2.2   Ab2.10  Ab10    aa
+				"ascending, lexicographical order, case sensitive"     no-version               Ab1    Ab10    Ab2.10  Ab2.2   aa
+				"ascending, version sort, case sensitive"              case                     Ab1    Ab2.2   Ab2.10  Ab10    aa
+				"ascending, version sort, case insensitive"            no-case                  aa     Ab1     Ab2.2   Ab2.10  Ab10
+				"ascending, version sort, case sensitive"              asc,version              Ab1    Ab2.2   Ab2.10  Ab10    aa
+				"descending, version sort, case sensitive"             desc,version             aa     Ab10    Ab2.10  Ab2.2   Ab1
+				"ascending, lexicographical order, case sensitive"     asc,no-version           Ab1    Ab10    Ab2.10  Ab2.2   aa
+				"descending, lexicographical order, case sensitive"    desc,no-version          aa     Ab2.2   Ab2.10  Ab10    Ab1
+				"ascending, version sort, case sensitive"              asc,case                 Ab1    Ab2.2   Ab2.10  Ab10    aa
+				"descending, version sort, case sensitive"             desc,case                aa     Ab10    Ab2.10  Ab2.2   Ab1
+				"ascending, version sort, case insensitive"            asc,no-case              aa     Ab1     Ab2.2   Ab2.10  Ab10
+				"descending, version sort, case insensitive"           desc,no-case             Ab10   Ab2.10  Ab2.2   Ab1     aa
+				"ascending, version sort, case sensitive"              version,case             Ab1    Ab2.2   Ab2.10  Ab10    aa
+				"ascending, lexicographical order, case sensitive"     no-version,case          Ab1    Ab10    Ab2.10  Ab2.2   aa
+				"ascending, version sort, case insensitive"            version,no-case          aa     Ab1     Ab2.2   Ab2.10  Ab10
+				"ascending, lexicographical order, case insensitive"   no-version,no-case       aa     Ab1     Ab10    Ab2.10  Ab2.2
+				"ascending, version sort, case sensitive"              asc,version,case         Ab1    Ab2.2   Ab2.10  Ab10    aa
+				"descending, version sort, case sensitive"             desc,version,case        aa     Ab10    Ab2.10  Ab2.2   Ab1
+				"ascending, lexicographical order, case sensitive"     asc,no-version,case      Ab1    Ab10    Ab2.10  Ab2.2   aa
+				"descending, lexicographical order, case sensitive"    desc,no-version,case     aa     Ab2.2   Ab2.10  Ab10    Ab1
+				"ascending, version sort, case insensitive"            asc,version,no-case      aa     Ab1     Ab2.2   Ab2.10  Ab10
+				"descending, version sort, case insensitive"           desc,version,no-case     Ab10   Ab2.10  Ab2.2   Ab1     aa
+				"ascending, lexicographical order, case insensitive"   asc,no-version,no-case   aa     Ab1     Ab10    Ab2.10  Ab2.2
+				"descending, lexicographical order, case insensitive"  desc,no-version,no-case  Ab2.2  Ab2.10  Ab10    Ab1     aa
+			End
 
-				The status should be failure
-				The error should equal "$SCRIPT_NAME: error: \"invalid\" is not a valid sort option"
-				The path testdir-index-common should not exist
+			It "should sort entries primary by name $1${2:+ with -S $2} (html)"
+				When run source "$SCRIPT" -O html -s name ${2:+-S "$2"} "$TESTDIR"
+
+				The status should be success
+				The path testdir-index should be a file
+				The path testdir-index should not be an empty file
+
+				The contents of path testdir-index should satisfy has_order html "$3" "$4" "$5" "$6" "$7"
+			End
+
+			It "should sort entries primary by name $1${2:+ with -S $2} (xml)"
+				When run source "$SCRIPT" -O xml -s name ${2:+-S "$2"} "$TESTDIR"
+
+				The status should be success
+				The path xml-index should be a file
+				The path xml-index should not be an empty file
+
+				The contents of path xml-index should satisfy has_order xml "$3" "$4" "$5" "$6" "$7"
+			End
+
+			It "should sort entries primary by name $1${2:+ with -S $2} (json)"
+				When run source "$SCRIPT" -O json -s name ${2:+-S "$2"} "$TESTDIR"
+
+				The status should be success
+				The path json-index should be a file
+				The path json-index should not be an empty file
+
+				The contents of path json-index should satisfy has_order json "$3" "$4" "$5" "$6" "$7"
+			End
+
+			It "should sort entries secondary by name $1${2:+ with -S $2} (html)"
+				When run source "$SCRIPT" -O html -s size ${2:+-S "$2"} "$TESTDIR"
+
+				The status should be success
+				The path testdir-index should be a file
+				The path testdir-index should not be an empty file
+
+				The contents of path testdir-index should satisfy has_order html "$3" "$4" "$5" "$6" "$7"
+			End
+
+			It "should sort entries secondary by name $1${2:+ with -S $2} (xml)"
+				When run source "$SCRIPT" -O xml -s size ${2:+-S "$2"} "$TESTDIR"
+
+				The status should be success
+				The path xml-index should be a file
+				The path xml-index should not be an empty file
+
+				The contents of path xml-index should satisfy has_order xml "$3" "$4" "$5" "$6" "$7"
+			End
+
+			It "should sort entries secondary by name $1${2:+ with -S $2} (json)"
+				When run source "$SCRIPT" -O json -s size ${2:+-S "$2"} "$TESTDIR"
+
+				The status should be success
+				The path json-index should be a file
+				The path json-index should not be an empty file
+
+				The contents of path json-index should satisfy has_order json "$3" "$4" "$5" "$6" "$7"
+			End
+		End
+
+		Describe "sort property"
+			Describe "whitespace around keyword"
+				setup_testdir() {
+					%printf '' > "$TESTDIR/b"
+					%printf '##' > "$TESTDIR/a"
+					%printf '#' > "$TESTDIR/c"
+				}
+				BeforeEach "setup_testdir"
+
+				Parameters:value html xml json
+
+				It "should strip leading whitespace ($1)"
+					ht="$SHELLSPEC_HT"
+					lf="$SHELLSPEC_LF"
+					vt="$SHELLSPEC_VT"
+					ff="$SHELLSPEC_FF"
+					cr="$SHELLSPEC_CR"
+					sp=" "
+
+					When run source "$SCRIPT" -O "$1" -s "${cr}${lf}size" -S desc "$TESTDIR"
+
+					The status should be success
+					The path "$TESTDIR/index.$1" should be a file
+					The path "$TESTDIR/index.$1" should not be an empty file
+
+					The contents of path "$TESTDIR/index.$1" should satisfy has_order "$1" a c b
+				End
+
+				It "should strip trailing whitespace ($1)"
+					ht="$SHELLSPEC_HT"
+					lf="$SHELLSPEC_LF"
+					vt="$SHELLSPEC_VT"
+					ff="$SHELLSPEC_FF"
+					cr="$SHELLSPEC_CR"
+					sp=" "
+
+					When run source "$SCRIPT" -O "$1" -s "size${vt}${ht}" -S desc "$TESTDIR"
+
+					The status should be success
+					The path "$TESTDIR/index.$1" should be a file
+					The path "$TESTDIR/index.$1" should not be an empty file
+
+					The contents of path "$TESTDIR/index.$1" should satisfy has_order "$1" a c b
+				End
+			End
+
+			Describe "invalid sort property"
+				Parameters:value html xml json
+
+				It "should show an error ($1)"
+					When run source "$SCRIPT" -O "$1" -s invalid "$TESTDIR"
+
+					The status should be failure
+					The error should equal "$SCRIPT_NAME: error: \"invalid\" is not a valid sort property"
+					The path "$TESTDIR/index.$1" should not exist
+				End
+			End
+		End
+
+		Describe "sort options"
+			Describe "whitespace around keywords"
+				setup_testdir() { for i in 2.2 2.10 10 1; do touch "$TESTDIR/$i"; done; }
+				BeforeEach "setup_testdir"
+
+				Parameters:value html xml json
+
+				It "should strip leading whitespace ($1)"
+					ht="$SHELLSPEC_HT"
+					lf="$SHELLSPEC_LF"
+					vt="$SHELLSPEC_VT"
+					ff="$SHELLSPEC_FF"
+					cr="$SHELLSPEC_CR"
+					sp=" "
+
+					When run source "$SCRIPT" -O "$1" -S "${vt}desc,${ht}${sp}no-version" "$TESTDIR"
+
+					The status should be success
+					The path "$TESTDIR/index.$1" should be a file
+					The path "$TESTDIR/index.$1" should not be an empty file
+
+					The contents of path "$TESTDIR/index.$1" should satisfy has_order "$1" 2.2 2.10 10 1
+				End
+
+				It "should strip trailing whitespace ($1)"
+					ht="$SHELLSPEC_HT"
+					lf="$SHELLSPEC_LF"
+					vt="$SHELLSPEC_VT"
+					ff="$SHELLSPEC_FF"
+					cr="$SHELLSPEC_CR"
+					sp=" "
+
+					When run source "$SCRIPT" -O "$1" -S "desc${cr}${ff},no-version${lf}" "$TESTDIR"
+
+					The status should be success
+					The path "$TESTDIR/index.$1" should be a file
+					The path "$TESTDIR/index.$1" should not be an empty file
+
+					The contents of path "$TESTDIR/index.$1" should satisfy has_order "$1" 2.2 2.10 10 1
+				End
+			End
+
+			Describe "invalid sort option"
+				Parameters:value html xml json
+
+				It "should show an error ($1)"
+					When run source "$SCRIPT" -O "$1" -S invalid "$TESTDIR"
+
+					The status should be failure
+					The error should equal "$SCRIPT_NAME: error: \"invalid\" is not a valid sort option"
+					The path "$TESTDIR/index.$1" should not exist
+				End
 			End
 		End
 	End
