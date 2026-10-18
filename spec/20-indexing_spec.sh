@@ -421,7 +421,7 @@ Describe "Indexing"
 				}
 				BeforeEach "setup_testdirs"
 
-				It "should not ignore dot files/directories and not ignore HTML include base name files with -T no-ignore-dot,no-ignore-includes"
+				It "should be able to specify multiple comma-separated options"
 					When run source "$SCRIPT" -T no-ignore-dot,no-ignore-includes -E HEAD -D HEADER -R README "$TESTDIR"
 
 					The status should be success
@@ -434,8 +434,16 @@ Describe "Indexing"
 					The contents of path testdir-index should include ">HEADER</a>"
 					The contents of path testdir-index should include ">README</a>"
 				End
+			End
 
-				It "should strip leading and trailing whitespace for each option keyword"
+			Describe "whitespace around keywords"
+				setup_testdirs() {
+					touch "$TESTDIR/.file"; mkdir "$TESTDIR/.dir"
+					for i in HEAD HEADER README; do touch "$TESTDIR/$i"; done
+				}
+				BeforeEach "setup_testdirs"
+
+				It "should strip leading whitespace"
 					ht="$SHELLSPEC_HT"
 					lf="$SHELLSPEC_LF"
 					vt="$SHELLSPEC_VT"
@@ -443,7 +451,28 @@ Describe "Indexing"
 					cr="$SHELLSPEC_CR"
 					sp=" "
 
-					When run source "$SCRIPT" -T "${ff}${vt}no-ignore-dot${ht},${cr}no-ignore-includes${lf}${sp}" -E HEAD -D HEADER -R README "$TESTDIR"
+					When run source "$SCRIPT" -T "${ff}${vt}no-ignore-dot,${cr}no-ignore-includes" -E HEAD -D HEADER -R README "$TESTDIR"
+
+					The status should be success
+					The path testdir-index should be a file
+					The path testdir-index should not be an empty file
+
+					The contents of path testdir-index should include ">.file</a>"
+					The contents of path testdir-index should include ">.dir/</a>"
+					The contents of path testdir-index should include ">HEAD</a>"
+					The contents of path testdir-index should include ">HEADER</a>"
+					The contents of path testdir-index should include ">README</a>"
+				End
+
+				It "should strip trailing whitespace"
+					ht="$SHELLSPEC_HT"
+					lf="$SHELLSPEC_LF"
+					vt="$SHELLSPEC_VT"
+					ff="$SHELLSPEC_FF"
+					cr="$SHELLSPEC_CR"
+					sp=" "
+
+					When run source "$SCRIPT" -T "no-ignore-dot${ht},no-ignore-includes${lf}${sp}" -E HEAD -D HEADER -R README "$TESTDIR"
 
 					The status should be success
 					The path testdir-index should be a file
@@ -647,7 +676,7 @@ Describe "Indexing"
 				Path dot-dir-index="$TESTDIR/.dir/index.html"
 				Path dir-index="$TESTDIR/dir/index.html"
 
-				It "should not skip dot directories and apply ignore patterns to skip directories with -W no-skip-dot,skip-ignores"
+				It "should be able to specify multiple comma-separated options"
 					When run source "$SCRIPT" -i "dir" -T no-ignore-dot -W no-skip-dot,skip-ignores "$TESTDIR"
 
 					The status should be success
@@ -659,8 +688,15 @@ Describe "Indexing"
 
 					The path dir-index should not exist
 				End
+			End
 
-				It "should strip leading and trailing whitespace for each option keyword"
+			Describe "whitespace around keywords"
+				setup_testdirs() { mkdir "$TESTDIR/.dir"; mkdir "$TESTDIR/dir"; }
+				BeforeEach "setup_testdirs"
+				Path dot-dir-index="$TESTDIR/.dir/index.html"
+				Path dir-index="$TESTDIR/dir/index.html"
+
+				It "should strip leading whitespace"
 					ht="$SHELLSPEC_HT"
 					lf="$SHELLSPEC_LF"
 					vt="$SHELLSPEC_VT"
@@ -668,7 +704,27 @@ Describe "Indexing"
 					cr="$SHELLSPEC_CR"
 					sp=" "
 
-					When run source "$SCRIPT" -i "dir" -T no-ignore-dot -W "${lf}no-skip-dot${cr}${vt},${ht}${ff}skip-ignores${sp}" "$TESTDIR"
+					When run source "$SCRIPT" -i "dir" -T no-ignore-dot -W "${lf}no-skip-dot,${ht}${ff}skip-ignores" "$TESTDIR"
+
+					The status should be success
+					The path testdir-index should be a file
+					The path testdir-index should not be an empty file
+
+					The path dot-dir-index should be a file
+					The path dot-dir-index should not be an empty file
+
+					The path dir-index should not exist
+				End
+
+				It "should strip trailing whitespace"
+					ht="$SHELLSPEC_HT"
+					lf="$SHELLSPEC_LF"
+					vt="$SHELLSPEC_VT"
+					ff="$SHELLSPEC_FF"
+					cr="$SHELLSPEC_CR"
+					sp=" "
+
+					When run source "$SCRIPT" -i "dir" -T no-ignore-dot -W "no-skip-dot${cr}${vt},skip-ignores${sp}" "$TESTDIR"
 
 					The status should be success
 					The path testdir-index should be a file

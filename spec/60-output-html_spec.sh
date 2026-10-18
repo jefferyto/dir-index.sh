@@ -864,8 +864,10 @@ Describe "HTML output"
 				The contents of path testdir-index should include "<table class=\"index"
 				The contents of path testdir-index should not include "<hr>"
 			End
+		End
 
-			It "should strip leading and trailing whitespace for each option keyword"
+		Describe "whitespace around keywords"
+			It "should strip leading whitespace"
 				ht="$SHELLSPEC_HT"
 				lf="$SHELLSPEC_LF"
 				vt="$SHELLSPEC_VT"
@@ -873,7 +875,25 @@ Describe "HTML output"
 				cr="$SHELLSPEC_CR"
 				sp=" "
 
-				When run source "$SCRIPT" -O html -H "${vt}${ht}list,no-rules${cr}${lf},${ff}table${sp}" "$TESTDIR"
+				When run source "$SCRIPT" -O html -H "${vt}list,${ht}no-rules,${ff}table" "$TESTDIR"
+
+				The status should be success
+				The path testdir-index should be a file
+				The path testdir-index should not be an empty file
+
+				The contents of path testdir-index should include "<table class=\"index"
+				The contents of path testdir-index should not include "<hr>"
+			End
+
+			It "should strip trailing whitespace"
+				ht="$SHELLSPEC_HT"
+				lf="$SHELLSPEC_LF"
+				vt="$SHELLSPEC_VT"
+				ff="$SHELLSPEC_FF"
+				cr="$SHELLSPEC_CR"
+				sp=" "
+
+				When run source "$SCRIPT" -O html -H "list${cr},no-rules${lf},table${sp}" "$TESTDIR"
 
 				The status should be success
 				The path testdir-index should be a file
@@ -884,8 +904,8 @@ Describe "HTML output"
 			End
 		End
 
-		Describe "errors"
-			It "should show an error for an invalid option"
+		Describe "invalid option"
+			It "should show an error"
 				When run source "$SCRIPT" -O html -H invalid "$TESTDIR"
 
 				The status should be failure
@@ -928,7 +948,7 @@ Describe "HTML output"
 			The contents of path testdir-index should not include ">Size</th>"
 		End
 
-		It "should strip leading and trailing whitespace for each column keyword"
+		It "should strip leading whitespace for column keywords"
 			ht="$SHELLSPEC_HT"
 			lf="$SHELLSPEC_LF"
 			vt="$SHELLSPEC_VT"
@@ -936,7 +956,24 @@ Describe "HTML output"
 			cr="$SHELLSPEC_CR"
 			sp=" "
 
-			When run source "$SCRIPT" -O html -C "${sp}${ff}modified,size${lf}${cr},${ht}name${vt}" "$TESTDIR"
+			When run source "$SCRIPT" -O html -C "${sp}${ff}modified,${lf}${cr}size,${ht}${vt}name" "$TESTDIR"
+
+			The status should be success
+			The path testdir-index should be a file
+			The path testdir-index should not be an empty file
+
+			The contents of path testdir-index should satisfy has_order "Last modified" Size Name
+		End
+
+		It "should strip trailing whitespace for column keywords"
+			ht="$SHELLSPEC_HT"
+			lf="$SHELLSPEC_LF"
+			vt="$SHELLSPEC_VT"
+			ff="$SHELLSPEC_FF"
+			cr="$SHELLSPEC_CR"
+			sp=" "
+
+			When run source "$SCRIPT" -O html -C "modified${sp}${ff},size${lf}${cr},name${ht}${vt}" "$TESTDIR"
 
 			The status should be success
 			The path testdir-index should be a file
