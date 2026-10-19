@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   test:
-    name: Test on ${{ matrix.os }} / ${{ matrix.shell }}
+    name: ${{ matrix.os }} / ${{ matrix.shell }}
     strategy:
       fail-fast: false
       matrix:
@@ -43,4 +43,4 @@ jobs:
         with:
           artifact-suffix: ${{ format('-{0}-{1}', matrix.os, matrix.shell) }}
           shell: ${{ matrix.shell }}
-          kcov: "true"
+          kcov: ${{ matrix.shell == 'bash' }}
