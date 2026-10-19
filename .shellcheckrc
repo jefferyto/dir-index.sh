@@ -1,1 +1,10 @@
-disable=SC2329,SC3043
+# SC2317: Command appears to be unreachable. Check usage (or ignore if invoked indirectly).
+# disable for shellcheck < v0.11.0
+
+# SC2329: This function is never invoked. Check usage (or ignored if invoked indirectly).
+# functions are called with eval
+
+# SC3043: In POSIX sh, local is undefined.
+# local is good
+
+disable=SC2317,SC2329,SC3043
