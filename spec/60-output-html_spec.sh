@@ -23,31 +23,13 @@
 % FIXTURE: "$SHELLSPEC_HELPERDIR/fixture"
 
 Describe "HTML output"
-	setup() { rm -rf "$TESTDIR"; mkdir -p "$TESTDIR"; }
-	teardown() { rm -rf "$TESTDIR"; }
-	has_order() {
-		value="${has_order:?}"
-		len=
-		prefix=
-		for i; do
-			prefix="${value%%>"$i"</*}"
-			if [ "$prefix" = "$value" ]; then
-				return 1
-			fi
-			if [ -n "$len" ] && [ "${#prefix}" -lt "$len" ]; then
-				return 1
-			fi
-			len="${#prefix}"
-		done
-		return 0
-	}
-	BeforeEach "setup"
-	AfterEach "teardown"
+	BeforeEach "setup_testdir"
+	AfterEach "teardown_testdir"
 	Path testdir-index="$TESTDIR/index.html"
 
 	Describe "page title"
-		setup_testdir() { mkdir "$TESTDIR/dir"; }
-		BeforeEach "setup_testdir"
+		setup_example() { mkdir "$TESTDIR/dir"; }
+		BeforeEach "setup_example"
 		Path dir-index="$TESTDIR/dir/index.html"
 
 		It "should use \"Index of ...\" as the page title by default"
@@ -163,13 +145,13 @@ Describe "HTML output"
 	End
 
 	Describe "style"
-		setup_testdir() {
+		setup_example() {
 			for i in data nodata dir; do mkdir "$TESTDIR/$i"; done
 			mkdir "$TESTDIR/data/$PACKAGE_TARNAME"
 			mkdir "$TESTDIR/data/$PACKAGE_TARNAME/styles"
 			%printf 'foobar' > "$TESTDIR/data/$PACKAGE_TARNAME/styles/test-style.css"
 		}
-		BeforeEach "setup_testdir"
+		BeforeEach "setup_example"
 		Path dir-index="$TESTDIR/dir/index.html"
 
 		It "should not include any style by default"
@@ -281,13 +263,13 @@ Describe "HTML output"
 		End
 
 		Describe "from file"
-			setup_testdir() {
+			setup_example() {
 				mkdir "$TESTDIR/dir1"
 				mkdir "$TESTDIR/dir2"
 				mkdir "$TESTDIR/dir2/dir"
 				%printf 'content&' > "$TESTDIR/dir2/file"
 			}
-			BeforeEach "setup_testdir"
+			BeforeEach "setup_example"
 			Path dir1-index="$TESTDIR/dir1/index.html"
 			Path dir2-index="$TESTDIR/dir2/index.html"
 			Path dir2-dir-index="$TESTDIR/dir2/dir/index.html"
@@ -401,8 +383,8 @@ Describe "HTML output"
 	End
 
 	Describe "header content"
-		setup_testdir() { mkdir "$TESTDIR/dir"; }
-		BeforeEach "setup_testdir"
+		setup_example() { mkdir "$TESTDIR/dir"; }
+		BeforeEach "setup_example"
 		Path dir-index="$TESTDIR/dir/index.html"
 
 		It "should use \"Index of ...\" as the header by default"
@@ -453,8 +435,8 @@ Describe "HTML output"
 
 	Describe "breadcrumbs"
 		Describe "items"
-			setup_testdir() { mkdir "$TESTDIR/dir"; mkdir "$TESTDIR/dir/subdir"; }
-			BeforeEach "setup_testdir"
+			setup_example() { mkdir "$TESTDIR/dir"; mkdir "$TESTDIR/dir/subdir"; }
+			BeforeEach "setup_example"
 			Path dir-index="$TESTDIR/dir/index.html"
 			Path subdir-index="$TESTDIR/dir/subdir/index.html"
 
@@ -591,13 +573,13 @@ Describe "HTML output"
 		End
 
 		Describe "preamble"
-			setup_testdir() {
+			setup_example() {
 				mkdir "$TESTDIR/dir1"
 				mkdir "$TESTDIR/dir2"
 				mkdir "$TESTDIR/dir2/dir"
 				%printf 'content&' > "$TESTDIR/dir2/file"
 			}
-			BeforeEach "setup_testdir"
+			BeforeEach "setup_example"
 			Path dir1-index="$TESTDIR/dir1/index.html"
 			Path dir2-index="$TESTDIR/dir2/index.html"
 			Path dir2-dir-index="$TESTDIR/dir2/dir/index.html"
@@ -923,7 +905,7 @@ Describe "HTML output"
 			The path testdir-index should be a file
 			The path testdir-index should not be an empty file
 
-			The contents of path testdir-index should satisfy has_order Name "Last modified" Size
+			The contents of path testdir-index should satisfy has_order html Name "Last modified" Size
 		End
 
 		It "should reorder index columns with -C"
@@ -933,7 +915,7 @@ Describe "HTML output"
 			The path testdir-index should be a file
 			The path testdir-index should not be an empty file
 
-			The contents of path testdir-index should satisfy has_order Size Name "Last modified"
+			The contents of path testdir-index should satisfy has_order html Size Name "Last modified"
 		End
 
 		It "should omit index columns not included with -C"
@@ -962,7 +944,7 @@ Describe "HTML output"
 			The path testdir-index should be a file
 			The path testdir-index should not be an empty file
 
-			The contents of path testdir-index should satisfy has_order "Last modified" Size Name
+			The contents of path testdir-index should satisfy has_order html "Last modified" Size Name
 		End
 
 		It "should strip trailing whitespace for column keywords"
@@ -979,7 +961,7 @@ Describe "HTML output"
 			The path testdir-index should be a file
 			The path testdir-index should not be an empty file
 
-			The contents of path testdir-index should satisfy has_order "Last modified" Size Name
+			The contents of path testdir-index should satisfy has_order html "Last modified" Size Name
 		End
 
 		It "should show an error for an invalid column"
@@ -1062,8 +1044,8 @@ Describe "HTML output"
 		End
 
 		Describe "parent entry"
-			setup_testdir() { mkdir "$TESTDIR/dir"; mkdir "$TESTDIR/dir/subdir"; }
-			BeforeEach "setup_testdir"
+			setup_example() { mkdir "$TESTDIR/dir"; mkdir "$TESTDIR/dir/subdir"; }
+			BeforeEach "setup_example"
 			Path subdir-index="$TESTDIR/dir/subdir/index.html"
 
 			It "should set data-type=\"back\""
@@ -1172,11 +1154,11 @@ Describe "HTML output"
 		End
 
 		Describe "files"
-			setup_testdir() {
+			setup_example() {
 				cp "$FIXTURE/tar.gif" "$TESTDIR/file.txt"
 				touch -m -d "2099-07-08T12:34:56" "$TESTDIR/file.txt"
 			}
-			BeforeEach "setup_testdir"
+			BeforeEach "setup_example"
 
 			It "should set data-type=\"file\""
 				When run source "$SCRIPT" -O html "$TESTDIR"
@@ -1262,11 +1244,11 @@ Describe "HTML output"
 		End
 
 		Describe "directories"
-			setup_testdir() {
+			setup_example() {
 				mkdir "$TESTDIR/dir"
 				touch -m -d "2099-07-08T12:34:56" "$TESTDIR/dir"
 			}
-			BeforeEach "setup_testdir"
+			BeforeEach "setup_example"
 
 			It "should set data-type=\"folder\""
 				When run source "$SCRIPT" -O html "$TESTDIR"
@@ -1368,8 +1350,8 @@ Describe "HTML output"
 	End
 
 	Describe "file size"
-		setup_testdir() { cp "$FIXTURE/compressed.png" "$TESTDIR"; }
-		BeforeEach "setup_testdir"
+		setup_example() { cp "$FIXTURE/compressed.png" "$TESTDIR"; }
+		BeforeEach "setup_example"
 
 		It "should use iec units by default"
 			When run source "$SCRIPT" -O html "$TESTDIR"

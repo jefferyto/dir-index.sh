@@ -23,26 +23,8 @@
 % FIXTURE: "$SHELLSPEC_HELPERDIR/fixture"
 
 Describe "XML output"
-	setup() { rm -rf "$TESTDIR"; mkdir -p "$TESTDIR"; }
-	teardown() { rm -rf "$TESTDIR"; }
-	has_order() {
-		value="${has_order:?}"
-		len=
-		prefix=
-		for i; do
-			prefix="${value%%>"$i"</*}"
-			if [ "$prefix" = "$value" ]; then
-				return 1
-			fi
-			if [ -n "$len" ] && [ "${#prefix}" -lt "$len" ]; then
-				return 1
-			fi
-			len="${#prefix}"
-		done
-		return 0
-	}
-	BeforeEach "setup"
-	AfterEach "teardown"
+	BeforeEach "setup_testdir"
+	AfterEach "teardown_testdir"
 	Path testdir-index="$TESTDIR/index.xml"
 
 	Describe "XML encoding"
@@ -81,11 +63,11 @@ Describe "XML output"
 		End
 
 		Describe "files"
-			setup_testdir() {
+			setup_example() {
 				cp "$FIXTURE/compressed.png" "$TESTDIR/file.txt"
 				touch -m -d "2099-07-08T12:34:56Z" "$TESTDIR/file.txt"
 			}
-			BeforeEach "setup_testdir"
+			BeforeEach "setup_example"
 
 			It "should output <file> element"
 				When run source "$SCRIPT" -O xml "$TESTDIR"
@@ -129,11 +111,11 @@ Describe "XML output"
 		End
 
 		Describe "directories"
-			setup_testdir() {
+			setup_example() {
 				mkdir "$TESTDIR/dir"
 				touch -m -d "2099-07-08T12:34:56Z" "$TESTDIR/dir"
 			}
-			BeforeEach "setup_testdir"
+			BeforeEach "setup_example"
 
 			It "should output <directory> element"
 				When run source "$SCRIPT" -O xml "$TESTDIR"

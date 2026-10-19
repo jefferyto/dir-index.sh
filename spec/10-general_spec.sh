@@ -23,10 +23,8 @@
 % FIXTURE: "$SHELLSPEC_HELPERDIR/fixture"
 
 Describe "General"
-	setup() { rm -rf "$TESTDIR"; mkdir -p "$TESTDIR"; }
-	teardown() { rm -rf "$TESTDIR"; }
-	BeforeEach "setup"
-	AfterEach "teardown"
+	BeforeEach "setup_testdir"
+	AfterEach "teardown_testdir"
 	Path testdir-index="$TESTDIR/index.html"
 
 	Describe "dependencies"
@@ -168,8 +166,8 @@ Describe "General"
 	End
 
 	Describe "force"
-		touch_index() { touch "$TESTDIR/index.html"; }
-		BeforeEach "touch_index"
+		setup_example() { touch "$TESTDIR/index.html"; }
+		BeforeEach "setup_example"
 
 		It "should not overwrite existing files"
 			When run source "$SCRIPT" "$TESTDIR"

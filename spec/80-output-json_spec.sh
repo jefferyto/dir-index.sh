@@ -23,26 +23,8 @@
 % FIXTURE: "$SHELLSPEC_HELPERDIR/fixture"
 
 Describe "JSON output"
-	setup() { rm -rf "$TESTDIR"; mkdir -p "$TESTDIR"; }
-	teardown() { rm -rf "$TESTDIR"; }
-	has_order() {
-		value="${has_order:?}"
-		len=
-		prefix=
-		for i; do
-			prefix="${value%%>"$i"</*}"
-			if [ "$prefix" = "$value" ]; then
-				return 1
-			fi
-			if [ -n "$len" ] && [ "${#prefix}" -lt "$len" ]; then
-				return 1
-			fi
-			len="${#prefix}"
-		done
-		return 0
-	}
-	BeforeEach "setup"
-	AfterEach "teardown"
+	BeforeEach "setup_testdir"
+	AfterEach "teardown_testdir"
 	Path testdir-index="$TESTDIR/index.json"
 
 	Describe "index entries"
@@ -59,11 +41,11 @@ Describe "JSON output"
 		End
 
 		Describe "files"
-			setup_testdir() {
+			setup_example() {
 				cp "$FIXTURE/compressed.png" "$TESTDIR/file.txt"
 				touch -m -d "2099-07-08T12:34:56Z" "$TESTDIR/file.txt"
 			}
-			BeforeEach "setup_testdir"
+			BeforeEach "setup_example"
 
 			It "should output object with \"type\":\"file\""
 				When run source "$SCRIPT" -O json "$TESTDIR"
@@ -107,11 +89,11 @@ Describe "JSON output"
 		End
 
 		Describe "directories"
-			setup_testdir() {
+			setup_example() {
 				mkdir "$TESTDIR/dir"
 				touch -m -d "2099-07-08T12:34:56Z" "$TESTDIR/dir"
 			}
-			BeforeEach "setup_testdir"
+			BeforeEach "setup_example"
 
 			It "should output object with \"type\":\"directory\""
 				When run source "$SCRIPT" -O json "$TESTDIR"

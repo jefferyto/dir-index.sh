@@ -23,17 +23,15 @@
 % FIXTURE: "$SHELLSPEC_HELPERDIR/fixture"
 
 Describe "Indexing"
-	setup() { rm -rf "$TESTDIR"; mkdir -p "$TESTDIR"; }
-	teardown() { rm -rf "$TESTDIR"; }
 	print0() { %printf '%s\0' "$@"; }
-	BeforeEach "setup"
-	AfterEach "teardown"
+	BeforeEach "setup_testdir"
+	AfterEach "teardown_testdir"
 	Path testdir-index="$TESTDIR/index.html"
 
 	Describe "root directories"
 		Describe "source"
-			setup_testdir() { for i in 1 2 3; do mkdir "$TESTDIR/dir$i"; done; }
-			BeforeEach "setup_testdir"
+			setup_example() { for i in 1 2 3; do mkdir "$TESTDIR/dir$i"; done; }
+			BeforeEach "setup_example"
 			Path dir1-index="$TESTDIR/dir1/index.html"
 			Path dir2-index="$TESTDIR/dir2/index.html"
 			Path dir3-index="$TESTDIR/dir3/index.html"
@@ -190,11 +188,11 @@ Describe "Indexing"
 
 	Describe "ignore patterns"
 		Describe "source"
-			setup_testdir() {
+			setup_example() {
 				touch "$TESTDIR/file1"; touch "$TESTDIR/file2"
 				mkdir "$TESTDIR/dir1"; mkdir "$TESTDIR/dir2"
 			}
-			BeforeEach "setup_testdir"
+			BeforeEach "setup_example"
 
 			It "should ignore files/directories that match patterns from the command line"
 				When run source "$SCRIPT" -i "file1" -i "f???2" -i "dir1" -i "d*2" "$TESTDIR"
@@ -242,8 +240,8 @@ Describe "Indexing"
 
 		Describe "options"
 			Describe "dot files"
-				setup_testdirs() { touch "$TESTDIR/.file"; mkdir "$TESTDIR/.dir"; }
-				BeforeEach "setup_testdirs"
+				setup_example() { touch "$TESTDIR/.file"; mkdir "$TESTDIR/.dir"; }
+				BeforeEach "setup_example"
 
 				It "should ignore dot files/directories by default"
 					When run source "$SCRIPT" "$TESTDIR"
@@ -280,8 +278,8 @@ Describe "Indexing"
 			End
 
 			Describe "HTML includes"
-				setup_testdir() { for i in HEAD HEADER README; do touch "$TESTDIR/$i"; done; }
-				BeforeEach "setup_testdir"
+				setup_example() { for i in HEAD HEADER README; do touch "$TESTDIR/$i"; done; }
+				BeforeEach "setup_example"
 
 				Describe "HTML output"
 					It "should not ignore HTML include paths"
@@ -415,11 +413,11 @@ Describe "Indexing"
 			End
 
 			Describe "multiple options"
-				setup_testdirs() {
+				setup_example() {
 					touch "$TESTDIR/.file"; mkdir "$TESTDIR/.dir"
 					for i in HEAD HEADER README; do touch "$TESTDIR/$i"; done
 				}
-				BeforeEach "setup_testdirs"
+				BeforeEach "setup_example"
 
 				It "should be able to specify multiple comma-separated options"
 					When run source "$SCRIPT" -T no-ignore-dot,no-ignore-includes -E HEAD -D HEADER -R README "$TESTDIR"
@@ -437,11 +435,11 @@ Describe "Indexing"
 			End
 
 			Describe "whitespace around keywords"
-				setup_testdirs() {
+				setup_example() {
 					touch "$TESTDIR/.file"; mkdir "$TESTDIR/.dir"
 					for i in HEAD HEADER README; do touch "$TESTDIR/$i"; done
 				}
-				BeforeEach "setup_testdirs"
+				BeforeEach "setup_example"
 
 				It "should strip leading whitespace"
 					ht="$SHELLSPEC_HT"
@@ -547,8 +545,8 @@ Describe "Indexing"
 
 	Describe "skip patterns"
 		Describe "source"
-			setup_testdir() { for i in 1 2 3; do mkdir "$TESTDIR/dir$i"; done; }
-			BeforeEach "setup_testdir"
+			setup_example() { for i in 1 2 3; do mkdir "$TESTDIR/dir$i"; done; }
+			BeforeEach "setup_example"
 			Path dir1-index="$TESTDIR/dir1/index.html"
 			Path dir2-index="$TESTDIR/dir2/index.html"
 			Path dir3-index="$TESTDIR/dir3/index.html"
@@ -596,8 +594,8 @@ Describe "Indexing"
 
 		Describe "options"
 			Describe "dot directories"
-				setup_testdirs() { mkdir "$TESTDIR/.dir"; }
-				BeforeEach "setup_testdirs"
+				setup_example() { mkdir "$TESTDIR/.dir"; }
+				BeforeEach "setup_example"
 				Path dot-dir-index="$TESTDIR/.dir/index.html"
 
 				It "should skip dot directories by default"
@@ -633,8 +631,8 @@ Describe "Indexing"
 			End
 
 			Describe "skip ignore patterns"
-				setup_testdir() { mkdir "$TESTDIR/dir"; }
-				BeforeEach "setup_testdir"
+				setup_example() { mkdir "$TESTDIR/dir"; }
+				BeforeEach "setup_example"
 				Path dir-index="$TESTDIR/dir/index.html"
 
 				It "should not apply ignore patterns to skip directories by default"
@@ -671,8 +669,8 @@ Describe "Indexing"
 			End
 
 			Describe "multiple options"
-				setup_testdirs() { mkdir "$TESTDIR/.dir"; mkdir "$TESTDIR/dir"; }
-				BeforeEach "setup_testdirs"
+				setup_example() { mkdir "$TESTDIR/.dir"; mkdir "$TESTDIR/dir"; }
+				BeforeEach "setup_example"
 				Path dot-dir-index="$TESTDIR/.dir/index.html"
 				Path dir-index="$TESTDIR/dir/index.html"
 
@@ -691,8 +689,8 @@ Describe "Indexing"
 			End
 
 			Describe "whitespace around keywords"
-				setup_testdirs() { mkdir "$TESTDIR/.dir"; mkdir "$TESTDIR/dir"; }
-				BeforeEach "setup_testdirs"
+				setup_example() { mkdir "$TESTDIR/.dir"; mkdir "$TESTDIR/dir"; }
+				BeforeEach "setup_example"
 				Path dot-dir-index="$TESTDIR/.dir/index.html"
 				Path dir-index="$TESTDIR/dir/index.html"
 
@@ -739,8 +737,8 @@ Describe "Indexing"
 		End
 
 		Describe "behaviour"
-			setup_testdir() { mkdir "$TESTDIR/dir"; }
-			BeforeEach "setup_testdir"
+			setup_example() { mkdir "$TESTDIR/dir"; }
+			BeforeEach "setup_example"
 			Path dir-index="$TESTDIR/dir/index.html"
 
 			It "should include skipped directories in parent directory index files (not ignore)"
@@ -822,20 +820,6 @@ Describe "Indexing"
 	End
 
 	Describe "whitespace characters"
-		is_windows() {
-			# https://en.wikipedia.org/wiki/Uname#Examples
-			# https://superuser.com/a/1749811
-			case "$(uname)" in
-				CYGWIN*|MINGW*|MSYS*|Windows*) return 0 ;;
-			esac
-			if wslinfo --networking-mode >/dev/null 2>&1 ||
-					[ -f /proc/sys/fs/binfmt_misc/WSLInterop ] ||
-					[ -n "$WSL_DISTRO_NAME" ] ||
-					grep -q WSL /proc/sys/kernel/osrelease; then
-				return 0
-			fi
-			return 1
-		}
 		ht="$SHELLSPEC_HT"
 		cr="$SHELLSPEC_CR"
 		lf="$SHELLSPEC_LF"

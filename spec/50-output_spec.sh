@@ -23,38 +23,8 @@
 % FIXTURE: "$SHELLSPEC_HELPERDIR/fixture"
 
 Describe "Output"
-	setup() { rm -rf "$TESTDIR"; mkdir -p "$TESTDIR"; }
-	teardown() { rm -rf "$TESTDIR"; }
-	has_order() {
-		value="${has_order:?}"
-		format="$1"
-		len=
-		prefix=
-		shift
-		for i; do
-			case "$format" in
-				xml)
-					prefix="${value%%>"${i%/}"</*}"
-					;;
-				json)
-					prefix="${value%%\"name\":\""${i%/}"\"*}"
-					;;
-				*)
-					prefix="${value%%>"$i"</*}"
-					;;
-			esac
-			if [ "$prefix" = "$value" ]; then
-				return 1
-			fi
-			if [ -n "$len" ] && [ "${#prefix}" -lt "$len" ]; then
-				return 1
-			fi
-			len="${#prefix}"
-		done
-		return 0
-	}
-	BeforeEach "setup"
-	AfterEach "teardown"
+	BeforeEach "setup_testdir"
+	AfterEach "teardown_testdir"
 	Path testdir-index="$TESTDIR/index.html"
 	Path xml-index="$TESTDIR/index.xml"
 	Path json-index="$TESTDIR/index.json"
@@ -149,7 +119,7 @@ Describe "Output"
 
 	Describe "sort"
 		Describe "primary by property"
-			setup_testdir() {
+			setup_example() {
 				%printf '' > "$TESTDIR/c"
 				%sleep 1
 				mkdir "$TESTDIR/d"
@@ -162,7 +132,7 @@ Describe "Output"
 				%sleep 1
 				mkdir "$TESTDIR/f"
 			}
-			BeforeEach "setup_testdir"
+			BeforeEach "setup_example"
 
 			Parameters
 				"name, ascending, folders mixed"            ""        ""                     a   b/  c   d/  e   f/
@@ -235,12 +205,12 @@ Describe "Output"
 		End
 
 		Describe "secondary by name"
-			setup_testdir() {
+			setup_example() {
 				touch "$TESTDIR/a"; touch "$TESTDIR/c"
 				mkdir "$TESTDIR/b"; mkdir "$TESTDIR/d"
 				for i in b c d; do touch -m -r "$TESTDIR/a" "$TESTDIR/$i"; done
 			}
-			BeforeEach "setup_testdir"
+			BeforeEach "setup_example"
 
 			Parameters
 				"ascending, folders mixed"   ""                     a   b/  c   d/
@@ -286,11 +256,11 @@ Describe "Output"
 		End
 
 		Describe "name sort options"
-			setup_testdir() {
+			setup_example() {
 				touch "$TESTDIR/aa"
 				for i in Ab2.10 Ab2.2 Ab10 Ab1; do touch -r "$TESTDIR/aa" "$TESTDIR/$i"; done;
 			}
-			BeforeEach "setup_testdir"
+			BeforeEach "setup_example"
 			BeforeEach "export LC_ALL=C"
 
 			# workaround for https://github.com/uutils/coreutils/issues/15463
@@ -393,12 +363,12 @@ Describe "Output"
 
 		Describe "sort property"
 			Describe "whitespace around keyword"
-				setup_testdir() {
+				setup_example() {
 					%printf '' > "$TESTDIR/b"
 					%printf '##' > "$TESTDIR/a"
 					%printf '#' > "$TESTDIR/c"
 				}
-				BeforeEach "setup_testdir"
+				BeforeEach "setup_example"
 
 				Parameters:value html xml json
 
@@ -452,8 +422,8 @@ Describe "Output"
 
 		Describe "sort options"
 			Describe "whitespace around keywords"
-				setup_testdir() { for i in 2.2 2.10 10 1; do touch "$TESTDIR/$i"; done; }
-				BeforeEach "setup_testdir"
+				setup_example() { for i in 2.2 2.10 10 1; do touch "$TESTDIR/$i"; done; }
+				BeforeEach "setup_example"
 
 				Parameters:value html xml json
 
@@ -515,7 +485,7 @@ Describe "Output"
 			dir="${is_newer:?}"
 			[ "$dir" -nt "$dir/ref" ]
 		}
-		setup_testdir() {
+		setup_example() {
 			touch "$TESTDIR/ref"
 			mkdir "$TESTDIR/dir"
 			touch "$TESTDIR/dir/ref"
@@ -523,7 +493,7 @@ Describe "Output"
 			touch -m -r "$TESTDIR/dir" "$TESTDIR/dir/ref"
 			%sleep 1
 		}
-		BeforeEach "setup_testdir"
+		BeforeEach "setup_example"
 
 		It "should preserve directory modification times by default"
 			When run source "$SCRIPT" "$TESTDIR"
