@@ -822,36 +822,61 @@ Describe "Indexing"
 	End
 
 	Describe "whitespace characters"
+		is_windows() {
+			# https://en.wikipedia.org/wiki/Uname#Examples
+			# https://superuser.com/a/1749811
+			case "$(uname)" in
+				CYGWIN*|MINGW*|MSYS*|Windows*) return 0 ;;
+			esac
+			if wslinfo --networking-mode >/dev/null 2>&1 ||
+					[ -f /proc/sys/fs/binfmt_misc/WSLInterop ] ||
+					[ -n "$WSL_DISTRO_NAME" ] ||
+					grep -q WSL /proc/sys/kernel/osrelease; then
+				return 0
+			fi
+			return 1
+		}
 		ht="$SHELLSPEC_HT"
 		cr="$SHELLSPEC_CR"
 		lf="$SHELLSPEC_LF"
 		sp=" "
 
+		# windows file names should not (cannot?) contain ascii control
+		# characters (1-31)
+		# workaround for not being to skip certain parameters
+		n=
+		if is_windows; then
+			ht=" "
+			cr=" "
+			lf=" "
+			n=" (skipped)"
+		fi
+
 		Parameters
-			"tab in middle"   "word${ht}word"
-			"CR in middle"    "word${cr}word"
-			"LF in middle"    "word${lf}word"
-			"space in middle" "word${sp}word"
-			"CRLF in middle"  "word${cr}${lf}word"
-			"LFCR in middle"  "word${lf}${cr}word"
-			"leading tab"     "${ht}word"
-			"leading CR"      "${cr}word"
-			"leading LF"      "${lf}word"
-			"leading space"   "${sp}word"
-			"leading CRLF"    "${cr}${lf}word"
-			"leading LFCR"    "${lf}${cr}word"
-			"trailing tab"    "word${ht}"
-			"trailing CR"     "word${cr}"
-			"trailing LF"     "word${lf}"
-			"trailing space"  "word${sp}"
-			"trailing CRLF"   "word${cr}${lf}"
-			"trailing LFCR"   "word${lf}${cr}"
-			"tab only"        "${ht}"
-			"CR only"         "${cr}"
-			"LF only"         "${lf}"
-			"space only"      "${sp}"
-			"CRLF only"       "${cr}${lf}"
-			"LFCR only"       "${lf}${cr}"
+			"tab in middle$n"   "word${ht}word"
+			"CR in middle$n"    "word${cr}word"
+			"LF in middle$n"    "word${lf}word"
+			"space in middle"   "word${sp}word"
+			"CRLF in middle$n"  "word${cr}${lf}word"
+			"LFCR in middle$n"  "word${lf}${cr}word"
+			"leading tab$n"     "${ht}word"
+			"leading CR$n"      "${cr}word"
+			"leading LF$n"      "${lf}word"
+			"leading space"     "${sp}word"
+			"leading CRLF$n"    "${cr}${lf}word"
+			"leading LFCR$n"    "${lf}${cr}word"
+			"trailing tab$n"    "word${ht}"
+			"trailing CR$n"     "word${cr}"
+			"trailing LF$n"     "word${lf}"
+			"trailing space"    "word${sp}"
+			"trailing CRLF$n"   "word${cr}${lf}"
+			"trailing LFCR$n"   "word${lf}${cr}"
+			"tab only$n"        "${ht}"
+			"CR only$n"         "${cr}"
+			"LF only$n"         "${lf}"
+			"space only"        "${sp}"
+			"CRLF only$n"       "${cr}${lf}"
+			"LFCR only$n"       "${lf}${cr}"
 		End
 
 		Example "root directory name with $1 from the command line"
