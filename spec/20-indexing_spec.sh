@@ -181,11 +181,23 @@ Describe "Indexing"
 				The error should equal "$SCRIPT_NAME: warning: \"$TESTDIR/nonexistent\" is not an accessible directory"
 			End
 
-			It "should show an error for a non-readable root directories file"
+			It "should show an error for a nonexistent root directories file"
 				When run source "$SCRIPT" -g "$TESTDIR/nonexistent"
 
 				The status should be failure
 				The error should equal "$SCRIPT_NAME: error: \"$TESTDIR/nonexistent\" is not a readable file"
+			End
+
+			It "should show an error for a non-readable root directories file"
+				touch "$TESTDIR/unreadable"
+				chmod a-r "$TESTDIR/unreadable"
+
+				When run source "$SCRIPT" -g "$TESTDIR/unreadable"
+
+				The status should be failure
+				The error should equal "$SCRIPT_NAME: error: \"$TESTDIR/unreadable\" is not a readable file"
+
+				chmod a+r "$TESTDIR/unreadable"
 			End
 		End
 	End
