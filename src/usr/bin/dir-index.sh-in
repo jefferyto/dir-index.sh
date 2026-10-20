@@ -20,6 +20,8 @@
 # with this program; if not, see <https://www.gnu.org/licenses/>.
 #
 
+set -f
+
 pkg_name="@PACKAGE_NAME@"
 pkg_tarname="@PACKAGE_TARNAME@"
 pkg_version="@PACKAGE_VERSION@"
@@ -38,6 +40,7 @@ me="${source##*/}"
 xdg_data_home="${XDG_DATA_HOME:-"$HOME"/.local/share}"
 xdg_data_dirs="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 iso_8601_format="%Y-%m-%dT%H:%M:%S.%NZ"
+oifs="$IFS"
 nl="
 "
 
@@ -603,38 +606,38 @@ print_generated_comment() {
 }
 
 print_html_index_breadcrumbs() {
-	local rest_path="$index_path_prefix$rel_path"
+	local breadcrumb_path="$index_path_prefix$rel_path"
 	local cur_name=
 	local cur_path=
-	local first=1
+	local i=1
 
-	if ! str_ends_with "/" "$rest_path"; then
-		rest_path="$rest_path/"
-	fi
+	breadcrumb_path="${breadcrumb_path%/}"
+
+	IFS="/"
+	# shellcheck disable=SC2086 # split words please
+	set -- $breadcrumb_path$IFS
+	IFS="$oifs"
 
 	printf '<ul class="breadcrumbs">'
 
-	while [ -n "$rest_path" ]; do
-		cur_name="${rest_path%%/*}"
-		rest_path="${rest_path#*/}"
-
+	for cur_name; do
 		cur_path="$cur_path$cur_name/"
 
 		printf '<li>'
 
-		if [ -n "$rest_path" ]; then
+		if [ "$i" -lt "$#" ]; then
 			printf '<a href="'; printf '%s' "$cur_path" | encode_uri; printf '">'
 		else
 			printf '<span>'
 		fi
 
-		if [ -n "$first" ]; then
+		if [ "$i" -eq 1 ]; then
 			printf '%s' "$breadcrumbs_root_html" # no escape
 		else
 			printf '%s' "$cur_name" | escape_html
 		fi
 
-		if [ -n "$rest_path" ]; then
+		if [ "$i" -lt "$#" ]; then
 			printf '</a>'
 		else
 			printf '</span>'
@@ -642,7 +645,7 @@ print_html_index_breadcrumbs() {
 
 		printf '</li>'
 
-		first=
+		i="$((i + 1))"
 	done
 
 	printf '</ul>'
@@ -1253,9 +1256,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 		C)
 			columns=
 			num_columns=0
-			OPTARG="$OPTARG,"
-			while [ -n "$OPTARG" ]; do
-				keyword="${OPTARG%%,*}"
+			IFS=","
+			for keyword in $OPTARG$IFS; do
 				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
 				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
@@ -1271,8 +1273,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 						exit "$ex_usage"
 						;;
 				esac
-				OPTARG="${OPTARG#*,}"
 			done
+			IFS="$oifs"
 			if ! str_includes "name" "$columns"; then
 				print_stderr "error: name column must be included"
 				exit "$ex_usage"
@@ -1307,9 +1309,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			exit 0
 			;;
 		H)
-			OPTARG="$OPTARG,"
-			while [ -n "$OPTARG" ]; do
-				keyword="${OPTARG%%,*}"
+			IFS=","
+			for keyword in $OPTARG$IFS; do
 				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
 				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
@@ -1336,8 +1337,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 						exit "$ex_usage"
 						;;
 				esac
-				OPTARG="${OPTARG#*,}"
 			done
+			IFS="$oifs"
 			;;
 		i)
 			if str_includes "/" "$OPTARG"; then
@@ -1412,9 +1413,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			esac
 			;;
 		S)
-			OPTARG="$OPTARG,"
-			while [ -n "$OPTARG" ]; do
-				keyword="${OPTARG%%,*}"
+			IFS=","
+			for keyword in $OPTARG$IFS; do
 				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
 				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
@@ -1447,16 +1447,15 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 						exit "$ex_usage"
 						;;
 				esac
-				OPTARG="${OPTARG#*,}"
 			done
+			IFS="$oifs"
 			;;
 		t)
 			title_text="$OPTARG"
 			;;
 		T)
-			OPTARG="$OPTARG,"
-			while [ -n "$OPTARG" ]; do
-				keyword="${OPTARG%%,*}"
+			IFS=","
+			for keyword in $OPTARG$IFS; do
 				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
 				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
@@ -1477,8 +1476,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 						exit "$ex_usage"
 						;;
 				esac
-				OPTARG="${OPTARG#*,}"
 			done
+			IFS="$oifs"
 			;;
 		u)
 			last_modified_utc=1
@@ -1491,9 +1490,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			dir_text="$OPTARG"
 			;;
 		W)
-			OPTARG="$OPTARG,"
-			while [ -n "$OPTARG" ]; do
-				keyword="${OPTARG%%,*}"
+			IFS=","
+			for keyword in $OPTARG$IFS; do
 				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
 				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
@@ -1514,8 +1512,8 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 						exit "$ex_usage"
 						;;
 				esac
-				OPTARG="${OPTARG#*,}"
 			done
+			IFS="$oifs"
 			;;
 		x)
 			breadcrumbs_root_html="$OPTARG"
@@ -1597,21 +1595,18 @@ if [ -n "$style_name" ] && [ "$style_name" != "none" ]; then
 	fi
 
 	if [ -z "$style_path" ]; then
-		search_paths="$xdg_data_dirs:"
-		while [ -n "$search_paths" ]; do
-			path="${search_paths%%:*}"
-			search_paths="${search_paths#*:}"
-
+		IFS=":"
+		for path in $xdg_data_dirs$IFS; do
 			if [ -z "$path" ]; then
 				continue
 			fi
-
 			path="$path/$pkg_tarname/styles/$style_name.css"
 			if [ -f "$path" ] && [ -r "$path" ]; then
 				style_path="$path"
 				break
 			fi
 		done
+		IFS="$oifs"
 	fi
 
 	if [ -z "$style_path" ]; then
