@@ -449,10 +449,7 @@ append_root_dirs() {
 
 	for path; do
 		if [ -n "$path" ]; then
-			if [ -n "$root_dirs" ]; then
-				root_dirs="$root_dirs$nl"
-			fi
-			root_dirs="$root_dirs$path"
+			root_dirs="${root_dirs:+$root_dirs$nl}$path"
 		fi
 	done
 }
@@ -480,10 +477,7 @@ append_ignore_patterns() {
 
 	for pattern; do
 		if [ -n "$pattern" ]; then
-			if [ -n "$ignore_patterns" ]; then
-				ignore_patterns="$ignore_patterns$nl"
-			fi
-			ignore_patterns="$ignore_patterns$pattern"
+			ignore_patterns="${ignore_patterns:+$ignore_patterns$nl}$pattern"
 		fi
 	done
 }
@@ -516,10 +510,7 @@ append_skip_patterns() {
 
 	for pattern; do
 		if [ -n "$pattern" ]; then
-			if [ -n "$skip_patterns" ]; then
-				skip_patterns="$skip_patterns$nl"
-			fi
-			skip_patterns="$skip_patterns$pattern"
+			skip_patterns="${skip_patterns:+$skip_patterns$nl}$pattern"
 		fi
 	done
 }
