@@ -80,8 +80,7 @@ name_case_insensitive=
 folders_first=
 
 html_preamble=1
-columns="name${nl}modified${nl}size" # newline delimited
-num_columns=3
+columns="name,modified,size"
 rule_lines=1
 plain_list=
 index_path_prefix=
@@ -674,11 +673,16 @@ print_html_index_table_header() {
 	local col_class=
 	local col_html=
 
+	IFS=","
+	# shellcheck disable=SC2086 # split words please
+	set -- $columns$IFS
+	IFS="$oifs"
+
 	printf '<table class="index index--table">'
 	printf '<thead>'
 	printf '<tr class="index__header">'
 
-	while IFS= read -r column; do
+	for column; do
 		case "$column" in
 			modified)
 				col_class="index__col--last-modified"
@@ -696,15 +700,13 @@ print_html_index_table_header() {
 		printf '<th class="'; printf '%s' "$col_class" | escape_html; printf '">'
 		printf '%s' "$col_html" # no escape
 		printf '</th>'
-	done << EOF
-$columns
-EOF
+	done
 
 	printf '</tr>'
 
 	if [ -n "$rule_lines" ]; then
 		printf '<tr class="index__separator">'
-		printf '<td colspan="'; printf '%s' "$num_columns" | escape_html; printf '">'
+		printf '<td colspan="'; printf '%s' "$#" | escape_html; printf '">'
 		printf '<hr>'
 		printf '</td>'
 		printf '</tr>'
@@ -725,11 +727,16 @@ print_html_index_table_row() {
 	local file_name="$7"
 	local column=
 
+	IFS=","
+	# shellcheck disable=SC2086 # split words please
+	set -- $columns$IFS
+	IFS="$oifs"
+
 	printf '<tr class="index__item"'
 	print_html_index_item_data_attrs "$item_type" "$mime_type" "$file_name"
 	printf '>'
 
-	while IFS= read -r column; do
+	for column; do
 		case "$column" in
 			modified)
 				printf '<td class="index__col--last-modified">'
@@ -749,20 +756,23 @@ print_html_index_table_row() {
 				printf '</td>'
 				;;
 		esac
-	done << EOF
-$columns
-EOF
+	done
 
 	printf '</tr>'
 }
 
 print_html_index_table_footer() {
+	IFS=","
+	# shellcheck disable=SC2086 # split words please
+	set -- $columns$IFS
+	IFS="$oifs"
+
 	printf '</tbody>'
 
 	if [ -n "$rule_lines" ]; then
 		printf '<tfoot class="index__footer">'
 		printf '<tr class="index__separator">'
-		printf '<td colspan="'; printf '%s' "$num_columns" | escape_html; printf '">'
+		printf '<td colspan="'; printf '%s' "$#" | escape_html; printf '">'
 		printf '<hr>'
 		printf '</td>'
 		printf '</tr>'
@@ -1255,18 +1265,13 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			;;
 		C)
 			columns=
-			num_columns=0
 			IFS=","
 			for keyword in $OPTARG$IFS; do
 				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
 				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
 					name|modified|size)
-						if [ -n "$columns" ]; then
-							columns="$columns$nl"
-						fi
-						columns="$columns$keyword"
-						num_columns="$((num_columns + 1))"
+						columns="${columns:+$columns,}$keyword"
 						;;
 					*)
 						print_stderr "error: \"$keyword\" is not a valid column"
