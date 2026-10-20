@@ -50,6 +50,7 @@ ex_noinput=66
 ex_unavailable=69
 
 date=
+file=
 find=
 jq=
 mktemp=
@@ -899,8 +900,10 @@ print_html_index_item() {
 		display_name="$name"
 		item_type="file"
 
-		# $index_dir always starts with "/./" or "././"
-		mime_type="$(file -bL --mime "$index_dir/$name")"
+		if [ -n "$file" ]; then
+			# $index_dir always starts with "/./" or "././"
+			mime_type="$("$file" -bL --mime "$index_dir/$name")"
+		fi
 
 		if str_includes "/" "$mime_type"; then
 			mime_type="${mime_type%%;*}"
@@ -1235,13 +1238,6 @@ else
 	exit "$ex_unavailable"
 fi
 
-if jq --version 2>&1 | grep -q jq; then
-	jq="jq"
-else
-	print_stderr "error: cannot find jq"
-	exit "$ex_unavailable"
-fi
-
 if gsed --version 2>&1 | grep -q GNU; then
 	sed="gsed"
 elif sed --version 2>&1 | grep -q GNU; then
@@ -1249,6 +1245,18 @@ elif sed --version 2>&1 | grep -q GNU; then
 else
 	print_stderr "error: cannot find GNU sed"
 	exit "$ex_unavailable"
+fi
+
+if jq --version 2>&1 | grep -q jq; then
+	jq="jq"
+else
+	print_stderr "error: cannot find jq"
+	exit "$ex_unavailable"
+fi
+
+# openbsd file does not have --version
+if file -bL --mime . >/dev/null 2>&1; then
+	file="file"
 fi
 
 while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y:z:Z: OPT; do

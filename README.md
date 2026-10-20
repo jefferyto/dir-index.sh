@@ -190,19 +190,22 @@ XML-specific output options:
 
 * [bash] or [dash], possibly other Bourne-like shells
 * GNU [coreutils], [findutils] and [sed]
-* file, either [Ian Darwin][Ian Darwin file], [OpenBSD][OpenBSD file] or
-  [macOS][macOS file] implementation
 * [jq]
+
+If the `file` utility, either the [Ian Darwin][Ian Darwin file],
+[OpenBSD][OpenBSD file] or [macOS][macOS file] implementation, is
+available, then MIME type information will be included in HTML index
+files to be used for styling index entries.
 
 [bash]: https://www.gnu.org/software/bash/
 [dash]: http://gondor.apana.org.au/~herbert/dash/
 [coreutils]: https://www.gnu.org/software/coreutils/
 [findutils]: https://www.gnu.org/software/findutils/
 [sed]: https://www.gnu.org/software/sed/
+[jq]: https://jqlang.org/
 [Ian Darwin file]: https://www.darwinsys.com/file/
 [OpenBSD file]: https://man.openbsd.org/file.1
 [macOS file]: https://ss64.com/mac/file.html
-[jq]: https://jqlang.org/
 
 ## Changelog
 

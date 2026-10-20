@@ -11,6 +11,7 @@
 ### Changed
 
 * Require coreutils `touch` and `tr`
+* Clarify that `file` is optional
 
 ## 1.0.0 - 2026-10-09
 
