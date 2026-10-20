@@ -121,16 +121,16 @@ Describe "Output"
 		Describe "primary by property"
 			setup_example() {
 				%printf '' > "$TESTDIR/c"
-				%sleep 1
 				mkdir "$TESTDIR/d"
-				%sleep 1
 				%printf '##' > "$TESTDIR/a"
-				%sleep 1
 				mkdir "$TESTDIR/b"
-				%sleep 1
 				%printf '#' > "$TESTDIR/e"
-				%sleep 1
 				mkdir "$TESTDIR/f"
+				s=1
+				for i in c d a b e f; do
+					touch -m -d "2099-07-08T12:34:5${s}Z" "$TESTDIR/$i"
+					s="$((s + 1))"
+				done
 			}
 			BeforeEach "setup_example"
 
