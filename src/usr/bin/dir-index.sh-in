@@ -20,7 +20,7 @@
 # with this program; if not, see <https://www.gnu.org/licenses/>.
 #
 
-set -f
+set -f -u
 
 pkg_name="@PACKAGE_NAME@"
 pkg_tarname="@PACKAGE_TARNAME@"
@@ -401,7 +401,7 @@ foreach_row() {
 	local data="$1"
 	local command="$2"
 	local num_args="$3"
-	local remove_prefix="$4"
+	local remove_prefix="${4:-}"
 	local result=0
 	local line=
 	local row=
@@ -558,8 +558,8 @@ read_stdin() {
 
 include_file() {
 	local file_or_path="$1"
-	local base_path="$2"
-	local test_only="$3"
+	local base_path="${2:-}"
+	local test_only="${3:-}"
 	local path=
 
 	if [ -z "$file_or_path" ]; then
@@ -593,7 +593,7 @@ include_file() {
 }
 
 test_include_file() {
-	include_file "$1" "$2" 1
+	include_file "$1" "${2:-}" 1
 }
 
 print_generated_comment() {
@@ -722,9 +722,9 @@ print_html_index_table_row() {
 	local url="$2"
 	local name="$3"
 	local size_formatted="$4"
-	local last_modified_formatted="$5"
-	local mime_type="$6"
-	local file_name="$7"
+	local last_modified_formatted="${5:-}"
+	local mime_type="${6:-}"
+	local file_name="${7:-}"
 	local column=
 
 	IFS=","
@@ -791,9 +791,9 @@ print_html_index_list_item() {
 	local url="$2"
 	local name="$3"
 	local size_formatted="$4"
-	local last_modified_formatted="$5"
-	local mime_type="$6"
-	local file_name="$7"
+	local last_modified_formatted="${5:-}"
+	local mime_type="${6:-}"
+	local file_name="${7:-}"
 
 	printf '<li class="index__item"'
 	print_html_index_item_data_attrs "$item_type" "$mime_type" "$file_name"
