@@ -8,6 +8,10 @@
   whitespace around each keyword
 * Support uutils coreutils installed with "uu-" prefix
 
+### Changed
+
+* Require coreutils `touch` and `tr`
+
 ## 1.0.0 - 2026-10-09
 
 * Initial release

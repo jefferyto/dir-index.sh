@@ -58,6 +58,8 @@ readlink=
 realpath=
 sed=
 sort=
+touch=
+tr=
 
 force=
 root_dirs_path=
@@ -1107,7 +1109,7 @@ generate_index() {
 			${folders_first:+-k 3,3} \
 			-k "$sort_col,$sort_col$sort_options" \
 			-k "4,4$name_sort_options" |
-		tr '\0' '\n'
+		"$tr" '\0' '\n'
 	)"
 
 	exec 3>"$temp_dir/$index_file_name"
@@ -1154,7 +1156,7 @@ generate_index() {
 	mv -- "$temp_dir/$index_file_name" "$index_dir/"
 
 	if [ -n "$index_dir_mtime" ]; then
-		touch -m -d "$index_dir_mtime" -- "$index_dir"
+		"$touch" -m -d "$index_dir_mtime" -- "$index_dir"
 	fi
 
 	return "$result"
@@ -1197,7 +1199,7 @@ process_dir() {
 				\( -type d -readable -writable -executable -print0 \)
 		} |
 		"$sort" -zr |
-		tr '\0' '\n'
+		"$tr" '\0' '\n'
 		ret="$?"; printf 'EOF'; exit "$ret"
 	)"
 	index_dirs="${index_dirs%EOF}"
@@ -1210,7 +1212,7 @@ process_dir() {
 	return "$result"
 }
 
-for cmd in date mktemp numfmt readlink realpath sort; do
+for cmd in date mktemp numfmt readlink realpath sort touch tr; do
 	for prefix in uu- g ""; do
 		if "$prefix$cmd" --version 2>&1 | grep -q coreutils; then
 			eval "$cmd=$prefix$cmd"
@@ -1560,7 +1562,7 @@ if [ -n "$root_dirs_path" ] &&
 			-e 's@^$@././@' \
 			-e "\$a\\" \
 			-- "$root_dirs_path" |
-		tr '\0' '\n'
+		"$tr" '\0' '\n'
 		ret="$?"; printf 'EOF'; exit "$ret"
 	)"
 	file_data="${file_data%EOF}"
@@ -1677,7 +1679,7 @@ if [ -n "$ignore_patterns_path" ] &&
 			-e 's@^@././@' \
 			-e "\$a\\" \
 			-- "$ignore_patterns_path" |
-		tr '\0' '\n'
+		"$tr" '\0' '\n'
 		ret="$?"; printf 'EOF'; exit "$ret"
 	)"
 	file_data="${file_data%EOF}"
@@ -1712,7 +1714,7 @@ if [ -n "$skip_patterns_path" ] &&
 			-e 's@^@././@' \
 			-e "\$a\\" \
 			-- "$skip_patterns_path" |
-		tr '\0' '\n'
+		"$tr" '\0' '\n'
 		ret="$?"; printf 'EOF'; exit "$ret"
 	)"
 	file_data="${file_data%EOF}"

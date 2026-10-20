@@ -144,6 +144,34 @@ Describe "General"
 			The path testdir-index should not exist
 		End
 
+		It "should show an error if 'touch' is missing"
+			gtouch() { :; }
+			touch() { :; }
+
+			Mock uu-touch
+			End
+
+			When run source "$SCRIPT" "$TESTDIR"
+
+			The status should be failure
+			The error should equal "$SCRIPT_NAME: error: cannot find coreutils touch"
+			The path testdir-index should not exist
+		End
+
+		It "should show an error if 'tr' is missing"
+			gtr() { :; }
+			tr() { :; }
+
+			Mock uu-tr
+			End
+
+			When run source "$SCRIPT" "$TESTDIR"
+
+			The status should be failure
+			The error should equal "$SCRIPT_NAME: error: cannot find coreutils tr"
+			The path testdir-index should not exist
+		End
+
 		It "should show an error if a temporary directory cannot be made"
 			gmktemp() { :; }
 			mktemp() {
