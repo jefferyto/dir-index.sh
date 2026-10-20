@@ -1638,7 +1638,7 @@ if [ -n "$style_name" ] && [ "$style_name" != "none" ]; then
 fi
 
 for signal in "EXIT" "HUP" "INT" "QUIT" "TERM"; do
-	# shellcheck disable=SC2064
+	# shellcheck disable=SC2064 # expand it now
 	trap "clean_up $signal" "$signal"
 done
 
