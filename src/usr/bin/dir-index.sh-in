@@ -44,6 +44,11 @@ oifs="$IFS"
 nl="
 "
 
+# /usr/include/sysexits.h
+ex_usage=64
+ex_noinput=66
+ex_unavailable=69
+
 date=
 find=
 jq=
@@ -110,11 +115,6 @@ last_modified_format="%Y-%m-%d %H:%M"
 last_modified_utc=
 
 encoding_text="UTF-8"
-
-# /usr/include/sysexits.h
-ex_usage=64
-ex_noinput=66
-ex_unavailable=69
 
 stdin_content=
 is_stdin_read=
