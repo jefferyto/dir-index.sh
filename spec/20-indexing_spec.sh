@@ -125,6 +125,40 @@ Describe "Indexing"
 			End
 		End
 
+		Describe "root directory permissions"
+			setup_example() { mkdir "$TESTDIR/dir"; }
+			teardown_example() { chmod 755 "$TESTDIR/dir"; }
+			BeforeEach "setup_example"
+			AfterEach "teardown_example"
+
+			It "should show a warning for a non-readable root directory"
+				chmod a-r "$TESTDIR/dir"
+
+				When run source "$SCRIPT" "$TESTDIR/dir"
+
+				The status should be failure
+				The error should equal "$SCRIPT_NAME: warning: \"$TESTDIR/dir\" is not an accessible directory"
+			End
+
+			It "should show a warning for a non-writeable root directory"
+				chmod a-w "$TESTDIR/dir"
+
+				When run source "$SCRIPT" "$TESTDIR/dir"
+
+				The status should be failure
+				The error should equal "$SCRIPT_NAME: warning: \"$TESTDIR/dir\" is not an accessible directory"
+			End
+
+			It "should show a warning for a non-executable root directory"
+				chmod a-x "$TESTDIR/dir"
+
+				When run source "$SCRIPT" "$TESTDIR/dir"
+
+				The status should be failure
+				The error should equal "$SCRIPT_NAME: warning: \"$TESTDIR/dir\" is not an accessible directory"
+			End
+		End
+
 		Describe "warning/errors"
 			It "should display usage for no root directories"
 				When run source "$SCRIPT"
@@ -145,36 +179,6 @@ Describe "Indexing"
 
 				The status should be failure
 				The error should equal "$SCRIPT_NAME: warning: \"$TESTDIR/nonexistent\" is not an accessible directory"
-			End
-
-			It "should show a warning for a non-readable root directory"
-				mkdir "$TESTDIR/dir"
-				chmod a-r "$TESTDIR/dir"
-
-				When run source "$SCRIPT" "$TESTDIR/dir"
-
-				The status should be failure
-				The error should equal "$SCRIPT_NAME: warning: \"$TESTDIR/dir\" is not an accessible directory"
-			End
-
-			It "should show a warning for a non-writeable root directory"
-				mkdir "$TESTDIR/dir"
-				chmod a-w "$TESTDIR/dir"
-
-				When run source "$SCRIPT" "$TESTDIR/dir"
-
-				The status should be failure
-				The error should equal "$SCRIPT_NAME: warning: \"$TESTDIR/dir\" is not an accessible directory"
-			End
-
-			It "should show a warning for a non-executable root directory"
-				mkdir "$TESTDIR/dir"
-				chmod a-x "$TESTDIR/dir"
-
-				When run source "$SCRIPT" "$TESTDIR/dir"
-
-				The status should be failure
-				The error should equal "$SCRIPT_NAME: warning: \"$TESTDIR/dir\" is not an accessible directory"
 			End
 
 			It "should show an error for a non-readable root directories file"

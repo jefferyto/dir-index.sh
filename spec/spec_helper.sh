@@ -21,6 +21,11 @@ spec_helper_loaded() {
 spec_helper_configure() {
   # Available functions: import, before_each, after_each, before_all, after_all
   : import 'support/custom_matcher'
+
+	if [ -z "${SHELLSPEC_SHELL##*busybox*}" ]; then
+		import "busybox_helper"
+		busybox_helper_configure
+	fi
 }
 
 setup_testdir() {
