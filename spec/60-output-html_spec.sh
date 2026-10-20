@@ -1452,6 +1452,8 @@ Describe "HTML output"
 		cr="$SHELLSPEC_CR"
 		lf="$SHELLSPEC_LF"
 
+		Skip if "is Windows (invalid file name characters)" is_windows
+
 		Parameters
 			"horizontal tab"   "$ht"  %09
 			"line feed"        "$lf"  %0A
@@ -1506,6 +1508,8 @@ Describe "HTML output"
 	End
 
 	Describe "HTML escaping"
+		Skip if "is Windows (invalid file name characters)" is_windows
+
 		Parameters
 			"double quotes"  '"'  "&quot;"
 			ampersand        "&"  "&amp;"

@@ -130,6 +130,7 @@ Describe "Indexing"
 			teardown_example() { chmod 755 "$TESTDIR/dir"; }
 			BeforeEach "setup_example"
 			AfterEach "teardown_example"
+			Skip if "is Windows (directory permissions do not apply)" is_windows
 
 			It "should show a warning for a non-readable root directory"
 				chmod a-r "$TESTDIR/dir"

@@ -138,6 +138,8 @@ Describe "JSON output"
 	End
 
 	Describe "JSON escaping"
+		Skip if "is Windows (invalid file name characters)" is_windows
+
 		bs="$SHELLSPEC_BS"
 		ht="$SHELLSPEC_HT"
 		lf="$SHELLSPEC_LF"
