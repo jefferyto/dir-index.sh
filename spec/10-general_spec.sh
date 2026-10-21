@@ -234,7 +234,7 @@ Describe "General"
 			When run source "$SCRIPT" -1
 
 			The status should be failure
-			The error should match pattern "*[Ii]llegal option*"
+			The error should match pattern "*option*1*"
 			The output should start with "Usage:"
 		End
 	End

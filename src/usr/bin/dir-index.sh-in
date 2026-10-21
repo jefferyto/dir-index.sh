@@ -22,6 +22,10 @@
 
 set -f -u
 
+if [ -n "${ZSH_VERSION:-}" ]; then
+	setopt shwordsplit
+fi
+
 pkg_name="@PACKAGE_NAME@"
 pkg_tarname="@PACKAGE_TARNAME@"
 pkg_version="@PACKAGE_VERSION@"
@@ -40,9 +44,14 @@ me="${source##*/}"
 xdg_data_home="${XDG_DATA_HOME:-"$HOME"/.local/share}"
 xdg_data_dirs="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 iso_8601_format="%Y-%m-%dT%H:%M:%S.%NZ"
+not_zsh=1
 oifs="$IFS"
 nl="
 "
+
+if [ -n "${ZSH_VERSION:-}" ]; then
+	not_zsh=
+fi
 
 # /usr/include/sysexits.h
 ex_usage=64
@@ -129,8 +138,8 @@ cmd=
 prefix=
 keyword=
 file_data=
-path=
-search_paths=
+file_path=
+dir_path=
 signal=
 
 # shellcheck disable=SC2329 # it's a trap!
@@ -448,30 +457,30 @@ EOF
 }
 
 append_root_dirs() {
-	local path=
+	local dir_path=
 
-	for path; do
-		if [ -n "$path" ]; then
-			root_dirs="${root_dirs:+$root_dirs$nl}$path"
+	for dir_path; do
+		if [ -n "$dir_path" ]; then
+			root_dirs="${root_dirs:+$root_dirs$nl}$dir_path"
 		fi
 	done
 }
 
 add_root_dirs() {
-	local path=
+	local dir_path=
 
-	for path; do
-		while str_includes "/./" "$path"; do
-			path="${path%%/./*}/${path#*/./}"
+	for dir_path; do
+		while str_includes "/./" "$dir_path"; do
+			dir_path="${dir_path%%/./*}/${dir_path#*/./}"
 		done
 
-		if str_starts_with "/" "$path"; then
-			path="/.$path"
+		if str_starts_with "/" "$dir_path"; then
+			dir_path="/.$dir_path"
 		else
-			path="././$path"
+			dir_path="././$dir_path"
 		fi
 
-		append_root_dirs "$path"
+		append_root_dirs "$dir_path"
 	done
 }
 
@@ -551,16 +560,16 @@ read_stdin() {
 }
 
 include_file() {
-	local file_or_path="$1"
+	local name_or_path="$1"
 	local base_path="${2:-}"
 	local test_only="${3:-}"
-	local path=
+	local file_path=
 
-	if [ -z "$file_or_path" ]; then
+	if [ -z "$name_or_path" ]; then
 		return 1
 	fi
 
-	if [ "$file_or_path" = "-" ]; then
+	if [ "$name_or_path" = "-" ]; then
 		if [ -n "$test_only" ]; then
 			return 0
 		fi
@@ -569,13 +578,13 @@ include_file() {
 		return 0
 	fi
 
-	if str_includes "/" "$file_or_path"; then
-		path="$file_or_path"
+	if str_includes "/" "$name_or_path"; then
+		file_path="$name_or_path"
 	else
-		path="$base_path/$file_or_path"
+		file_path="$base_path/$name_or_path"
 	fi
 
-	if [ ! -f "$path" ] || [ ! -r "$path" ]; then
+	if [ ! -f "$file_path" ] || [ ! -r "$file_path" ]; then
 		return 1
 	fi
 
@@ -583,7 +592,7 @@ include_file() {
 		return 0
 	fi
 
-	cat -- "$path"
+	cat -- "$file_path"
 }
 
 test_include_file() {
@@ -608,38 +617,46 @@ print_html_index_breadcrumbs() {
 
 	IFS="/"
 	# shellcheck disable=SC2086 # split words please
-	set -- $breadcrumb_path$IFS
+	set -- $breadcrumb_path${not_zsh:+$IFS}
 	IFS="$oifs"
 
 	printf '<ul class="breadcrumbs">'
 
-	for cur_name; do
-		cur_path="$cur_path$cur_name/"
-
+	if [ "$#" -eq 0 ]; then
 		printf '<li>'
-
-		if [ "$i" -lt "$#" ]; then
-			printf '<a href="'; printf '%s' "$cur_path" | encode_uri; printf '">'
-		else
-			printf '<span>'
-		fi
-
-		if [ "$i" -eq 1 ]; then
-			printf '%s' "$breadcrumbs_root_html" # no escape
-		else
-			printf '%s' "$cur_name" | escape_html
-		fi
-
-		if [ "$i" -lt "$#" ]; then
-			printf '</a>'
-		else
-			printf '</span>'
-		fi
-
+		printf '<span>'
+		printf '%s' "$breadcrumbs_root_html" # no escape
+		printf '</span>'
 		printf '</li>'
+	else
+		for cur_name; do
+			cur_path="$cur_path$cur_name/"
 
-		i="$((i + 1))"
-	done
+			printf '<li>'
+
+			if [ "$i" -lt "$#" ]; then
+				printf '<a href="'; printf '%s' "$cur_path" | encode_uri; printf '">'
+			else
+				printf '<span>'
+			fi
+
+			if [ "$i" -eq 1 ]; then
+				printf '%s' "$breadcrumbs_root_html" # no escape
+			else
+				printf '%s' "$cur_name" | escape_html
+			fi
+
+			if [ "$i" -lt "$#" ]; then
+				printf '</a>'
+			else
+				printf '</span>'
+			fi
+
+			printf '</li>'
+
+			i="$((i + 1))"
+		done
+	fi
 
 	printf '</ul>'
 }
@@ -669,7 +686,7 @@ print_html_index_table_header() {
 
 	IFS=","
 	# shellcheck disable=SC2086 # split words please
-	set -- $columns$IFS
+	set -- $columns${not_zsh:+$IFS}
 	IFS="$oifs"
 
 	printf '<table class="index index--table">'
@@ -723,7 +740,7 @@ print_html_index_table_row() {
 
 	IFS=","
 	# shellcheck disable=SC2086 # split words please
-	set -- $columns$IFS
+	set -- $columns${not_zsh:+$IFS}
 	IFS="$oifs"
 
 	printf '<tr class="index__item"'
@@ -758,7 +775,7 @@ print_html_index_table_row() {
 print_html_index_table_footer() {
 	IFS=","
 	# shellcheck disable=SC2086 # split words please
-	set -- $columns$IFS
+	set -- $columns${not_zsh:+$IFS}
 	IFS="$oifs"
 
 	printf '</tbody>'
@@ -1267,7 +1284,7 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 		C)
 			columns=
 			IFS=","
-			for keyword in $OPTARG$IFS; do
+			for keyword in ${OPTARG:-$IFS}${not_zsh:+$IFS}; do
 				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
 				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
@@ -1316,7 +1333,7 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			;;
 		H)
 			IFS=","
-			for keyword in $OPTARG$IFS; do
+			for keyword in ${OPTARG:-$IFS}${not_zsh:+$IFS}; do
 				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
 				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
@@ -1420,7 +1437,7 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			;;
 		S)
 			IFS=","
-			for keyword in $OPTARG$IFS; do
+			for keyword in ${OPTARG:-$IFS}${not_zsh:+$IFS}; do
 				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
 				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
@@ -1461,7 +1478,7 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			;;
 		T)
 			IFS=","
-			for keyword in $OPTARG$IFS; do
+			for keyword in ${OPTARG:-$IFS}${not_zsh:+$IFS}; do
 				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
 				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
@@ -1497,7 +1514,7 @@ while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y
 			;;
 		W)
 			IFS=","
-			for keyword in $OPTARG$IFS; do
+			for keyword in ${OPTARG:-$IFS}${not_zsh:+$IFS}; do
 				keyword="${keyword#"${keyword%%[![:space:]]*}"}"
 				keyword="${keyword%"${keyword##*[![:space:]]}"}"
 				case "$keyword" in
@@ -1588,27 +1605,27 @@ if [ -z "$root_dirs" ]; then
 	exit "$ex_usage"
 fi
 
-for path in "$head_path" "$header_path" "$readme_path"; do
-	if str_includes "/" "$path"; then
-		ensure_readable_file "$path"
+for file_path in "$head_path" "$header_path" "$readme_path"; do
+	if str_includes "/" "$file_path"; then
+		ensure_readable_file "$file_path"
 	fi
 done
 
 if [ -n "$style_name" ] && [ "$style_name" != "none" ]; then
-	path="$xdg_data_home/$pkg_tarname/styles/$style_name.css"
-	if [ -f "$path" ] && [ -r "$path" ]; then
-		style_path="$path"
+	file_path="$xdg_data_home/$pkg_tarname/styles/$style_name.css"
+	if [ -f "$file_path" ] && [ -r "$file_path" ]; then
+		style_path="$file_path"
 	fi
 
 	if [ -z "$style_path" ]; then
 		IFS=":"
-		for path in $xdg_data_dirs$IFS; do
-			if [ -z "$path" ]; then
+		for dir_path in $xdg_data_dirs${not_zsh:+$IFS}; do
+			if [ -z "$dir_path" ]; then
 				continue
 			fi
-			path="$path/$pkg_tarname/styles/$style_name.css"
-			if [ -f "$path" ] && [ -r "$path" ]; then
-				style_path="$path"
+			file_path="$dir_path/$pkg_tarname/styles/$style_name.css"
+			if [ -f "$file_path" ] && [ -r "$file_path" ]; then
+				style_path="$file_path"
 				break
 			fi
 		done
@@ -1616,19 +1633,20 @@ if [ -n "$style_name" ] && [ "$style_name" != "none" ]; then
 	fi
 
 	if [ -z "$style_path" ]; then
-		search_paths="$("$readlink" -e "$source"; ret="$?"; printf 'EOF'; exit "$ret")"
-		search_paths="${search_paths%EOF}"
-		search_paths="${search_paths%"$nl"}"
+		dir_path="$("$readlink" -e "$source"; ret="$?"; printf 'EOF'; exit "$ret")"
+		dir_path="${dir_path%EOF}"
+		dir_path="${dir_path%"$nl"}"
 
-		search_paths="/.${search_paths%/*}"
-		search_paths="${search_paths%/*}"
-		while [ -n "$search_paths" ]; do
-			path="$search_paths/share/$pkg_tarname/styles/$style_name.css"
-			if [ -f "$path" ] && [ -r "$path" ]; then
-				style_path="$path"
+		dir_path="/.${dir_path%/*}"
+		dir_path="${dir_path%/*}"
+
+		while [ -n "$dir_path" ]; do
+			file_path="$dir_path/share/$pkg_tarname/styles/$style_name.css"
+			if [ -f "$file_path" ] && [ -r "$file_path" ]; then
+				style_path="$file_path"
 				break
 			fi
-			search_paths="${search_paths%/*}"
+			dir_path="${dir_path%/*}"
 		done
 	fi
 
@@ -1670,9 +1688,9 @@ if [ -n "$ignore_dot_files" ]; then
 fi
 
 if [ "$index_format" = "html" ] && [ -n "$ignore_html_includes" ]; then
-	for path in "$head_path" "$header_path" "$readme_path"; do
-		if [ -n "$path" ] && ! str_includes "/" "$path"; then
-			add_ignore_patterns "$path"
+	for file_path in "$head_path" "$header_path" "$readme_path"; do
+		if [ -n "$file_path" ] && ! str_includes "/" "$file_path"; then
+			add_ignore_patterns "$file_path"
 		fi
 	done
 fi
@@ -1740,8 +1758,8 @@ if ! foreach_row "$skip_patterns" 'build_skip_arg' 1 1; then
 fi
 
 if [ -z "$is_stdin_read" ]; then
-	for path in "$head_path" "$header_path" "$readme_path"; do
-		if [ "$path" = "-" ]; then
+	for file_path in "$head_path" "$header_path" "$readme_path"; do
+		if [ "$file_path" = "-" ]; then
 			read_stdin
 			break
 		fi
