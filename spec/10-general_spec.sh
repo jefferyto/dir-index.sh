@@ -231,10 +231,11 @@ Describe "General"
 		End
 
 		It "should be displayed for an invalid command line option"
-			When run source "$SCRIPT" -1
+			When run source "$SCRIPT" -J
 
 			The status should be failure
-			The error should match pattern "*option*1*"
+			The error should include "option"
+			The error should include "J"
 			The output should start with "Usage:"
 		End
 	End
