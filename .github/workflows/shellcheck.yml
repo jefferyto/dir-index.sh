@@ -1,0 +1,22 @@
+name: ShellCheck
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ format('{0}-{1}', github.workflow, github.ref) }}
+  cancel-in-progress: true
+
+jobs:
+  run-shellcheck:
+    name: Run ShellCheck
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v7
+      - run: shellcheck src/usr/bin/dir-index.sh-in

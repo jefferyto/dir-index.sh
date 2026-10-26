@@ -239,15 +239,4 @@ Describe "General"
 			The output should start with "Usage:"
 		End
 	End
-
-	Describe "shellcheck"
-		not_exists_shellcheck() { ! shellcheck --version >/dev/null 2>&1; }
-		Skip if "ShellCheck not available" not_exists_shellcheck
-
-		It "should pass ShellCheck"
-			When run command shellcheck "$SCRIPT"
-
-			The status should be success
-		End
-	End
 End
