@@ -192,6 +192,7 @@ Describe "Indexing"
 			It "should show an error for a non-readable root directories file"
 				touch "$TESTDIR/unreadable"
 				chmod a-r "$TESTDIR/unreadable"
+				Skip if "is Windows (file permissions do not apply)" is_windows
 
 				When run source "$SCRIPT" -g "$TESTDIR/unreadable"
 
