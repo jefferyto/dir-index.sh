@@ -339,16 +339,16 @@ str_ends_with() {
 }
 
 escape_html() {
-	"$jq" -sRj '@html'
+	"$jq" -sRjb '@html'
 }
 
 encode_uri() {
-	"$jq" -sRj '@uri' | "$sed" -e 's/%2[Ff]/\//g'
+	"$jq" -sRjb '@uri' | "$sed" -e 's/%2[Ff]/\//g'
 }
 
 # includes enclosing quotation marks
 encode_json_string() {
-	"$jq" -sRj '@json'
+	"$jq" -sRjb '@json'
 }
 
 format_last_modified() {
