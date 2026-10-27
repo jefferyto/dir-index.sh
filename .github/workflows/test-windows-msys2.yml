@@ -37,7 +37,9 @@ jobs:
         with:
           msystem: UCRT64
           update: true
-          install: ${{ matrix.shell.package || matrix.shell.name }}
+          install: >-
+            dash
+            ${{ matrix.shell.package || matrix.shell.name }}
       - name: Set up environment
         run: |
           echo "MSYSTEM=UCRT64" >> "$GITHUB_ENV"
@@ -48,5 +50,6 @@ jobs:
           MSYS2_LOCATION: ${{ steps.setup-msys2.outputs.msys2-location }}
       - uses: jefferyto/shellspec-action@v1
         with:
+          shellspec-shell: dash
           artifact-suffix: ${{ format('_windows-msys2_{0}', matrix.shell.name) }}
           shell: ${{ matrix.shell.name }}

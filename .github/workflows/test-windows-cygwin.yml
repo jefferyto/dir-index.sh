@@ -35,7 +35,9 @@ jobs:
       - uses: actions/checkout@v7
       - uses: cygwin/cygwin-install-action@v7
         with:
-          packages: ${{ matrix.shell.package || matrix.shell.name }}
+          packages: |
+            dash
+            ${{ matrix.shell.package || matrix.shell.name }}
       - name: Set up environment
         run: |
           echo "set -o igncr" >> "$HOME/.bash_env"
@@ -43,5 +45,6 @@ jobs:
         shell: bash --noprofile --norc -e -o pipefail -o igncr {0}
       - uses: jefferyto/shellspec-action@v1
         with:
+          shellspec-shell: dash
           artifact-suffix: ${{ format('_windows-cygwin_{0}', matrix.shell.name) }}
           shell: ${{ matrix.shell.name }}

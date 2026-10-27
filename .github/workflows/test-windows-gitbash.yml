@@ -32,5 +32,6 @@ jobs:
       - uses: actions/checkout@v7
       - uses: jefferyto/shellspec-action@v1
         with:
+          shellspec-shell: dash
           artifact-suffix: ${{ format('_windows-gitbash_{0}', matrix.shell) }}
           shell: ${{ matrix.shell }}
