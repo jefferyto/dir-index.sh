@@ -1,0 +1,48 @@
+name: Ubuntu Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ format('{0}-{1}', github.workflow, github.ref) }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: ${{ matrix.os.name }} / ${{ matrix.shell.name }}
+    strategy:
+      matrix:
+        os:
+          - name: "24.04"
+            runner: ubuntu-24.04
+          - name: "26.04"
+            runner: ubuntu-26.04
+        shell:
+          - name: dash
+          - name: bash
+          - name: busybox ash
+            package: busybox-static
+          - name: mksh
+          - name: yash
+          - name: zsh
+      fail-fast: false
+    runs-on: ${{ matrix.os.runner }}
+    steps:
+      - name: Install shell
+        run: |
+          sudo apt-get update
+          sudo apt-get install "$SHELL_PACKAGE"
+        env:
+          SHELL_PACKAGE: ${{ matrix.shell.package || matrix.shell.name }}
+      - uses: actions/checkout@v7
+      - uses: jefferyto/shellspec-action@v1
+        with:
+          artifact-suffix: ${{ format('_ubuntu-{0}_{1}', matrix.os.name, matrix.shell.name) }}
+          shell: ${{ matrix.shell.name }}
+          kcov: ${{ matrix.shell.name == 'bash' || matrix.shell.name == 'zsh' }}

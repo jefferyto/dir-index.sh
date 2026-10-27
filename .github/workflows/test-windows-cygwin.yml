@@ -1,0 +1,47 @@
+name: Windows Cygwin Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ format('{0}-{1}', github.workflow, github.ref) }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: ${{ matrix.shell.name }}
+    strategy:
+      matrix:
+        shell:
+          - name: dash
+          - name: bash
+          - name: ash
+            package: busybox
+          - name: mksh
+          - name: zsh
+      fail-fast: false
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cygwin/cygwin-install-action@v7
+        with:
+          packages: ${{ matrix.shell.package || matrix.shell.name }}
+      - name: Set up environment
+        run: |
+          echo "set -o igncr" >> "$HOME/.bash_env"
+          echo "BASH_ENV=$HOME/.bash_env" >> "$GITHUB_ENV"
+        shell: bash --noprofile --norc -e -o pipefail -o igncr {0}
+      - uses: jefferyto/shellspec-action@v1
+        with:
+          artifact-suffix: ${{ format('_windows-cygwin_{0}', matrix.shell.name) }}
+          shell: ${{ matrix.shell.name }}

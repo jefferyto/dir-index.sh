@@ -1,0 +1,36 @@
+name: Windows Git Bash Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ format('{0}-{1}', github.workflow, github.ref) }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: ${{ matrix.shell }}
+    strategy:
+      matrix:
+        shell:
+          - sh
+          - dash
+          - bash
+      fail-fast: false
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jefferyto/shellspec-action@v1
+        with:
+          artifact-suffix: ${{ format('_windows-gitbash_{0}', matrix.shell) }}
+          shell: ${{ matrix.shell }}
