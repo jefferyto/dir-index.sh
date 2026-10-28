@@ -1,0 +1,14 @@
+#!/bin/sh -e
+. "$SHELLSPEC_SUPPORT_BIN"
+realpath=
+for prefix in uu- g ""; do
+	if "${prefix}realpath" --version 2>&1 | grep -q coreutils; then
+		realpath="${prefix}realpath"
+		break
+	fi
+done
+if [ -z "$realpath" ]; then
+	printf "cannot find coreutils realpath\n" >&2
+	exit 1
+fi
+invoke "$realpath" "$@"

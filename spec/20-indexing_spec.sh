@@ -87,7 +87,7 @@ Describe "Indexing"
 		End
 
 		Describe "root directory path"
-			abs_testdir="$(realpath "$TESTDIR")"
+			abs_testdir="$(@realpath -ms "$TESTDIR")"
 
 			Parameters
 				"leading slash"  "$abs_testdir"
