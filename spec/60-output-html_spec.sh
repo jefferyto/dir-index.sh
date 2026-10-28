@@ -1447,10 +1447,10 @@ Describe "HTML output"
 	End
 
 	Describe "URL encoding"
-		sp=" "
 		ht="$SHELLSPEC_HT"
-		cr="$SHELLSPEC_CR"
 		lf="$SHELLSPEC_LF"
+		cr="$SHELLSPEC_CR"
+		sp=" "
 
 		Skip if "is Windows (invalid file name characters)" is_windows
 
