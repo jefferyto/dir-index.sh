@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  windows-msys2:
     name: ${{ matrix.shell.name }}
     strategy:
       matrix:
@@ -51,5 +51,17 @@ jobs:
       - uses: jefferyto/shellspec-action@v1
         with:
           shellspec-shell: dash
-          artifact-suffix: ${{ format('_windows-msys2_{0}', matrix.shell.name) }}
+          artifact-suffix: >-
+            ${{
+              format(
+                '_{0}_{1}',
+                github.job,
+                matrix.shell.name
+              )
+            }}
           shell: ${{ matrix.shell.name }}
+          kcov: >-
+            ${{
+              matrix.shell.name == 'bash' ||
+                matrix.shell.name == 'zsh'
+            }}

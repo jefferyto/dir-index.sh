@@ -18,14 +18,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    name: ${{ matrix.shell }}
+  windows-gitbash:
+    name: ${{ matrix.shell.name }}
     strategy:
       matrix:
         shell:
-          - sh
-          - dash
-          - bash
+          - name: sh
+          - name: dash
+          - name: bash
       fail-fast: false
     runs-on: windows-latest
     steps:
@@ -33,5 +33,17 @@ jobs:
       - uses: jefferyto/shellspec-action@v1
         with:
           shellspec-shell: dash
-          artifact-suffix: ${{ format('_windows-gitbash_{0}', matrix.shell) }}
-          shell: ${{ matrix.shell }}
+          artifact-suffix: >-
+            ${{
+              format(
+                '_{0}_{1}',
+                github.job,
+                matrix.shell.name
+              )
+            }}
+          shell: ${{ matrix.shell.name }}
+          kcov: >-
+            ${{
+              matrix.shell.name == 'bash' ||
+                matrix.shell.name == 'zsh'
+            }}

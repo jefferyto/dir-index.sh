@@ -14,15 +14,13 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    name: ${{ matrix.os.name }} / ${{ matrix.shell.name }}
+  ubuntu:
+    name: ${{ matrix.os }} / ${{ matrix.shell.name }}
     strategy:
       matrix:
         os:
-          - name: "24.04"
-            runner: ubuntu-24.04
-          - name: "26.04"
-            runner: ubuntu-26.04
+          - ubuntu-24.04
+          - ubuntu-26.04
         shell:
           - name: dash
           - name: bash
@@ -32,7 +30,7 @@ jobs:
           - name: yash
           - name: zsh
       fail-fast: false
-    runs-on: ${{ matrix.os.runner }}
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Install shell
         run: |
@@ -44,6 +42,17 @@ jobs:
       - uses: jefferyto/shellspec-action@v1
         with:
           shellspec-shell: dash
-          artifact-suffix: ${{ format('_ubuntu-{0}_{1}', matrix.os.name, matrix.shell.name) }}
+          artifact-suffix: >-
+            ${{
+              format(
+                '_{0}_{1}',
+                matrix.os,
+                matrix.shell.name
+              )
+            }}
           shell: ${{ matrix.shell.name }}
-          kcov: ${{ matrix.shell.name == 'bash' || matrix.shell.name == 'zsh' }}
+          kcov: >-
+            ${{
+              matrix.shell.name == 'bash' ||
+                matrix.shell.name == 'zsh'
+            }}
