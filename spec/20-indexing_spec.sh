@@ -838,47 +838,28 @@ Describe "Indexing"
 	End
 
 	Describe "whitespace characters"
-		ht="$SHELLSPEC_HT"
-		cr="$SHELLSPEC_CR"
-		lf="$SHELLSPEC_LF"
-		sp=" "
+		Parameters:dynamic
+			add_data() {
+				%data "$1 in middle"  "word${2}word"
+				%data "leading $1"    "${2}word"
+				%data "trailing $1"   "word${2}"
+				%data "$1 only"       "${2}"
+			}
 
-		# windows file names should not (cannot?) contain ascii control
-		# characters (1-31)
-		# workaround for not being to skip certain parameters
-		n=
-		if is_windows; then
-			ht=" "
-			cr=" "
-			lf=" "
-			n=" (skipped)"
-		fi
+			add_data "space" " "
 
-		Parameters
-			"tab in middle$n"   "word${ht}word"
-			"CR in middle$n"    "word${cr}word"
-			"LF in middle$n"    "word${lf}word"
-			"space in middle"   "word${sp}word"
-			"CRLF in middle$n"  "word${cr}${lf}word"
-			"LFCR in middle$n"  "word${lf}${cr}word"
-			"leading tab$n"     "${ht}word"
-			"leading CR$n"      "${cr}word"
-			"leading LF$n"      "${lf}word"
-			"leading space"     "${sp}word"
-			"leading CRLF$n"    "${cr}${lf}word"
-			"leading LFCR$n"    "${lf}${cr}word"
-			"trailing tab$n"    "word${ht}"
-			"trailing CR$n"     "word${cr}"
-			"trailing LF$n"     "word${lf}"
-			"trailing space"    "word${sp}"
-			"trailing CRLF$n"   "word${cr}${lf}"
-			"trailing LFCR$n"   "word${lf}${cr}"
-			"tab only$n"        "${ht}"
-			"CR only$n"         "${cr}"
-			"LF only$n"         "${lf}"
-			"space only"        "${sp}"
-			"CRLF only$n"       "${cr}${lf}"
-			"LFCR only$n"       "${lf}${cr}"
+			# windows file names should not (cannot?) contain ascii
+			# control characters (1-31)
+			if [ -z "$IS_WINDOWS" ]; then
+				add_data "backspace"       "$SHELLSPEC_BS"
+				add_data "horizontal tab"  "$SHELLSPEC_HT"
+				add_data "line feed"       "$SHELLSPEC_LF"
+				add_data "vertical tab"    "$SHELLSPEC_VT"
+				add_data "form feed"       "$SHELLSPEC_FF"
+				add_data "carriage return" "$SHELLSPEC_CR"
+				add_data "CRLF"            "$SHELLSPEC_CR$SHELLSPEC_LF"
+				add_data "LFCR"            "$SHELLSPEC_LF$SHELLSPEC_CR"
+			fi
 		End
 
 		Example "root directory name with $1 from the command line"
