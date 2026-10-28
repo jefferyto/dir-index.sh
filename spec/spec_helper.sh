@@ -37,21 +37,8 @@ teardown_testdir() {
 	rm -rf "$TESTDIR"
 }
 
-# https://en.wikipedia.org/wiki/Uname#Examples
-# https://superuser.com/a/1749811
 is_windows() {
-	case "$(uname)" in
-		CYGWIN*|MINGW*|MSYS*|Windows*) return 0 ;;
-	esac
-
-	if wslinfo --networking-mode >/dev/null 2>&1 ||
-			[ -f /proc/sys/fs/binfmt_misc/WSLInterop ] ||
-			[ -n "$WSL_DISTRO_NAME" ] ||
-			grep -qs WSL /proc/sys/kernel/osrelease; then
-		return 0
-	fi
-
-	return 1
+	[ -n "$IS_WINDOWS" ]
 }
 
 has_order() {

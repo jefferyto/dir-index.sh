@@ -4,6 +4,8 @@
 --env SCRIPT="src/usr/bin/dir-index.sh-in"
 --env SCRIPT_NAME="dir-index.sh-in"
 
+--env-from spec/env.sh
+
 --require spec_helper
 --fail-no-examples
 --kcov-options "--include-path=src/usr/bin/dir-index.sh-in"
