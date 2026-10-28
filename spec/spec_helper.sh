@@ -47,7 +47,7 @@ is_windows() {
 	if wslinfo --networking-mode >/dev/null 2>&1 ||
 			[ -f /proc/sys/fs/binfmt_misc/WSLInterop ] ||
 			[ -n "$WSL_DISTRO_NAME" ] ||
-			grep -q WSL /proc/sys/kernel/osrelease; then
+			grep -qs WSL /proc/sys/kernel/osrelease; then
 		return 0
 	fi
 
