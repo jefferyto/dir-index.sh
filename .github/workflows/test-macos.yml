@@ -1,0 +1,50 @@
+name: macOS Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ format('{0}-{1}', github.workflow, github.ref) }}
+  cancel-in-progress: true
+
+jobs:
+  macos:
+    name: ${{ matrix.shell.name }}
+    strategy:
+      matrix:
+        shell:
+          - name: sh
+          - name: dash
+          - name: bash
+          - name: zsh
+      fail-fast: false
+    runs-on: macos-latest
+    steps:
+      - name: Install dependencies
+        run: |
+          brew update-if-needed
+          brew install coreutils findutils gnu-sed uutils-coreutils
+      - uses: actions/checkout@v7
+      - uses: jefferyto/shellspec-action@v1
+        with:
+          shellspec-shell: dash
+          artifact-suffix: >-
+            ${{
+              format(
+                '_{0}_{1}',
+                github.job,
+                matrix.shell.name
+              )
+            }}
+          shell: ${{ matrix.shell.name }}
+          kcov: >-
+            ${{
+              matrix.shell.name == 'bash' ||
+                matrix.shell.name == 'zsh'
+            }}
