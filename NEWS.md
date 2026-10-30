@@ -5,6 +5,7 @@
 ### Added
 
 * Special exception to the AGPL license for the CSS styles
+* License information for icons in "classic" and "classic-full" styles
 
 ### Changed
 

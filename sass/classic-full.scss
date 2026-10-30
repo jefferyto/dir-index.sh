@@ -24,4 +24,10 @@
 @use "classic/style";
 
 @include header.header("classic-full");
+
+/*!
+These icons are in the public domain and copied from the Apache HTTP
+Documentation Project <http://httpd.apache.org/docs-project/>.
+*/
+
 @include style.classic(icons.$icons);

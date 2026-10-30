@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/jefferyto/dir-index.sh.git"
   },
-  "license": "SEE LICENSE IN COPYING AND COPYING.EXCEPTION",
+  "license": "SEE LICENSE IN COPYING, COPYING.EXCEPTION AND COPYING.ICONS",
   "author": "The dir-index.sh authors",
   "type": "module",
   "scripts": {
