@@ -1,3 +1,24 @@
+#
+# busybox_helper.sh
+# This file is part of dir-index.sh.
+#
+# Copyright (C) 2026  The dir-index.sh authors
+# <https://github.com/jefferyto/dir-index.sh>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+
 # shellcheck shell=sh
 
 # Defining variables and functions here will affect all specfiles.

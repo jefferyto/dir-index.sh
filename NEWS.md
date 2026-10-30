@@ -2,6 +2,11 @@
 
 ## [1.1.1-dev][Unreleased] - Unreleased
 
+### Changed
+
+* Relicensed under the GNU Affero General Public License version 3 or
+  later (AGPL-3.0-or-later)
+
 ## [1.1.0] - 2026-10-31
 
 ### Added
