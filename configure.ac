@@ -24,7 +24,7 @@
 AC_PREREQ([2.69])
 AC_INIT(
 	[dir-index.sh],
-	[1.1.1-dev],
+	[1.2.0],
 	[https://github.com/jefferyto/dir-index.sh/issues],
 	[dir-index-sh],
 	[https://github.com/jefferyto/dir-index.sh]

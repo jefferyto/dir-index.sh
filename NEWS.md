@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.1.1-dev][Unreleased] - Unreleased
+## [1.2.0] - 2026-10-31
 
 ### Added
 
@@ -35,5 +35,5 @@
 
 * Initial release
 
-[Unreleased]: https://github.com/jefferyto/dir-index.sh/compare/1.1.0...main
+[1.2.0]: https://github.com/jefferyto/dir-index.sh/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/jefferyto/dir-index.sh/compare/1.0.0...1.1.0

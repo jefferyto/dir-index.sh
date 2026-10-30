@@ -242,7 +242,7 @@ the resulting dir-index.sh output files to be licensed under the
 GNU Affero General Public License without this special exception.
 
 This special exception was added by the dir-index.sh authors in
-version 1.1.1-dev of dir-index.sh.
+version 1.2.0 of dir-index.sh.
 
 Icons for the "classic" and "classic-full" styles are in the public
 domain and copied from the Apache HTTP Documentation Project.
