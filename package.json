@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/jefferyto/dir-index.sh.git"
   },
-  "license": "AGPL-3.0-or-later",
+  "license": "SEE LICENSE IN COPYING AND COPYING.EXCEPTION",
   "author": "The dir-index.sh authors",
   "type": "module",
   "scripts": {

@@ -2,6 +2,10 @@
 
 ## [1.1.1-dev][Unreleased] - Unreleased
 
+### Added
+
+* Special exception to the AGPL license for the CSS styles
+
 ### Changed
 
 * Relicensed under the GNU Affero General Public License version 3 or

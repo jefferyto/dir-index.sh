@@ -22,6 +22,7 @@
 EXTRA_DIST = \
 	.shellcheckrc \
 	.shellspec \
+	COPYING.EXCEPTION \
 	package.json \
 	package-lock.json \
 	sass \

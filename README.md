@@ -230,3 +230,16 @@ GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+As a special exception, you may create a larger work that contains
+part or all of dir-index.sh's CSS styles and distribute that work
+under terms of your choice, so long as that work isn't itself a
+directory index file generator using the CSS styles or a modified
+version thereof as styles for the index files.  Alternatively, if
+you modify or redistribute the CSS styles, you may (at your option)
+remove this special exception, which will cause the CSS styles and
+the resulting dir-index.sh output files to be licensed under the
+GNU Affero General Public License without this special exception.
+
+This special exception was added by the dir-index.sh authors in
+version 1.1.1-dev of dir-index.sh.
