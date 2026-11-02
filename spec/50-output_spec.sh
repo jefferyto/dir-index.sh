@@ -128,7 +128,7 @@ Describe "Output"
 				mkdir "$TESTDIR/f"
 				s=1
 				for i in c d a b e f; do
-					touch -m -d "2099-07-08T12:34:5${s}Z" "$TESTDIR/$i"
+					touch -m -d "2099-08-07T12:34:5${s}Z" "$TESTDIR/$i"
 					s="$((s + 1))"
 				done
 			}

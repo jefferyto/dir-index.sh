@@ -1156,7 +1156,7 @@ Describe "HTML output"
 		Describe "files"
 			setup_example() {
 				cp "$FIXTURE/tar.gif" "$TESTDIR/file.txt"
-				touch -m -d "2099-07-08T12:34:56" "$TESTDIR/file.txt"
+				touch -m -d "2099-08-07T12:34:56" "$TESTDIR/file.txt"
 			}
 			BeforeEach "setup_example"
 
@@ -1229,7 +1229,7 @@ Describe "HTML output"
 				The path testdir-index should be a file
 				The path testdir-index should not be an empty file
 
-				The contents of path testdir-index should include "<td class=\"index__col--last-modified\">2099-07-08 12:34</td>"
+				The contents of path testdir-index should include "<td class=\"index__col--last-modified\">2099-08-07 12:34</td>"
 			End
 
 			It "should have the file size in the size column"
@@ -1246,7 +1246,7 @@ Describe "HTML output"
 		Describe "directories"
 			setup_example() {
 				mkdir "$TESTDIR/dir"
-				touch -m -d "2099-07-08T12:34:56" "$TESTDIR/dir"
+				touch -m -d "2099-08-07T12:34:56" "$TESTDIR/dir"
 			}
 			BeforeEach "setup_example"
 
@@ -1307,7 +1307,7 @@ Describe "HTML output"
 				The path testdir-index should be a file
 				The path testdir-index should not be an empty file
 
-				The contents of path testdir-index should include "<td class=\"index__col--last-modified\">2099-07-08 12:34</td>"
+				The contents of path testdir-index should include "<td class=\"index__col--last-modified\">2099-08-07 12:34</td>"
 			End
 
 			It "should have \"-\" in the size column"
@@ -1325,7 +1325,7 @@ Describe "HTML output"
 	Describe "file last modified date"
 		It "should use the specified last modified format (unescaped) with -m"
 			lf="$SHELLSPEC_LF"
-			touch -m -d "2099-07-08T12:34:56" "$TESTDIR/file"
+			touch -m -d "2099-08-07T12:34:56" "$TESTDIR/file"
 
 			When run source "$SCRIPT" -O html -m "${lf}%M & %H < %d > %m ' %Y${lf}" "$TESTDIR"
 
@@ -1333,11 +1333,11 @@ Describe "HTML output"
 			The path testdir-index should be a file
 			The path testdir-index should not be an empty file
 
-			The contents of path testdir-index should include "<td class=\"index__col--last-modified\">${lf}34 & 12 < 08 > 07 ' 2099${lf}</td>"
+			The contents of path testdir-index should include "<td class=\"index__col--last-modified\">${lf}34 & 12 < 07 > 08 ' 2099${lf}</td>"
 		End
 
 		It "should have the last modified date in UTC with -u"
-			touch -m -d "2099-07-08T12:34:56Z" "$TESTDIR/file"
+			touch -m -d "2099-08-07T12:34:56Z" "$TESTDIR/file"
 
 			When run source "$SCRIPT" -O html -u "$TESTDIR"
 
@@ -1345,7 +1345,7 @@ Describe "HTML output"
 			The path testdir-index should be a file
 			The path testdir-index should not be an empty file
 
-			The contents of path testdir-index should include "<td class=\"index__col--last-modified\">2099-07-08 12:34</td>"
+			The contents of path testdir-index should include "<td class=\"index__col--last-modified\">2099-08-07 12:34</td>"
 		End
 	End
 

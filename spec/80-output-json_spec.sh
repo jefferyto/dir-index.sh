@@ -43,7 +43,7 @@ Describe "JSON output"
 		Describe "files"
 			setup_example() {
 				cp "$FIXTURE/compressed.png" "$TESTDIR/file.txt"
-				touch -m -d "2099-07-08T12:34:56Z" "$TESTDIR/file.txt"
+				touch -m -d "2099-08-07T12:34:56Z" "$TESTDIR/file.txt"
 			}
 			BeforeEach "setup_example"
 
@@ -64,7 +64,7 @@ Describe "JSON output"
 				The path testdir-index should be a file
 				The path testdir-index should not be an empty file
 
-				The contents of path testdir-index should include "\"mtime\":\"2099-07-08T12:34:56.000000000Z\""
+				The contents of path testdir-index should include "\"mtime\":\"2099-08-07T12:34:56.000000000Z\""
 			End
 
 			It "should set size property"
@@ -91,7 +91,7 @@ Describe "JSON output"
 		Describe "directories"
 			setup_example() {
 				mkdir "$TESTDIR/dir"
-				touch -m -d "2099-07-08T12:34:56Z" "$TESTDIR/dir"
+				touch -m -d "2099-08-07T12:34:56Z" "$TESTDIR/dir"
 			}
 			BeforeEach "setup_example"
 
@@ -112,7 +112,7 @@ Describe "JSON output"
 				The path testdir-index should be a file
 				The path testdir-index should not be an empty file
 
-				The contents of path testdir-index should include "\"mtime\":\"2099-07-08T12:34:56.000000000Z\""
+				The contents of path testdir-index should include "\"mtime\":\"2099-08-07T12:34:56.000000000Z\""
 			End
 
 			It "should not set size property"
