@@ -38,7 +38,7 @@ Describe "XML output"
 			The contents of path testdir-index should start with "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 		End
 
-		It "should use an escaped custom encoding with -G"
+		It "should use the specified encoding (escaped) with -G"
 			When run source "$SCRIPT" -O xml -G "foo & bar" "$TESTDIR"
 
 			The status should be success

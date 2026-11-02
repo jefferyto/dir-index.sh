@@ -47,7 +47,7 @@ Describe "HTML output"
 			The contents of path dir-index should include ">Index of /dir</title>"
 		End
 
-		It "should use an escaped custom page title with -t"
+		It "should use the specified page title (escaped, %s replaced with the path) with -t"
 			When run source "$SCRIPT" -O html -t "foo %s & bar" "$TESTDIR"
 
 			The status should be success
@@ -89,7 +89,7 @@ Describe "HTML output"
 			The contents of path testdir-index should not include " dir="
 		End
 
-		It "should use an escaped custom page text direction with -w"
+		It "should use the specified page text direction (escaped) with -w"
 			When run source "$SCRIPT" -O html -w "foo & bar" "$TESTDIR"
 
 			The status should be success
@@ -111,7 +111,7 @@ Describe "HTML output"
 			The contents of path testdir-index should include "<html lang=\"en\">"
 		End
 
-		It "should use an escaped custom page language with -l"
+		It "should use the specified page language (escaped) with -l"
 			When run source "$SCRIPT" -O html -l "foo & bar" "$TESTDIR"
 
 			The status should be success
@@ -133,7 +133,7 @@ Describe "HTML output"
 			The contents of path testdir-index should include "<meta charset=\"utf-8\">"
 		End
 
-		It "should use an escaped custom page charset with -A"
+		It "should use the specified page charset (escaped) with -A"
 			When run source "$SCRIPT" -O html -A "foo & bar" "$TESTDIR"
 
 			The status should be success
@@ -251,7 +251,7 @@ Describe "HTML output"
 				readme  -r  "</address>"
 			End
 
-			It "should use an unescaped custom $1 with $2"
+			It "should use the specified $1 (unescaped) with $2"
 				When run source "$SCRIPT" -O html "$2" "content&" "$TESTDIR"
 
 				The status should be success
@@ -280,7 +280,7 @@ Describe "HTML output"
 				readme  -R  "</body>"
 			End
 
-			It "should use unescaped $1 content from a file (base name) with $2"
+			It "should use $1 content (unescaped) from a specified file (base name) with $2"
 				When run source "$SCRIPT" -O html "$2" file "$TESTDIR"
 
 				The status should be success
@@ -308,7 +308,7 @@ Describe "HTML output"
 				The contents of path dir2-dir-index should not include "content&amp;$3"
 			End
 
-			It "should use unescaped $1 content from a file (path) with $2"
+			It "should use $1 content (unescaped) from a specified file (path) with $2"
 				When run source "$SCRIPT" -O html "$2" "$TESTDIR/dir2/file" "$TESTDIR"
 
 				The status should be success
@@ -333,7 +333,7 @@ Describe "HTML output"
 				The contents of path dir2-dir-index should include "content&$3"
 			End
 
-			It "should use unescaped $1 content from standard input with $2"
+			It "should use $1 content (unescaped) from standard input with $2"
 				Data cat "$TESTDIR/dir2/file"
 
 				When run source "$SCRIPT" -O html "$2" - "$TESTDIR"
@@ -402,7 +402,7 @@ Describe "HTML output"
 			The contents of path dir-index should include ">Index of /dir</h1>"
 		End
 
-		It "should use an unescaped custom header (%s replaced with the path) with -d"
+		It "should use the specified header (unescaped, %s replaced with the path) with -d"
 			When run source "$SCRIPT" -O html -d "foo %s & bar" "$TESTDIR"
 
 			The status should be success
@@ -492,7 +492,7 @@ Describe "HTML output"
 				The contents of path testdir-index should include "<ul class=\"breadcrumbs\"><li><span>Home</span></li></ul>"
 			End
 
-			It "should use an unescaped custom breadcrumbs root link text with -x"
+			It "should use the specified breadcrumbs root link text (unescaped) with -x"
 				When run source "$SCRIPT" -O html -x "foo & bar" "$TESTDIR"
 
 				The status should be success
@@ -998,7 +998,7 @@ Describe "HTML output"
 			The contents of path testdir-index should include ">$1</th>"
 		End
 
-		It "should use an unescaped custom $1 column heading with $2"
+		It "should use the specified $1 column heading (unescaped) with $2"
 			When run source "$SCRIPT" -O html "$2" "foo & bar" "$TESTDIR"
 
 			The status should be success
@@ -1113,7 +1113,7 @@ Describe "HTML output"
 				The contents of path subdir-index should include ">Parent Directory</a></td>"
 			End
 
-			It "should use an escaped custom link text with -P"
+			It "should use the specified link text (escaped) with -P"
 				When run source "$SCRIPT" -O html -P "foo & bar" "$TESTDIR"
 
 				The status should be success
@@ -1323,7 +1323,7 @@ Describe "HTML output"
 	End
 
 	Describe "file last modified date"
-		It "should use an unescaped last modified format with -m"
+		It "should use the specified last modified format (unescaped) with -m"
 			lf="$SHELLSPEC_LF"
 			touch -m -d "2099-07-08T12:34:56" "$TESTDIR/file"
 
@@ -1336,7 +1336,7 @@ Describe "HTML output"
 			The contents of path testdir-index should include "<td class=\"index__col--last-modified\">${lf}34 & 12 < 08 > 07 ' 2099${lf}</td>"
 		End
 
-		It "should use have the last modified date in UTC with -u"
+		It "should have the last modified date in UTC with -u"
 			touch -m -d "2099-07-08T12:34:56Z" "$TESTDIR/file"
 
 			When run source "$SCRIPT" -O html -u "$TESTDIR"
