@@ -2,6 +2,10 @@
 
 ## [1.2.1-dev][Unreleased] - Unreleased
 
+### Added
+
+* Option for temporary directory (`-B DIR`)
+
 ## [1.2.0] - 2026-10-31
 
 ### Added

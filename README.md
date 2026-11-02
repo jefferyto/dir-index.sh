@@ -15,6 +15,7 @@ General options:
                   * directories are delimited by NUL, not newline
                   * if FILE is -, directories are read from standard
                     input
+  -B DIR        place temporary files in DIR
   -f            overwrite existing directory index files
   -V            display version information and exit
   -h            display this help text and exit

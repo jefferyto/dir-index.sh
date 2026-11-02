@@ -171,6 +171,39 @@ Describe "General"
 			The error should equal "$SCRIPT_NAME: error: cannot find coreutils tr"
 			The path testdir-index should not exist
 		End
+	End
+
+	Describe "temporary directory"
+		It "should use the specified temporary directory with -B"
+			mkdir "$TESTDIR/dir"
+			mkdir "$TESTDIR/temp"
+			touch "$TESTDIR/temp/ref"
+			touch -m -r "$TESTDIR/temp" "$TESTDIR/temp/ref"
+			%sleep 1
+
+			is_newer() {
+				dir="${is_newer:?}"
+				[ "$dir" -nt "$dir/ref" ]
+			}
+
+			When run source "$SCRIPT" -B "$TESTDIR/temp" "$TESTDIR/dir"
+
+			The status should be success
+			The path "$TESTDIR/dir/index.html" should be a file
+			The path "$TESTDIR/dir/index.html" should not be an empty file
+
+			The path "$TESTDIR/temp" should satisfy is_newer
+		End
+
+		It "should show an error for a nonexistent temporary directory"
+			mkdir "$TESTDIR/dir"
+
+			When run source "$SCRIPT" -B "$TESTDIR/nonexistent" "$TESTDIR/dir"
+
+			The status should be failure
+			The error should include "$SCRIPT_NAME: error: cannot create temporary directory"
+			The path "$TESTDIR/dir/index.html" should not exist
+		End
 
 		It "should show an error if a temporary directory cannot be made"
 			gmktemp() { :; }

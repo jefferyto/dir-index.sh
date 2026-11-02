@@ -71,6 +71,7 @@ sort=
 touch=
 tr=
 
+temp_parent_path="${TMPDIR:-${TEMP:-${TMP:-/tmp}}}"
 force=
 root_dirs_path=
 root_dirs=
@@ -171,6 +172,7 @@ usage() {
 	                  * directories are delimited by NUL, not newline
 	                  * if FILE is -, directories are read from standard
 	                    input
+	  -B DIR        place temporary files in DIR
 	  -f            overwrite existing directory index files
 	  -V            display version information and exit
 	  -h            display this help text and exit
@@ -1276,10 +1278,13 @@ if file -bL --mime . >/dev/null 2>&1; then
 	file="file"
 fi
 
-while getopts A:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y:z:Z: OPT; do
+while getopts A:B:C:d:D:e:E:fFg:G:hH:i:I:k:K:l:m:M:N:o:O:P:r:R:s:S:t:T:uVw:W:x:X:y:z:Z: OPT; do
 	case $OPT in
 		A)
 			charset_text="$OPTARG"
+			;;
+		B)
+			temp_parent_path="$OPTARG"
 			;;
 		C)
 			columns=
@@ -1661,7 +1666,7 @@ for signal in "EXIT" "HUP" "INT" "QUIT" "TERM"; do
 	trap "clean_up $signal" "$signal"
 done
 
-temp_dir="$("$mktemp" -d --tmpdir "$me.XXXXXXXXXX")" || {
+temp_dir="$("$mktemp" -d -p "$temp_parent_path" "$me.XXXXXXXXXX")" || {
 	print_stderr "error: cannot create temporary directory"
 	exit "$ex_unavailable"
 }
