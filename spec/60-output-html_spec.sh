@@ -1323,6 +1323,18 @@ Describe "HTML output"
 	End
 
 	Describe "file last modified date"
+		It "should use %Y-%m-%d %H:%M as the last modified format by default"
+			touch -m -d "2099-08-07T12:34:56" "$TESTDIR/file"
+
+			When run source "$SCRIPT" -O html "$TESTDIR"
+
+			The status should be success
+			The path testdir-index should be a file
+			The path testdir-index should not be an empty file
+
+			The contents of path testdir-index should include "<td class=\"index__col--last-modified\">2099-08-07 12:34</td>"
+		End
+
 		It "should use the specified last modified format (unescaped) with -m"
 			lf="$SHELLSPEC_LF"
 			touch -m -d "2099-08-07T12:34:56" "$TESTDIR/file"
