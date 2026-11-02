@@ -48,18 +48,18 @@ Describe "HTML output"
 		End
 
 		It "should use the specified page title (escaped, %s replaced with the path) with -t"
-			When run source "$SCRIPT" -O html -t "foo %s & bar" "$TESTDIR"
+			When run source "$SCRIPT" -O html -t "foo %s %%s & bar" "$TESTDIR"
 
 			The status should be success
 			The path testdir-index should be a file
 			The path testdir-index should not be an empty file
 
-			The contents of path testdir-index should include ">foo / &amp; bar</title>"
+			The contents of path testdir-index should include ">foo / %s &amp; bar</title>"
 
 			The path dir-index should be a file
 			The path dir-index should not be an empty file
 
-			The contents of path dir-index should include ">foo /dir &amp; bar</title>"
+			The contents of path dir-index should include ">foo /dir %s &amp; bar</title>"
 		End
 
 		It "should include the virtual path with -X"
@@ -403,18 +403,18 @@ Describe "HTML output"
 		End
 
 		It "should use the specified header (unescaped, %s replaced with the path) with -d"
-			When run source "$SCRIPT" -O html -d "foo %s & bar" "$TESTDIR"
+			When run source "$SCRIPT" -O html -d "foo %s %%s & bar" "$TESTDIR"
 
 			The status should be success
 			The path testdir-index should be a file
 			The path testdir-index should not be an empty file
 
-			The contents of path testdir-index should include ">foo / & bar</h1>"
+			The contents of path testdir-index should include ">foo / %s & bar</h1>"
 
 			The path dir-index should be a file
 			The path dir-index should not be an empty file
 
-			The contents of path dir-index should include ">foo /dir & bar</h1>"
+			The contents of path dir-index should include ">foo /dir %s & bar</h1>"
 		End
 
 		It "should include the virtual path with -X"
