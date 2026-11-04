@@ -51,7 +51,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: jefferyto/shellspec-action@v1
+      - uses: jefferyto/shellspec-action@v2
         with:
           shellspec-shell: dash
           artifact-suffix: >-

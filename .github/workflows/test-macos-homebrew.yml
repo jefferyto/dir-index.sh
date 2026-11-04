@@ -59,7 +59,7 @@ jobs:
         env:
           SHELL_PACKAGE: ${{ matrix.shell.package || matrix.shell.name }}
       - uses: actions/checkout@v7
-      - uses: jefferyto/shellspec-action@v1
+      - uses: jefferyto/shellspec-action@v2
         with:
           shellspec-shell: dash
           artifact-suffix: >-

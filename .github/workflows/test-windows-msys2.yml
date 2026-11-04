@@ -70,7 +70,7 @@ jobs:
         shell: bash
         env:
           MSYS2_LOCATION: ${{ steps.setup-msys2.outputs.msys2-location }}
-      - uses: jefferyto/shellspec-action@v1
+      - uses: jefferyto/shellspec-action@v2
         with:
           shellspec-shell: dash
           artifact-suffix: >-
