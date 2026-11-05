@@ -1,4 +1,4 @@
-# dir-index.sh
+# dir-index.sh 
 
 Generate static directory index files for web hosts without access to
 Apache/nginx autoindex.
