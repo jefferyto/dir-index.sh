@@ -30,10 +30,6 @@ on:
 permissions:
   contents: read
 
-defaults:
-  run:
-    shell: bash
-
 concurrency:
   group: ${{ format('{0}-{1}', github.workflow, github.ref) }}
   cancel-in-progress: true
@@ -58,9 +54,7 @@ jobs:
         with:
           msystem: UCRT64
           update: true
-          install: >-
-            dash
-            ${{ matrix.shell.package || matrix.shell.name }}
+          install: ${{ matrix.shell.package || matrix.shell.name }}
       - name: Set up environment
         run: |
           echo "MSYSTEM=UCRT64" >> "$GITHUB_ENV"

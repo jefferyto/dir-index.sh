@@ -56,7 +56,7 @@ jobs:
       - name: Install shell
         run: |
           sudo apt-get update
-          sudo apt-get install dash "$SHELL_PACKAGE"
+          sudo apt-get install "$SHELL_PACKAGE"
         env:
           SHELL_PACKAGE: ${{ matrix.shell.package || matrix.shell.name }}
       - uses: actions/checkout@v7

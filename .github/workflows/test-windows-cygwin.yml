@@ -30,10 +30,6 @@ on:
 permissions:
   contents: read
 
-defaults:
-  run:
-    shell: bash
-
 concurrency:
   group: ${{ format('{0}-{1}', github.workflow, github.ref) }}
   cancel-in-progress: true
@@ -57,7 +53,6 @@ jobs:
       - uses: cygwin/cygwin-install-action@v7
         with:
           packages: |
-            dash
             ${{ matrix.shell.package || matrix.shell.name }}
       - name: Set up environment
         run: |
