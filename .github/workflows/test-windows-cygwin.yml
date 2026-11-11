@@ -54,11 +54,6 @@ jobs:
         with:
           packages: |
             ${{ matrix.shell.package || matrix.shell.name }}
-      - name: Set up environment
-        run: |
-          echo "set -o igncr" >> "$HOME/.bash_env"
-          echo "BASH_ENV=$HOME/.bash_env" >> "$GITHUB_ENV"
-        shell: bash --noprofile --norc -e -o pipefail -o igncr {0}
       - uses: jefferyto/shellspec-action@v2
         with:
           shellspec-shell: dash
