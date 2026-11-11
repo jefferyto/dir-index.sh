@@ -36,14 +36,20 @@ concurrency:
 
 jobs:
   macos:
-    name: ${{ matrix.shell.name }}
+    name: ${{ matrix.name }} / ${{ matrix.shell }}
     strategy:
       matrix:
-        shell:
-          - name: sh
-          - name: dash
-          - name: bash
-          - name: zsh
+        include:
+          - { name: Default, id: macos, shell: sh }
+          - { name: Default, id: macos, shell: dash }
+          - { name: Default, id: macos, shell: bash }
+          - { name: Default, id: macos, shell: zsh }
+
+          - { name: Homebrew, id: macos-homebrew, shell: dash, package: dash-shell }
+          - { name: Homebrew, id: macos-homebrew, shell: bash }
+          - { name: Homebrew, id: macos-homebrew, shell: mksh }
+          - { name: Homebrew, id: macos-homebrew, shell: zsh }
+
       fail-fast: false
     runs-on: macos-latest
     steps:
@@ -51,21 +57,20 @@ jobs:
         run: |
           brew update-if-needed
           brew install coreutils findutils gnu-sed uutils-coreutils
+
+      - if: ${{ matrix.id == 'macos-homebrew' }}
+        name: Install shell
+        run: |
+          brew update-if-needed
+          brew install dash-shell "$SHELL_PACKAGE"
+        env:
+          SHELL_PACKAGE: ${{ matrix.package || matrix.shell }}
+
       - uses: actions/checkout@v7
+
       - uses: jefferyto/shellspec-action@v2
         with:
           shellspec-shell: dash
-          artifact-suffix: >-
-            ${{
-              format(
-                '_{0}_{1}',
-                github.job,
-                matrix.shell.name
-              )
-            }}
-          shell: ${{ matrix.shell.name }}
-          kcov: >-
-            ${{
-              matrix.shell.name == 'bash' ||
-                matrix.shell.name == 'zsh'
-            }}
+          artifact-suffix: ${{ format('_{0}_{1}', matrix.id, matrix.shell) }}
+          shell: ${{ matrix.shell }}
+          kcov: ${{ matrix.shell == 'bash' || matrix.shell == 'zsh' }}

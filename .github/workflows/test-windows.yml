@@ -1,0 +1,83 @@
+#
+# test-windows.yml
+# This file is part of dir-index.sh.
+#
+# Copyright (C) 2026  The dir-index.sh authors
+# <https://github.com/jefferyto/dir-index.sh>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+
+name: Windows Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ format('{0}-{1}', github.workflow, github.ref) }}
+  cancel-in-progress: true
+
+jobs:
+  windows:
+    name: ${{ matrix.name }} / ${{ matrix.shell }}
+    strategy:
+      matrix:
+        include:
+          - { name: Git Bash, id: windows-gitbash, shell: sh }
+          - { name: Git Bash, id: windows-gitbash, shell: dash }
+          - { name: Git Bash, id: windows-gitbash, shell: bash }
+
+          - { name: MSYS2, id: windows-msys2, shell: dash }
+          - { name: MSYS2, id: windows-msys2, shell: bash }
+          - { name: MSYS2, id: windows-msys2, shell: busybox ash, package: busybox }
+          - { name: MSYS2, id: windows-msys2, shell: zsh }
+
+          - { name: Cygwin, id: windows-cygwin, shell: dash }
+          - { name: Cygwin, id: windows-cygwin, shell: bash }
+          - { name: Cygwin, id: windows-cygwin, shell: ash, package: busybox }
+          - { name: Cygwin, id: windows-cygwin, shell: mksh }
+          - { name: Cygwin, id: windows-cygwin, shell: zsh }
+
+      fail-fast: false
+    runs-on: windows-latest
+    steps:
+      - if: ${{ matrix.id == 'windows-msys2' }}
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            ${{ matrix.package || matrix.shell }}
+            jq
+
+      - if: ${{ matrix.id == 'windows-cygwin' }}
+        uses: cygwin/cygwin-install-action@v7
+        with:
+          packages: |
+            ${{ matrix.package || matrix.shell }}
+
+      - uses: actions/checkout@v7
+
+      - uses: jefferyto/shellspec-action@v2
+        with:
+          shellspec-shell: dash
+          artifact-suffix: ${{ format('_{0}_{1}', matrix.id, matrix.shell) }}
+          shell: ${{ matrix.shell }}
+          kcov: ${{ matrix.shell == 'bash' || matrix.shell == 'zsh' }}

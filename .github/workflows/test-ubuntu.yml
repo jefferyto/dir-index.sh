@@ -36,20 +36,24 @@ concurrency:
 
 jobs:
   ubuntu:
-    name: ${{ matrix.os }} / ${{ matrix.shell.name }}
+    name: ${{ matrix.name }} / ${{ matrix.shell }}
     strategy:
       matrix:
-        os:
-          - ubuntu-24.04
-          - ubuntu-26.04
-        shell:
-          - name: dash
-          - name: bash
-          - name: busybox ash
-            package: busybox-static
-          - name: mksh
-          - name: yash
-          - name: zsh
+        include:
+          - { name: 24.04, os: ubuntu-24.04, shell: dash }
+          - { name: 24.04, os: ubuntu-24.04, shell: bash }
+          - { name: 24.04, os: ubuntu-24.04, shell: busybox ash, package: busybox-static }
+          - { name: 24.04, os: ubuntu-24.04, shell: mksh }
+          - { name: 24.04, os: ubuntu-24.04, shell: yash }
+          - { name: 24.04, os: ubuntu-24.04, shell: zsh }
+
+          - { name: 26.04, os: ubuntu-26.04, shell: dash }
+          - { name: 26.04, os: ubuntu-26.04, shell: bash }
+          - { name: 26.04, os: ubuntu-26.04, shell: busybox ash, package: busybox-static }
+          - { name: 26.04, os: ubuntu-26.04, shell: mksh }
+          - { name: 26.04, os: ubuntu-26.04, shell: yash }
+          - { name: 26.04, os: ubuntu-26.04, shell: zsh }
+
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -58,22 +62,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install "$SHELL_PACKAGE"
         env:
-          SHELL_PACKAGE: ${{ matrix.shell.package || matrix.shell.name }}
+          SHELL_PACKAGE: ${{ matrix.package || matrix.shell }}
+
       - uses: actions/checkout@v7
+
       - uses: jefferyto/shellspec-action@v2
         with:
           shellspec-shell: dash
-          artifact-suffix: >-
-            ${{
-              format(
-                '_{0}_{1}',
-                matrix.os,
-                matrix.shell.name
-              )
-            }}
-          shell: ${{ matrix.shell.name }}
-          kcov: >-
-            ${{
-              matrix.shell.name == 'bash' ||
-                matrix.shell.name == 'zsh'
-            }}
+          artifact-suffix: ${{ format('_{0}_{1}', matrix.os, matrix.shell) }}
+          shell: ${{ matrix.shell }}
+          kcov: ${{ matrix.shell == 'bash' || matrix.shell == 'zsh' }}
