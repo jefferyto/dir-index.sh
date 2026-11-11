@@ -50,21 +50,35 @@ jobs:
           - { name: Homebrew, id: macos-homebrew, shell: mksh }
           - { name: Homebrew, id: macos-homebrew, shell: zsh }
 
+          - { name: MacPorts, id: macos-macports, shell: dash }
+          - { name: MacPorts, id: macos-macports, shell: bash }
+          - { name: MacPorts, id: macos-macports, shell: mksh }
+          - { name: MacPorts, id: macos-macports, shell: yash }
+          - { name: MacPorts, id: macos-macports, shell: zsh }
+
       fail-fast: false
     runs-on: macos-latest
     steps:
-      - name: Install dependencies
+      - if: ${{ matrix.id == 'macos' || matrix.id == 'macos-homebrew' }}
+        name: Install dependencies (Default / Homebrew)
         run: |
           brew update-if-needed
           brew install coreutils findutils gnu-sed uutils-coreutils
 
       - if: ${{ matrix.id == 'macos-homebrew' }}
-        name: Install shell
+        name: Install shell (Homebrew)
         run: |
           brew update-if-needed
           brew install dash-shell "$SHELL_PACKAGE"
         env:
           SHELL_PACKAGE: ${{ matrix.package || matrix.shell }}
+
+      - if: ${{ matrix.id == 'macos-macports' }}
+        uses: ukiryu/setup-macports@v1
+        with:
+          install-ports: >-
+            coreutils coreutils-uutils findutils gsed
+            dash ${{ matrix.package || matrix.shell }}
 
       - uses: actions/checkout@v7
 
