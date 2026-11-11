@@ -26,6 +26,12 @@ on:
     branches:
       - main
   pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+      - review_requested
 
 permissions:
   contents: read
@@ -37,7 +43,10 @@ concurrency:
 jobs:
   macos:
     name: ${{ matrix.name }} / ${{ matrix.shell }}
+    if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
+    runs-on: macos-latest
     strategy:
+      fail-fast: false
       matrix:
         include:
           - { name: Default, id: macos, shell: sh }
@@ -56,8 +65,6 @@ jobs:
           - { name: MacPorts, id: macos-macports, shell: yash }
           - { name: MacPorts, id: macos-macports, shell: zsh }
 
-      fail-fast: false
-    runs-on: macos-latest
     steps:
       - if: ${{ matrix.id == 'macos' || matrix.id == 'macos-homebrew' }}
         name: Install dependencies (Default / Homebrew)
